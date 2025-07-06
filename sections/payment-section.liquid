@@ -1,0 +1,78 @@
+<!-- Payment Section - Hide for contact requests -->
+<div class="stripe-form" id="paymentSection">
+  <h3>{{ 'musicado.payment_info' | t }}</h3>
+  <p>{{ 'musicado.stripe_notice' | t }}</p>
+  
+  <!-- Shopify Checkout Integration -->
+  <form action="{{ routes.cart_url }}" method="post" enctype="multipart/form-data" id="AddToCartForm">
+    <!-- Hidden product variant for music service -->
+    <input type="hidden" name="id" value="{{ section.settings.product_variant_id }}" class="product-variant-id">
+    <input type="hidden" name="quantity" value="1">
+    
+    <!-- Custom properties will be added via JavaScript -->
+    <input type="hidden" name="properties[Package]" id="packageProperty">
+    <input type="hidden" name="properties[Music Style 1]" id="style1Property">
+    <input type="hidden" name="properties[Music Style 2]" id="style2Property">
+    <input type="hidden" name="properties[Voice Preference]" id="voiceProperty">
+    <input type="hidden" name="properties[Customer Details]" id="customerProperty">
+    
+    <button type="button" onclick="processPayment()" class="btn" name="add">
+      {{ 'musicado.pay_now' | t }}
+    </button>
+  </form>
+</div>
+
+<!-- Contact Request Section - Show for contact requests -->
+<div class="contact-request-section" id="contactSection" style="display: none;">
+  <h3>{{ 'musicado.contact_request' | t }}</h3>
+  <p>{{ 'musicado.contact_notice' | t }}</p>
+  <button class="btn" onclick="processPayment()">
+    {{ 'musicado.submit_request' | t }}
+  </button>
+</div>
+
+<script>
+  function processPayment() {
+    // This function will be handled by the main JavaScript
+    if (window.MusicadoApp && window.MusicadoApp.processPayment) {
+      window.MusicadoApp.processPayment();
+    } else {
+      // Fallback for direct Shopify integration
+      document.getElementById('AddToCartForm').submit();
+    }
+  }
+</script>
+
+{% schema %}
+{
+  "name": "Payment Section",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Product Settings"
+    },
+    {
+      "type": "text",
+      "id": "product_variant_id",
+      "label": "Product Variant ID",
+      "info": "The Shopify product variant ID for your music service. Create a product in your Shopify admin and enter the variant ID here."
+    },
+    {
+      "type": "header",
+      "content": "Payment Text"
+    },
+    {
+      "type": "text",
+      "id": "payment_notice",
+      "label": "Payment Notice",
+      "default": "Secure payment processing powered by Stripe",
+      "info": "Text shown above the payment form"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Payment Section"
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,68 @@
+<!-- Discount Code Modal -->
+<div id="discountModal" class="modal discount-modal">
+  <div class="modal-content discount-content">
+    <div class="modal-header discount-header">
+      <h2>{{ 'musicado.discount_title' | t }}</h2>
+      <span class="close discount-close">&times;</span>
+    </div>
+    <div class="modal-body discount-body">
+      <!-- Step 1: Email Collection with Consent -->
+      <div id="discountEmailStep" class="discount-step active">
+        <p class="discount-description">
+          {{ 'musicado.discount_email_description' | t }}
+        </p>
+        
+        <div class="discount-input-group">
+          <input type="email" id="discountEmail" placeholder="{{ 'musicado.discount_email_placeholder' | t }}" required>
+        </div>
+        
+        <!-- Email Consent Section -->
+        <div class="discount-consent-section">
+          <div class="discount-consent-checkbox" id="emailConsentCheckbox">
+            <input type="checkbox" id="emailConsent" name="emailConsent" required>
+            <label for="emailConsent">
+              {{ 'musicado.email_consent_text' | t }}
+            </label>
+          </div>
+        </div>
+        
+        <div style="text-align: center; margin-top: 1.5rem;">
+          <button onclick="MusicadoApp.submitDiscountEmail()" class="btn discount-btn">
+            {{ 'musicado.get_discount' | t }}
+          </button>
+        </div>
+        
+        <p class="discount-terms">
+          {{ 'musicado.discount_terms_privacy' | t }}
+        </p>
+      </div>
+
+      <!-- Step 2: Success with Discount Code -->
+      <div id="discountSuccessStep" class="discount-step">
+        <div class="discount-success">
+          <h3>{{ 'musicado.discount_success_title' | t }}</h3>
+          <p class="discount-instructions">
+            {{ 'musicado.discount_success_message' | t }}
+          </p>
+          
+          <div class="discount-code-display">
+            <span class="discount-code">15%MUSIC</span>
+            <button onclick="MusicadoApp.copyDiscountCode()" class="copy-btn">
+              {{ 'musicado.copy_code' | t }}
+            </button>
+          </div>
+          
+          <p class="discount-instructions">
+            {{ 'musicado.discount_validity_info' | t }}
+          </p>
+          
+          <div style="text-align: center; margin-top: 1.5rem;">
+            <button onclick="applyDiscountAndClose()" class="btn discount-continue">
+              {{ 'musicado.continue_to_checkout' | t }}
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

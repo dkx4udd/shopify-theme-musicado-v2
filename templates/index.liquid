@@ -1,0 +1,280 @@
+<!-- Page 1: Music Order Form -->
+<div id="page1" class="page active">
+  <!-- Hero Banner -->
+  <div class="banner">
+    <h1>🎵 {{ shop.name }}</h1>
+  </div>
+  
+  <!-- Introduction -->
+  <div class="container">
+    <div class="card">
+      <div class="intro-description">
+        <p>Effortlessly create your own music in just a few clicks: Choose any style— from folk, hip-hop, pop or classic. Add your own words or lyrics, and share your unique track with your loved ones.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Dynamic Subheadline -->
+  <div class="container">
+    <div class="card">
+      <div class="dynamic-subheadline-section">
+        <h2 class="random-subheadline" id="randomSubheadline">Make Your Loved Ones Happy With Personal Songs</h2>
+        
+        <div class="price-comparison">
+          <div class="comparison-container">
+            <div class="expensive-option">
+              <h3>The Traditional Way</h3>
+              <ul class="expensive-list">
+                <li>Instrument: €2000,-</li>
+                <li>Studio session: €3000,-</li>
+                <li>Time: 20-40 hours</li>
+              </ul>
+              <div class="total-expensive">Total: €5000+ & weeks of work</div>
+            </div>
+            
+            <div class="vs-divider">
+              <span>VS</span>
+            </div>
+            
+            <div class="our-option">
+              <h3>Our Way</h3>
+              <ul class="our-list">
+                <li>A few clicks</li>
+                <li>A loving message</li>
+                <li>Professional quality</li>
+              </ul>
+              <div class="total-ours">Starting at just €49 (Full Albums: Custom pricing)</div>
+            </div>
+          </div>
+          
+          <div class="comparison-conclusion">
+            <p>Why spend thousands when you can create something equally beautiful and personal for a fraction of the cost?</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Audio Examples -->
+  <div class="container">
+    <div class="card">
+      <h2 class="audio-examples-title">Listen to our examples</h2>
+      <div class="audio-players">
+        <div class="audio-player">
+          <div class="audio-info">
+            <h3 id="audioTitle1">Loading...</h3>
+            <p id="audioDesc1">Random example from our collection</p>
+          </div>
+          <audio id="audioPlayer1" controls preload="metadata">
+            <span>Your browser does not support the audio element.</span>
+          </audio>
+          <button onclick="window.MusicadoApp && window.MusicadoApp.loadRandomAudio(1)" class="btn audio-refresh-btn">
+            🔄 Play Another Example
+          </button>
+        </div>
+        
+        <div class="audio-player">
+          <div class="audio-info">
+            <h3 id="audioTitle2">Loading...</h3>
+            <p id="audioDesc2">Random example from our collection</p>
+          </div>
+          <audio id="audioPlayer2" controls preload="metadata">
+            <span>Your browser does not support the audio element.</span>
+          </audio>
+          <button onclick="window.MusicadoApp && window.MusicadoApp.loadRandomAudio(2)" class="btn audio-refresh-btn">
+            🔄 Play Another Example
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Music Order Form -->
+  <div class="container">
+    <div class="card">
+      <div class="intro-text">
+        Welcome to our professional music creation service! Choose your package and let us create custom songs just for you.
+      </div>
+
+      <form id="selectionForm">
+        <!-- Package Selection -->
+        <div class="form-group">
+          <label>Select your package:</label>
+          <div class="radio-group">
+            <div class="radio-option">
+              <input type="radio" name="package" value="one" id="pkg1" data-price="49">
+              <label for="pkg1">
+                <span>One Song</span> - 
+                <span class="price">€49</span>
+              </label>
+            </div>
+            <div class="radio-option">
+              <input type="radio" name="package" value="ep" id="pkg2" data-price="99">
+              <label for="pkg2">
+                <span>EP (4 songs)</span> - 
+                <span class="price">€99</span>
+              </label>
+            </div>
+            <div class="radio-option">
+              <input type="radio" name="package" value="contact" id="pkg3" data-price="contact">
+              <label for="pkg3">
+                <span>Full Album:</span> 
+                <span>Contact us for custom pricing</span>
+              </label>
+            </div>
+          </div>
+          <div class="package-disclaimer">
+            <p>All songs created can be used for personal use only, for commercial use, please contact us. We can publish your song on Spotify on your demand.</p>
+          </div>
+        </div>
+
+        <!-- Music Style -->
+        <div class="form-group">
+          <label>Select your two favorite music styles:</label>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="musicStyle1">First Music Style *</label>
+              <select id="musicStyle1" name="musicStyle1" required>
+                <option value="">-- Select an option --</option>
+                <option value="POP">POP</option>
+                <option value="ROCK">ROCK</option>
+                <option value="HIP_HOP_RAP">HIP/HOP RAP</option>
+                <option value="ELECTRONIC">Electronic</option>
+                <option value="LATIN">LATIN</option>
+                <option value="CLASSICAL">CLASSICAL</option>
+                <option value="COUNTRY">COUNTRY</option>
+                <option value="JAZZ_BLUES">JAZZ/BLUES</option>
+                <option value="METAL">METAL</option>
+                <option value="REGGAE">REGGAE</option>
+                <option value="LOCAL">LOCAL</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="musicStyle2">Second Music Style *</label>
+              <select id="musicStyle2" name="musicStyle2" required>
+                <option value="">-- Select an option --</option>
+                <option value="POP">POP</option>
+                <option value="ROCK">ROCK</option>
+                <option value="HIP_HOP_RAP">HIP/HOP RAP</option>
+                <option value="ELECTRONIC">Electronic</option>
+                <option value="LATIN">LATIN</option>
+                <option value="CLASSICAL">CLASSICAL</option>
+                <option value="COUNTRY">COUNTRY</option>
+                <option value="JAZZ_BLUES">JAZZ/BLUES</option>
+                <option value="METAL">METAL</option>
+                <option value="REGGAE">REGGAE</option>
+                <option value="LOCAL">LOCAL</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <!-- Voice Selection -->
+        <div class="form-group">
+          <label>Select voice preference:</label>
+          <div class="radio-group">
+            <div class="radio-option">
+              <input type="radio" name="voiceType" value="male" id="voiceMale">
+              <label for="voiceMale">
+                <span>Male Voice</span>
+              </label>
+            </div>
+            <div class="radio-option">
+              <input type="radio" name="voiceType" value="female" id="voiceFemale">
+              <label for="voiceFemale">
+                <span>Female Voice</span>
+              </label>
+            </div>
+            <div class="radio-option">
+              <input type="radio" name="voiceType" value="no_preference" id="voiceNoPreference">
+              <label for="voiceNoPreference">
+                <span>No Preference</span>
+              </label>
+            </div>
+          </div>
+        </div>
+
+        <!-- Language -->
+        <div class="form-group">
+          <label for="songLanguage">What language do you want the songs to be:</label>
+          <select id="songLanguage" name="songLanguage" required>
+            <option value="">-- Select an option --</option>
+            <option value="dutch">Nederlands</option>
+            <option value="english">English</option>
+            <option value="french">Français</option>
+            <option value="german">Deutsch</option>
+            <option value="spanish">Español</option>
+            <option value="portuguese">Português</option>
+          </select>
+        </div>
+
+        <!-- Reason -->
+        <div class="form-group">
+          <label for="reason">Reason for this song:</label>
+          <select id="reason" name="reason" required>
+            <option value="">-- Select an option --</option>
+            <option value="myself">For myself</option>
+            <option value="love">For my love</option>
+            <option value="friend">For my friend</option>
+            <option value="mom">For Mom</option>
+            <option value="dad">For my dad</option>
+            <option value="sibling">For my Brother or Sister</option>
+            <option value="other">Other</option>
+          </select>
+          <input type="text" id="otherReason" name="otherReason" placeholder="Please specify" style="margin-top: 10px; display: none;">
+        </div>
+
+        <!-- Words/Names -->
+        <div class="form-group" id="wordsSection">
+          <label>What words or names would you like to have back in the songs:</label>
+          <div id="wordsContainer">
+            <!-- Words will be populated based on package selection -->
+          </div>
+        </div>
+
+        <button type="submit" class="btn">Continue to Summary</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Newsletter Signup -->
+  <div class="newsletter-section">
+    <div class="container">
+      <div class="newsletter-card">
+        <div class="newsletter-content">
+          <h3>Sign up to get special discounts</h3>
+          <p>Be the first to know about new music styles, exclusive offers, and special promotions!</p>
+          <form id="newsletterForm" class="newsletter-form">
+            <div class="newsletter-input-group">
+              <input type="email" id="newsletterEmail" name="email" placeholder="Enter your email address" required>
+              <button type="submit" class="btn newsletter-btn">Subscribe</button>
+            </div>
+            <p class="newsletter-terms">No spam, unsubscribe at any time. We respect your privacy.</p>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Page 2: Order Summary -->
+<div id="page2" class="page">
+  <div class="container">
+    <div class="card">
+      <h2>Order Summary</h2>
+      
+      <!-- Order Summary Content -->
+      <div id="summaryContent"></div>
+      
+      <!-- Total Price Display -->
+      <div class="total-price-section">
+        <div id="totalPrice"></div>
+      </div>
+      
+      <!-- Back Button -->
+      <button onclick="window.MusicadoApp && window.MusicadoApp.goBack()" class="btn" style="background: #6b7280; margin-top: 1rem;">
+        Go Back
+      </button>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,60 @@
+<!-- Newsletter Signup Section -->
+<div class="newsletter-section">
+  <div class="container">
+    <div class="newsletter-card">
+      <div class="newsletter-content">
+        <h3>{{ 'musicado.newsletter_title' | t }}</h3>
+        <p>{{ 'musicado.newsletter_description' | t }}</p>
+        <form id="newsletterForm" class="newsletter-form" action="{{ routes.root_url }}contact" method="post">
+          <input type="hidden" name="form_type" value="customer">
+          <input type="hidden" name="tags" value="newsletter">
+          
+          <div class="newsletter-input-group">
+            <input type="email" id="newsletterEmail" name="contact[email]" placeholder="{{ 'musicado.newsletter_email_placeholder' | t }}" required>
+            <button type="submit" class="btn newsletter-btn">
+              {{ 'musicado.subscribe' | t }}
+            </button>
+          </div>
+          <p class="newsletter-terms">
+            {{ 'musicado.newsletter_terms' | t }}
+          </p>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Newsletter Signup",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Newsletter Content"
+    },
+    {
+      "type": "text",
+      "id": "newsletter_title",
+      "label": "Newsletter Title",
+      "default": "Sign up to get special discounts"
+    },
+    {
+      "type": "textarea",
+      "id": "newsletter_description",
+      "label": "Newsletter Description",
+      "default": "Be the first to know about new music styles, exclusive offers, and special promotions!"
+    },
+    {
+      "type": "text",
+      "id": "subscribe_button_text",
+      "label": "Subscribe Button Text",
+      "default": "Subscribe"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Newsletter Signup"
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,140 @@
+<!-- Privacy Policy Modal -->
+<div id="privacyModal" class="modal">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h2>{{ 'musicado.legal_document_title' | t }}</h2>
+      <span class="close">&times;</span>
+    </div>
+    <div class="modal-body">
+      <div class="legal-content">
+        <p><strong>{{ 'general.applies_to' | t: shop_name: shop.name }}</strong><br>
+        <strong>{{ 'general.last_update' | t: date: '19-06-2025' }}</strong></p>
+
+        <h3>1. {{ 'legal.privacy_policy' | t }}</h3>
+        <p>{{ shop.name }} {{ 'legal.privacy_intro' | t }}</p>
+        
+        <h4>1.1 {{ 'legal.data_collection' | t }}</h4>
+        <ul>
+          <li>{{ 'legal.personal_data' | t }}</li>
+          <li>{{ 'legal.billing_data' | t }}</li>
+          <li>{{ 'legal.browser_data' | t }}</li>
+          <li>{{ 'legal.usage_data' | t }}</li>
+        </ul>
+        
+        <h4>1.2 {{ 'legal.purposes' | t }}</h4>
+        <ul>
+          <li>{{ 'legal.order_processing' | t }}</li>
+          <li>{{ 'legal.website_improvement' | t }}</li>
+          <li>{{ 'legal.marketing_updates' | t }}</li>
+        </ul>
+        
+        <h4>1.3 {{ 'legal.legal_basis' | t }}</h4>
+        <ul>
+          <li>{{ 'legal.contract_performance' | t }}</li>
+          <li>{{ 'legal.legal_obligation' | t }}</li>
+          <li>{{ 'legal.consent_marketing' | t }}</li>
+          <li>{{ 'legal.legitimate_interest' | t }}</li>
+        </ul>
+        
+        <h4>1.4 {{ 'legal.retention_period' | t }}</h4>
+        <p>{{ 'legal.retention_description' | t }}</p>
+        
+        <h4>1.5 {{ 'legal.third_party_sharing' | t }}</h4>
+        <ul>
+          <li>{{ 'legal.trusted_processors' | t }}</li>
+          <li>{{ 'legal.service_provision' | t }}</li>
+        </ul>
+        
+        <h4>1.6 {{ 'legal.security' | t }}</h4>
+        <p>{{ 'legal.security_measures' | t }}</p>
+        
+        <h4>1.7 {{ 'legal.data_subject_rights' | t }}</h4>
+        <p>{{ 'legal.rights_description' | t }}<br>
+        {{ 'legal.contact_requests' | t: email: 'contact@musicado.nl' }}</p>
+        
+        <h4>1.8 {{ 'legal.international_transfer' | t }}</h4>
+        <p>{{ 'legal.transfer_description' | t }}</p>
+
+        <h3>2. {{ 'legal.cookie_policy' | t }}</h3>
+        
+        <h4>2.1 {{ 'legal.what_are_cookies' | t }}</h4>
+        <p>{{ 'legal.cookies_description' | t }}</p>
+        
+        <h4>2.2 {{ 'legal.cookie_types' | t }}</h4>
+        <ul>
+          <li>{{ 'legal.functional_cookies' | t }}</li>
+          <li>{{ 'legal.analytical_cookies' | t }}</li>
+          <li>{{ 'legal.marketing_cookies' | t }}</li>
+        </ul>
+        
+        <h4>2.3 {{ 'legal.cookie_banner' | t }}</h4>
+        <p>{{ 'legal.banner_description' | t }}</p>
+        
+        <h4>2.4 {{ 'legal.cookie_management' | t }}</h4>
+        <p>{{ 'legal.management_description' | t }}</p>
+
+        <h3>3. {{ 'legal.disclaimer' | t }}</h3>
+        <p>{{ 'legal.disclaimer_content' | t: shop_name: shop.name }}</p>
+        <ul>
+          <li>{{ 'legal.info_changes' | t }}</li>
+          <li>{{ 'legal.no_rights' | t }}</li>
+          <li>{{ 'legal.external_links' | t: shop_name: shop.name }}</li>
+        </ul>
+
+        <h3>4. {{ 'legal.terms_conditions' | t }}</h3>
+        
+        <h4>4.1 {{ 'legal.entrepreneur_identity' | t }}</h4>
+        <p>{{ shop.name }}<br>
+        [Address]<br>
+        Chamber of Commerce: [CoC number]<br>
+        VAT: [VAT number]<br>
+        {{ 'legal.email' | t }}: contact@musicado.nl</p>
+        
+        <h4>4.2 {{ 'legal.applicability' | t }}</h4>
+        <p>{{ 'legal.applicability_content' | t: shop_name: shop.name }}</p>
+        
+        <h4>4.3 {{ 'legal.offer_agreement' | t }}</h4>
+        <ul>
+          <li>{{ 'legal.product_description' | t }}</li>
+          <li>{{ 'legal.agreement_conclusion' | t }}</li>
+        </ul>
+        
+        <h4>4.4 {{ 'legal.prices' | t }}</h4>
+        <ul>
+          <li>{{ 'legal.prices_vat' | t }}</li>
+          <li>{{ 'legal.obvious_errors' | t }}</li>
+        </ul>
+        
+        <h4>4.5 {{ 'legal.withdrawal_right' | t }}</h4>
+        <ul>
+          <li>{{ 'legal.withdrawal_period' | t }}</li>
+          <li>{{ 'legal.period_start' | t }}</li>
+          <li>{{ 'legal.digital_products' | t }}</li>
+        </ul>
+        
+        <h4>4.6 {{ 'legal.delivery_performance' | t }}</h4>
+        <ul>
+          <li>{{ 'legal.delivery_method' | t }}</li>
+          <li>{{ 'legal.terms_indicative' | t }}</li>
+        </ul>
+        
+        <h4>4.7 {{ 'legal.complaints_procedure' | t }}</h4>
+        <ul>
+          <li>{{ 'legal.complaint_reporting' | t }}</li>
+          <li>{{ 'legal.complaint_handling' | t }}</li>
+        </ul>
+        
+        <h4>4.8 {{ 'legal.liability' | t }}</h4>
+        <p>{{ 'legal.liability_content' | t: shop_name: shop.name }}</p>
+        
+        <h4>4.9 {{ 'legal.applicable_law' | t }}</h4>
+        <ul>
+          <li>{{ 'legal.dutch_law' | t }}</li>
+          <li>{{ 'legal.dispute_resolution' | t: shop_name: shop.name }}</li>
+        </ul>
+
+        <p><strong>{{ 'legal.contact_info' | t }}: contact@musicado.nl</strong></p>
+      </div>
+    </div>
+  </div>
+</div>

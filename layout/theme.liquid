@@ -1,0 +1,128 @@
+<!doctype html>
+<html class="no-js" lang="{{ request.locale.iso_code }}">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#0f172a">
+
+  {%- if settings.favicon != blank -%}
+    <link rel="icon" type="image/png" href="{{ settings.favicon | image_url: width: 32, height: 32 }}">
+  {%- endif -%}
+
+  {%- unless settings.type_header_font.system? and settings.type_body_font.system? -%}
+    <link rel="preconnect" href="https://fonts.shopifycdn.com" crossorigin>
+  {%- endunless -%}
+
+  <title>
+    {{ page_title }}
+    {%- if current_tags %} &ndash; tagged "{{ current_tags | join: ', ' }}"{% endif -%}
+    {%- if current_page != 1 %} &ndash; Page {{ current_page }}{% endif -%}
+    {%- unless page_title contains shop.name %} &ndash; {{ shop.name }}{% endunless -%}
+  </title>
+
+  {% if page_description %}
+    <meta name="description" content="{{ page_description | escape }}">
+  {% endif %}
+
+  {% render 'meta-tags' %}
+
+  <script src="{{ 'global.js' | asset_url }}" defer="defer"></script>
+  {{ 'theme.css' | asset_url | stylesheet_tag }}
+
+  {%- unless settings.type_body_font.system? -%}
+    <link rel="preload" as="font" href="{{ settings.type_body_font | font_url }}" type="font/woff2" crossorigin>
+  {%- endunless -%}
+  {%- unless settings.type_header_font.system? -%}
+    <link rel="preload" as="font" href="{{ settings.type_header_font | font_url }}" type="font/woff2" crossorigin>
+  {%- endunless -%}
+
+  <script>document.documentElement.className = document.documentElement.className.replace('no-js', 'js');</script>
+  
+  {% if shop.enabled_currencies.size > 1 %}
+    <script src="{{ 'currency.js' | asset_url }}" defer="defer"></script>
+  {% endif %}
+
+  {{ content_for_header }}
+</head>
+
+<body class="gradient">
+  <a class="skip-to-content-link button visually-hidden" href="#MainContent">
+    Skip to content
+  </a>
+
+  <!-- Header -->
+  <header>
+    <div class="container">
+      <div class="header-content">
+        <div class="logo">🎵 {{ shop.name }}</div>
+        <div class="language-selector">
+          <button class="lang-btn active" data-lang="en">English</button>
+          <button class="lang-btn" data-lang="nl">Nederlands</button>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main id="MainContent" class="content-for-layout focus-none" role="main" tabindex="-1">
+    {{ content_for_layout }}
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="privacy-statement">
+        <p>
+          Welcome to musicado. Your privacy and the security of your personal information are extremely important to us.
+        </p>
+        <div class="footer-links">
+          <a href="#" id="fullPrivacyLink">Read our full privacy policy</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <ul hidden>
+    <li id="a11y-refresh-page-message">Choosing a selection results in a full page refresh.</li>
+  </ul>
+
+  <script>
+    window.shopUrl = '{{ request.origin }}';
+    window.routes = {
+      cart_add_url: '{{ routes.cart_add_url }}',
+      cart_change_url: '{{ routes.cart_change_url }}',
+      cart_update_url: '{{ routes.cart_update_url }}',
+      cart_url: '{{ routes.cart_url }}',
+      predictive_search_url: '{{ routes.predictive_search_url }}'
+    };
+
+    window.cartStrings = {
+      error: `There was an error while updating your cart. Please try again.`,
+      quantityError: `You can only add [quantity] of this item to your cart.`
+    }
+
+    window.variantStrings = {
+      addToCart: `Add to cart`,
+      soldOut: `Sold out`,
+      unavailable: `Unavailable`,
+    }
+  </script>
+
+  <!-- Theme JavaScript -->
+  {{ 'musicado.js' | asset_url | script_tag }}
+
+  <!-- Initialize application -->
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      if (window.MusicadoApp && window.MusicadoApp.init) {
+        window.MusicadoApp.init();
+      }
+    });
+  </script>
+
+  <!-- Include Modal Snippets -->
+  {% render 'privacy-modal' %}
+  {% render 'discount-modal' %}
+  {% render 'full-album-modal' %}
+</body>
+</html>

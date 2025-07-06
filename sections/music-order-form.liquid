@@ -1,0 +1,195 @@
+<div class="card">
+  <div class="intro-text">
+    {{ 'musicado.intro' | t }}
+  </div>
+
+  <form id="selectionForm">
+    <!-- Package Selection -->
+    <div class="form-group">
+      <label>{{ 'musicado.select_package' | t }}</label>
+      <div class="radio-group">
+        <div class="radio-option">
+          <input type="radio" name="package" value="one" id="pkg1" data-price="{{ section.settings.single_song_price | default: '49' }}">
+          <label for="pkg1">
+            <span>{{ 'musicado.one_song' | t }}</span> - 
+            <span class="price">€{{ section.settings.single_song_price | default: '49' }}</span>
+          </label>
+        </div>
+        <div class="radio-option">
+          <input type="radio" name="package" value="ep" id="pkg2" data-price="{{ section.settings.ep_price | default: '99' }}">
+          <label for="pkg2">
+            <span>{{ 'musicado.ep' | t }}</span> - 
+            <span class="price">€{{ section.settings.ep_price | default: '99' }}</span>
+          </label>
+        </div>
+        <div class="radio-option">
+          <input type="radio" name="package" value="contact" id="pkg3" data-price="contact">
+          <label for="pkg3">
+            <span>{{ 'musicado.full_album' | t }}</span> 
+            <span>{{ 'musicado.contact_for_pricing' | t }}</span>
+          </label>
+        </div>
+      </div>
+      <div class="package-disclaimer">
+        <p>{{ 'musicado.usage_disclaimer' | t }}</p>
+      </div>
+    </div>
+
+    <!-- Music Style -->
+    <div class="form-group">
+      <label>{{ 'musicado.music_styles' | t }}</label>
+      <div class="form-row">
+        <div class="form-group">
+          <label for="musicStyle1">{{ 'musicado.first_music_style' | t }}</label>
+          <select id="musicStyle1" name="musicStyle1" required>
+            <option value="">{{ 'musicado.select_option' | t }}</option>
+            <option value="POP">POP</option>
+            <option value="ROCK">ROCK</option>
+            <option value="HIP_HOP_RAP">HIP/HOP RAP</option>
+            <option value="ELECTRONIC">Electronic</option>
+            <option value="LATIN">LATIN</option>
+            <option value="CLASSICAL">CLASSICAL</option>
+            <option value="COUNTRY">COUNTRY</option>
+            <option value="JAZZ_BLUES">JAZZ/BLUES</option>
+            <option value="METAL">METAL</option>
+            <option value="REGGAE">REGGAE</option>
+            <option value="LOCAL">LOCAL</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="musicStyle2">{{ 'musicado.second_music_style' | t }}</label>
+          <select id="musicStyle2" name="musicStyle2" required>
+            <option value="">{{ 'musicado.select_option' | t }}</option>
+            <option value="POP">POP</option>
+            <option value="ROCK">ROCK</option>
+            <option value="HIP_HOP_RAP">HIP/HOP RAP</option>
+            <option value="ELECTRONIC">Electronic</option>
+            <option value="LATIN">LATIN</option>
+            <option value="CLASSICAL">CLASSICAL</option>
+            <option value="COUNTRY">COUNTRY</option>
+            <option value="JAZZ_BLUES">JAZZ/BLUES</option>
+            <option value="METAL">METAL</option>
+            <option value="REGGAE">REGGAE</option>
+            <option value="LOCAL">LOCAL</option>
+          </select>
+        </div>
+      </div>
+    </div>
+
+    <!-- Favorite Artists -->
+    <div class="form-group">
+      <label>{{ 'musicado.favorite_artists' | t }}</label>
+      <input type="text" name="artist1" placeholder="{{ 'musicado.artist_1' | t }}" style="margin-bottom: 10px;">
+      <input type="text" name="artist2" placeholder="{{ 'musicado.artist_2' | t }}" style="margin-bottom: 10px;">
+      <input type="text" name="artist3" placeholder="{{ 'musicado.artist_3' | t }}">
+    </div>
+
+    <!-- Voice Selection -->
+    <div class="form-group">
+      <label>{{ 'musicado.voice_selection' | t }}</label>
+      <div class="radio-group">
+        <div class="radio-option">
+          <input type="radio" name="voiceType" value="male" id="voiceMale">
+          <label for="voiceMale">
+            <span>{{ 'musicado.male_voice' | t }}</span>
+          </label>
+        </div>
+        <div class="radio-option">
+          <input type="radio" name="voiceType" value="female" id="voiceFemale">
+          <label for="voiceFemale">
+            <span>{{ 'musicado.female_voice' | t }}</span>
+          </label>
+        </div>
+        <div class="radio-option">
+          <input type="radio" name="voiceType" value="no_preference" id="voiceNoPreference">
+          <label for="voiceNoPreference">
+            <span>{{ 'musicado.no_voice_preference' | t }}</span>
+          </label>
+        </div>
+      </div>
+    </div>
+
+    <!-- Reason -->
+    <div class="form-group">
+      <label for="reason">{{ 'musicado.reason' | t }}</label>
+      <select id="reason" name="reason" required>
+        <option value="">{{ 'musicado.select_option' | t }}</option>
+        <option value="myself">{{ 'musicado.myself' | t }}</option>
+        <option value="love">{{ 'musicado.love' | t }}</option>
+        <option value="friend">{{ 'musicado.friend' | t }}</option>
+        <option value="mom">{{ 'musicado.mom' | t }}</option>
+        <option value="dad">{{ 'musicado.dad' | t }}</option>
+        <option value="sibling">{{ 'musicado.sibling' | t }}</option>
+        <option value="other">{{ 'musicado.other' | t }}</option>
+      </select>
+      <input type="text" id="otherReason" name="otherReason" placeholder="{{ 'musicado.please_specify' | t }}" style="margin-top: 10px; display: none;">
+    </div>
+
+    <!-- Words/Names -->
+    <div class="form-group" id="wordsSection">
+      <label>{{ 'musicado.words_names' | t }}</label>
+      <div id="wordsContainer">
+        <!-- Words will be populated based on package selection -->
+      </div>
+    </div>
+
+    <!-- Language -->
+    <div class="form-group">
+      <label for="songLanguage">{{ 'musicado.song_language' | t }}</label>
+      <select id="songLanguage" name="songLanguage" required>
+        <option value="">{{ 'musicado.select_option' | t }}</option>
+        <option value="dutch">Nederlands</option>
+        <option value="english">English</option>
+        <option value="french">Français</option>
+        <option value="german">Deutsch</option>
+        <option value="spanish">Español</option>
+        <option value="portuguese">Português</option>
+      </select>
+    </div>
+
+    <!-- Song Titles -->
+    <div class="form-group song-titles" id="songTitles">
+      <label>{{ 'musicado.song_titles' | t }}</label>
+      <div id="titleFields"></div>
+    </div>
+
+    <!-- Own Lyrics -->
+    <div class="form-group">
+      <label for="ownLyrics">{{ 'musicado.own_lyrics' | t }}</label>
+      <textarea id="ownLyrics" name="ownLyrics" rows="5" placeholder="{{ 'musicado.enter_lyrics_placeholder' | t }}"></textarea>
+    </div>
+
+    <button type="submit" class="btn">{{ 'musicado.continue' | t }}</button>
+  </form>
+</div>
+
+{% schema %}
+{
+  "name": "Music Order Form",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Pricing"
+    },
+    {
+      "type": "text",
+      "id": "single_song_price",
+      "label": "Single Song Price",
+      "default": "49",
+      "info": "Price for one song (without currency symbol)"
+    },
+    {
+      "type": "text",
+      "id": "ep_price",
+      "label": "EP Price (4 songs)",
+      "default": "99",
+      "info": "Price for EP package (without currency symbol)"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Music Order Form"
+    }
+  ]
+}
+{% endschema %}

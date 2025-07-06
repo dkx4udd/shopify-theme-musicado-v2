@@ -1,0 +1,378 @@
+[
+  {
+    "name": "theme_info",
+    "theme_name": "Musicado",
+    "theme_version": "1.0.0",
+    "theme_author": "Musicado Team",
+    "theme_documentation_url": "https://musicado.nl/theme-docs",
+    "theme_support_url": "https://musicado.nl/support"
+  },
+  {
+    "name": "General",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Favicon"
+      },
+      {
+        "type": "image_picker",
+        "id": "favicon",
+        "label": "Favicon image",
+        "info": "Will be scaled down to 32 x 32px"
+      },
+      {
+        "type": "header",
+        "content": "Social media"
+      },
+      {
+        "type": "text",
+        "id": "social_facebook_link",
+        "label": "Facebook",
+        "info": "https://www.facebook.com/musicado"
+      },
+      {
+        "type": "text",
+        "id": "social_instagram_link",
+        "label": "Instagram",
+        "info": "https://www.instagram.com/musicado"
+      },
+      {
+        "type": "text",
+        "id": "social_youtube_link",
+        "label": "YouTube",
+        "info": "https://www.youtube.com/musicado"
+      },
+      {
+        "type": "text",
+        "id": "social_twitter_link",
+        "label": "Twitter",
+        "info": "https://twitter.com/musicado"
+      }
+    ]
+  },
+  {
+    "name": "Typography",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Headings"
+      },
+      {
+        "type": "font_picker",
+        "id": "type_header_font",
+        "default": "assistant_n4",
+        "label": "Font",
+        "info": "Selecting a different font can affect the speed of your store. [Learn more about system fonts.](https://help.shopify.com/en/manual/online-store/os/store-speed/improving-speed#fonts)"
+      },
+      {
+        "type": "range",
+        "id": "heading_scale",
+        "min": 100,
+        "max": 150,
+        "step": 5,
+        "unit": "%",
+        "label": "Font size scale",
+        "default": 100
+      },
+      {
+        "type": "header",
+        "content": "Body text"
+      },
+      {
+        "type": "font_picker",
+        "id": "type_body_font",
+        "default": "assistant_n4",
+        "label": "Font",
+        "info": "Selecting a different font can affect the speed of your store. [Learn more about system fonts.](https://help.shopify.com/en/manual/online-store/os/store-speed/improving-speed#fonts)"
+      },
+      {
+        "type": "range",
+        "id": "body_scale",
+        "min": 100,
+        "max": 130,
+        "step": 5,
+        "unit": "%",
+        "label": "Font size scale",
+        "default": 100
+      }
+    ]
+  },
+  {
+    "name": "Colors",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Primary colors"
+      },
+      {
+        "type": "color",
+        "id": "colors_primary",
+        "default": "#3b82f6",
+        "label": "Primary color"
+      },
+      {
+        "type": "color",
+        "id": "colors_secondary",
+        "default": "#06b6d4",
+        "label": "Secondary color"
+      },
+      {
+        "type": "color",
+        "id": "colors_accent",
+        "default": "#fbbf24",
+        "label": "Accent color"
+      },
+      {
+        "type": "header",
+        "content": "Background colors"
+      },
+      {
+        "type": "color",
+        "id": "colors_background_1",
+        "default": "#0f172a",
+        "label": "Background 1"
+      },
+      {
+        "type": "color",
+        "id": "colors_background_2",
+        "default": "#1e293b",
+        "label": "Background 2"
+      },
+      {
+        "type": "header",
+        "content": "Text colors"
+      },
+      {
+        "type": "color",
+        "id": "colors_text",
+        "default": "#e2e8f0",
+        "label": "Primary text"
+      },
+      {
+        "type": "color",
+        "id": "colors_text_secondary",
+        "default": "#cbd5e1",
+        "label": "Secondary text"
+      }
+    ]
+  },
+  {
+    "name": "Music Settings",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Audio Examples"
+      },
+      {
+        "type": "paragraph",
+        "content": "Upload your MP3 files to Settings > Files in Shopify admin. Then update the musicado.js file to reference your audio files in the mp3Files array."
+      },
+      {
+        "type": "text",
+        "id": "audio_file_1",
+        "label": "Audio File 1 Name",
+        "info": "Filename of your first MP3 (e.g., 'song1.mp3')"
+      },
+      {
+        "type": "text",
+        "id": "audio_file_2",
+        "label": "Audio File 2 Name", 
+        "info": "Filename of your second MP3 (e.g., 'song2.mp3')"
+      },
+      {
+        "type": "text",
+        "id": "audio_file_3",
+        "label": "Audio File 3 Name",
+        "info": "Filename of your third MP3 (e.g., 'song3.mp3')"
+      },
+      {
+        "type": "text",
+        "id": "audio_file_4",
+        "label": "Audio File 4 Name",
+        "info": "Filename of your fourth MP3 (e.g., 'song4.mp3')"
+      },
+      {
+        "type": "header",
+        "content": "Pricing"
+      },
+      {
+        "type": "text",
+        "id": "single_song_price",
+        "label": "Single Song Price",
+        "default": "49",
+        "info": "Price for one song (without currency symbol)"
+      },
+      {
+        "type": "text",
+        "id": "ep_price",
+        "label": "EP Price (4 songs)",
+        "default": "99",
+        "info": "Price for EP package (without currency symbol)"
+      },
+      {
+        "type": "header",
+        "content": "Contact Information"
+      },
+      {
+        "type": "text",
+        "id": "contact_email",
+        "label": "Contact Email",
+        "default": "contact@musicado.nl",
+        "info": "Email address for customer inquiries"
+      },
+      {
+        "type": "text",
+        "id": "phone_number",
+        "label": "Phone Number",
+        "default": "+31 6 12345678"
+      }
+    ]
+  },
+  {
+    "name": "Checkout",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Payment Processing"
+      },
+      {
+        "type": "paragraph",
+        "content": "Configure Stripe payment processing in your Shopify Payments settings or use Shopify's built-in checkout system."
+      },
+      {
+        "type": "header",
+        "content": "Order Fulfillment"
+      },
+      {
+        "type": "textarea",
+        "id": "delivery_instructions",
+        "label": "Delivery Instructions",
+        "default": "We will send you a link via email to your personal page where you can download your music within 24 hours.",
+        "info": "Instructions shown to customers about how they will receive their music"
+      },
+      {
+        "type": "text",
+        "id": "delivery_time",
+        "label": "Delivery Time",
+        "default": "24 hours",
+        "info": "Expected delivery time for music files"
+      }
+    ]
+  },
+  {
+    "name": "Marketing",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Discount Settings"
+      },
+      {
+        "type": "text",
+        "id": "discount_code",
+        "label": "Default Discount Code",
+        "default": "15%MUSIC",
+        "info": "The discount code shown in pop-ups and promotions"
+      },
+      {
+        "type": "range",
+        "id": "discount_percentage",
+        "min": 5,
+        "max": 50,
+        "step": 5,
+        "unit": "%",
+        "label": "Discount Percentage",
+        "default": 15,
+        "info": "Percentage discount for the promotional code"
+      },
+      {
+        "type": "header",
+        "content": "Newsletter"
+      },
+      {
+        "type": "text",
+        "id": "newsletter_title",
+        "label": "Newsletter Title",
+        "default": "Sign up to get special discounts"
+      },
+      {
+        "type": "textarea",
+        "id": "newsletter_description",
+        "label": "Newsletter Description",
+        "default": "Be the first to know about new music styles, exclusive offers, and special promotions!"
+      }
+    ]
+  },
+  {
+    "name": "SEO",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Search Engine Optimization"
+      },
+      {
+        "type": "text",
+        "id": "seo_title",
+        "label": "Homepage title",
+        "info": "This title will appear in search results and browser tabs"
+      },
+      {
+        "type": "textarea",
+        "id": "seo_description",
+        "label": "Homepage description",
+        "info": "This description will appear in search results",
+        "default": "Create custom songs in any style with AI. Professional quality music creation service for personal use. Get your personalized song in 24 hours."
+      },
+      {
+        "type": "header",
+        "content": "Social Sharing"
+      },
+      {
+        "type": "image_picker",
+        "id": "share_image",
+        "label": "Social sharing image",
+        "info": "This image will be used when your site is shared on social media. Recommended size: 1200 x 630px"
+      }
+    ]
+  },
+  {
+    "name": "Custom Code",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Analytics & Tracking"
+      },
+      {
+        "type": "html",
+        "id": "google_analytics",
+        "label": "Google Analytics Code",
+        "info": "Paste your Google Analytics tracking code here"
+      },
+      {
+        "type": "html",
+        "id": "facebook_pixel",
+        "label": "Facebook Pixel Code",
+        "info": "Paste your Facebook Pixel code here"
+      },
+      {
+        "type": "header",
+        "content": "Custom CSS"
+      },
+      {
+        "type": "html",
+        "id": "custom_css",
+        "label": "Custom CSS",
+        "info": "Add custom CSS styles here. Wrap in <style> tags."
+      },
+      {
+        "type": "header",
+        "content": "Custom JavaScript"
+      },
+      {
+        "type": "html",
+        "id": "custom_js",
+        "label": "Custom JavaScript",
+        "info": "Add custom JavaScript here. Wrap in <script> tags."
+      }
+    ]
+  }
+]
