@@ -1,5 +1,60 @@
 /* Musicado Theme Styles */
+/* Global Overflow Fix - Add this to the TOP of your theme.css file */
 
+html {
+  overflow-x: hidden; /* Prevent horizontal scrollbar */
+  box-sizing: border-box;
+}
+
+*, *:before, *:after {
+  box-sizing: inherit;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  max-width: 100vw; /* Never exceed viewport width */
+  overflow-x: hidden; /* Prevent horizontal scrollbar */
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  line-height: 1.6;
+  color: #1a202c;
+  background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #334155 100%);
+  min-height: 100vh;
+  position: relative;
+}
+
+/* Ensure no element can cause horizontal overflow */
+* {
+  max-width: 100%;
+}
+
+/* Fix for images that might overflow */
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+/* Ensure all containers respect viewport boundaries */
+.container, .banner-container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+  box-sizing: border-box;
+}
+
+@media (max-width: 768px) {
+  .container, .banner-container {
+    padding: 0 10px;
+  }
+}
+
+@media (max-width: 480px) {
+  .container, .banner-container {
+    padding: 0 5px;
+  }
+}
 * {
     margin: 0;
     padding: 0;
@@ -132,41 +187,84 @@ header {
 
 /* Banner Styles */
 .banner {
-    width: 100%;
-    height: 300px;
-    background: linear-gradient(rgba(15, 23, 42, 0.6), rgba(30, 41, 59, 0.6)), 
-                url('main.jpg') center/cover;
-    border-radius: 24px;
-    margin-bottom: 2rem;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: white;
-    font-size: 2.5rem;
-    font-weight: 700;
-    text-shadow: 2px 2px 8px rgba(0,0,0,0.6);
-    border: 1px solid rgba(59, 130, 246, 0.3);
-    backdrop-filter: blur(10px) saturate(120%);
-    box-shadow: 
-        0 20px 50px rgba(0,0,0,0.4),
-        inset 0 1px 0 rgba(255, 255, 255, 0.1);
-    position: relative;
-    overflow: hidden;
+  width: 100%;
+  max-width: 100%; /* Ensure it never exceeds viewport width */
+  height: 300px;
+  background: linear-gradient(rgba(15, 23, 42, 0.6), rgba(30, 41, 59, 0.6)), 
+              url('main.jpg') center/cover;
+  border-radius: 24px;
+  margin: 0 auto 2rem auto; /* Center the banner and add bottom margin */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 2.5rem;
+  font-weight: 700;
+  text-shadow: 2px 2px 8px rgba(0,0,0,0.6);
+  border: 1px solid rgba(59, 130, 246, 0.3);
+  backdrop-filter: blur(10px) saturate(120%);
+  box-shadow: 
+    0 20px 50px rgba(0,0,0,0.4),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  position: relative;
+  overflow: hidden;
+  box-sizing: border-box; /* Include padding and border in width calculation */
 }
 
-.banner::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: linear-gradient(45deg, 
-        rgba(59, 130, 246, 0.1) 0%, 
-        transparent 25%, 
-        transparent 75%, 
-        rgba(6, 182, 212, 0.1) 100%);
-    pointer-events: none;
+/* Ensure the banner container doesn't overflow */
+.banner-container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+  box-sizing: border-box;
+}
+
+/* Mobile responsiveness for banner */
+@media (max-width: 768px) {
+  .banner {
+    height: 200px;
+    font-size: 1.8rem;
+    margin: 0 auto 1rem auto;
+    border-radius: 16px;
+  }
+  
+  .banner-container {
+    padding: 0 10px;
+  }
+}
+
+@media (max-width: 480px) {
+  .banner {
+    height: 150px;
+    font-size: 1.4rem;
+    border-radius: 12px;
+  }
+  
+  .banner-container {
+    padding: 0 5px;
+  }
+}
+
+/* Fix container to prevent overflow */
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+@media (max-width: 768px) {
+  .container {
+    padding: 0 10px;
+  }
+}
+
+@media (max-width: 480px) {
+  .container {
+    padding: 0 5px;
+  }
 }
 
 /* Card Styles */
@@ -1206,4 +1304,365 @@ audio {
         padding: 1rem;
         max-height: calc(95vh - 60px);
     }
+}
+/* Order Summary Page 2 Styles */
+
+.summary-content {
+  background: rgba(59, 130, 246, 0.05);
+  border: 1px solid rgba(59, 130, 246, 0.2);
+  border-radius: 16px;
+  padding: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.summary-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding: 0.75rem 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.summary-item:last-child {
+  border-bottom: none;
+}
+
+.summary-label {
+  font-weight: 600;
+  color: #f1f5f9;
+  min-width: 140px;
+  flex-shrink: 0;
+}
+
+.summary-value {
+  color: #cbd5e1;
+  text-align: right;
+  flex: 1;
+  margin-left: 1rem;
+}
+
+/* Customer Details Section */
+.customer-details-section {
+  margin-bottom: 2rem;
+  padding: 1.5rem;
+  background: rgba(15, 23, 42, 0.3);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 16px;
+}
+
+.customer-details-section h3 {
+  color: #f1f5f9;
+  font-size: 1.3rem;
+  font-weight: 700;
+  margin-bottom: 1.5rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 2px solid rgba(59, 130, 246, 0.3);
+}
+
+.form-row {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.delivery-info-box {
+  background: rgba(6, 182, 212, 0.1);
+  border: 1px solid rgba(6, 182, 212, 0.3);
+  border-radius: 12px;
+  padding: 1rem;
+  margin-top: 0.5rem;
+}
+
+.delivery-info-box p {
+  margin: 0;
+  color: #a5f3fc;
+  font-size: 0.95rem;
+  line-height: 1.5;
+}
+
+/* Discount Code Section */
+.discount-code-section {
+  margin-bottom: 2rem;
+  padding: 1.5rem;
+  background: rgba(251, 191, 36, 0.05);
+  border: 1px solid rgba(251, 191, 36, 0.2);
+  border-radius: 16px;
+}
+
+.discount-code-section h3 {
+  color: #fbbf24;
+  font-size: 1.3rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+}
+
+.discount-input-container {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 1rem;
+  flex-wrap: wrap;
+}
+
+.discount-input-container input {
+  flex: 1;
+  min-width: 250px;
+  padding: 12px 16px;
+  background: rgba(15, 23, 42, 0.4);
+  border: 1px solid rgba(251, 191, 36, 0.3);
+  border-radius: 12px;
+  color: #e2e8f0;
+}
+
+.discount-input-container input:focus {
+  border-color: rgba(251, 191, 36, 0.6);
+  box-shadow: 0 0 0 3px rgba(251, 191, 36, 0.1);
+}
+
+.discount-apply-btn {
+  background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%);
+  color: #1e293b;
+  padding: 12px 24px;
+  font-weight: 600;
+  border-radius: 12px;
+  min-width: auto;
+  text-transform: none;
+  letter-spacing: normal;
+}
+
+.discount-apply-btn:hover {
+  background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+}
+
+.discount-message {
+  padding: 0.75rem 1rem;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  font-weight: 500;
+  display: none;
+}
+
+.discount-message.success {
+  background: rgba(16, 185, 129, 0.2);
+  border: 1px solid rgba(16, 185, 129, 0.4);
+  color: #34d399;
+}
+
+.discount-message.error {
+  background: rgba(239, 68, 68, 0.2);
+  border: 1px solid rgba(239, 68, 68, 0.4);
+  color: #fca5a5;
+}
+
+/* Total Price Section */
+.total-price-section {
+  margin-bottom: 2rem;
+  padding: 1.5rem;
+  background: linear-gradient(135deg, rgba(16, 185, 129, 0.1), rgba(5, 150, 105, 0.1));
+  border: 2px solid rgba(16, 185, 129, 0.3);
+  border-radius: 16px;
+}
+
+.total-breakdown {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.total-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.5rem 0;
+  font-size: 1rem;
+}
+
+.total-row.subtotal {
+  color: #cbd5e1;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  padding-bottom: 0.75rem;
+}
+
+.total-row.discount {
+  color: #10b981;
+  font-weight: 600;
+}
+
+.total-row.final {
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: #10b981;
+  border-top: 2px solid rgba(16, 185, 129, 0.3);
+  padding-top: 0.75rem;
+  margin-top: 0.5rem;
+}
+
+/* Terms Agreement Section */
+.terms-agreement-section {
+  margin-bottom: 2rem;
+  padding: 1rem;
+  background: rgba(59, 130, 246, 0.05);
+  border: 1px solid rgba(59, 130, 246, 0.2);
+  border-radius: 12px;
+}
+
+.terms-checkbox {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+}
+
+.terms-checkbox input[type="checkbox"] {
+  width: 18px;
+  height: 18px;
+  margin: 0;
+  cursor: pointer;
+  accent-color: #3b82f6;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.terms-checkbox label {
+  font-size: 0.95rem;
+  line-height: 1.5;
+  color: #cbd5e1;
+  cursor: pointer;
+  margin: 0;
+}
+
+/* Payment Section */
+.payment-section {
+  margin-bottom: 2rem;
+  padding: 2rem;
+  background: linear-gradient(135deg, rgba(59, 130, 246, 0.1), rgba(6, 182, 212, 0.1));
+  border: 2px solid rgba(59, 130, 246, 0.3);
+  border-radius: 20px;
+  text-align: center;
+}
+
+.payment-section h3 {
+  color: #3b82f6;
+  font-size: 1.4rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+}
+
+.payment-notice {
+  color: #94a3b8;
+  margin-bottom: 1.5rem;
+  font-size: 0.9rem;
+}
+
+.payment-btn {
+  background: linear-gradient(135deg, #16a34a 0%, #15803d 100%);
+  font-size: 1.2rem;
+  padding: 16px 32px;
+  min-width: 200px;
+  box-shadow: 0 8px 25px rgba(22, 163, 74, 0.3);
+}
+
+.payment-btn:hover {
+  background: linear-gradient(135deg, #15803d 0%, #166534 100%);
+  box-shadow: 0 12px 30px rgba(22, 163, 74, 0.4);
+}
+
+/* Contact Request Section */
+.contact-request-section {
+  margin-bottom: 2rem;
+  padding: 2rem;
+  background: linear-gradient(135deg, rgba(251, 191, 36, 0.1), rgba(245, 158, 11, 0.1));
+  border: 2px solid rgba(251, 191, 36, 0.3);
+  border-radius: 20px;
+  text-align: center;
+}
+
+.contact-request-section h3 {
+  color: #fbbf24;
+  font-size: 1.4rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+}
+
+.contact-request-section p {
+  color: #cbd5e1;
+  margin-bottom: 1.5rem;
+  font-size: 1rem;
+  line-height: 1.6;
+}
+
+.contact-btn {
+  background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%);
+  color: #1e293b;
+  font-size: 1.1rem;
+  padding: 15px 30px;
+  font-weight: 600;
+}
+
+.contact-btn:hover {
+  background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+}
+
+/* Back Button */
+.back-btn {
+  background: linear-gradient(135deg, #6b7280 0%, #4b5563 100%);
+  font-size: 1rem;
+  padding: 12px 24px;
+  margin-top: 1rem;
+}
+
+.back-btn:hover {
+  background: linear-gradient(135deg, #4b5563 0%, #374151 100%);
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 768px) {
+  .form-row {
+    grid-template-columns: 1fr;
+  }
+  
+  .discount-input-container {
+    flex-direction: column;
+  }
+  
+  .discount-input-container input {
+    min-width: auto;
+  }
+  
+  .summary-item {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  
+  .summary-label {
+    min-width: auto;
+  }
+  
+  .summary-value {
+    text-align: left;
+    margin-left: 0;
+  }
+  
+  .customer-details-section,
+  .discount-code-section,
+  .payment-section,
+  .contact-request-section {
+    padding: 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .total-row {
+    font-size: 0.9rem;
+  }
+  
+  .total-row.final {
+    font-size: 1.1rem;
+  }
+  
+  .payment-btn {
+    font-size: 1rem;
+    padding: 14px 20px;
+    min-width: auto;
+    width: 100%;
+  }
 }
