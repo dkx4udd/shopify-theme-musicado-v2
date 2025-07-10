@@ -1,89 +1,66 @@
-// Musicado Theme JavaScript
+// Musicado Theme JavaScript - Dutch Only Version
 window.MusicadoApp = (function() {
     'use strict';
 
-    // Global variables
-    let currentLanguage = 'en';
+    // Global variables - Dutch only
+    let currentLanguage = 'nl';
     let formData = {};
+    let customerData = {};
     let discountModalShown = false;
     let appliedDiscountCode = null;
     let currentlyPlaying = [null, null];
 
-    // MP3 files configuration - Update these with your actual uploaded file names
+    // MP3 files configuration - Updated with correct Shopify paths
     const mp3Files = [
         { 
-            filename: "wonderlijke-wereld-ai-matelletam.mp3", 
-            title: { en: "Wonderlijke wereld van AI - Matelletam", nl: "Wonderlijke wereld van AI - Matelletam" },
-            style: { en: "Electronic/Ambient style", nl: "Electronic/Ambient stijl" }
+            filename: "https://cdn.shopify.com/s/files/1/0905/1462/0749/files/Wonderlijke_wereld_van_AI_-_Matelletam.mp3", 
+            title: "Wonderlijke wereld van AI - Matelletam",
+            style: "Electronic/Ambient stijl"
         },
         { 
-            filename: "wonderlijke-wereld-ai-rockyrocky.mp3", 
-            title: { en: "Wonderlijke wereld van AI - RockyRocky", nl: "Wonderlijke wereld van AI - RockyRocky" },
-            style: { en: "Rock/Pop style", nl: "Rock/Pop stijl" }
+            filename: "https://cdn.shopify.com/s/files/1/0905/1462/0749/files/Wonderlijke_wereld_van_AI_-_RockyRocky.mp3", 
+            title: "Wonderlijke wereld van AI - RockyRocky",
+            style: "Rock/Pop stijl"
         },
         { 
-            filename: "survivor-eye-of-the-tiger.mp3", 
-            title: { en: "Survivor - Eye Of The Tiger", nl: "Survivor - Eye Of The Tiger" },
-            style: { en: "Classic Rock style", nl: "Klassieke Rock stijl" }
+            filename: "https://cdn.shopify.com/s/files/1/0905/1462/0749/files/Survivor_-_Eye_Of_The_Tiger_Official_HD_Video.mp3", 
+            title: "Survivor - Eye Of The Tiger",
+            style: "Klassieke Rock stijl"
         },
         { 
-            filename: "music-for-vlogs-birthday.mp3", 
-            title: { en: "Birthday Celebration", nl: "Verjaardag Viering" },
-            style: { en: "Upbeat/Celebration style", nl: "Vrolijke/Viering stijl" }
+            filename: "https://cdn.shopify.com/s/files/1/0905/1462/0749/files/Music_for_vlogs_-_Birthday.mp3", 
+            title: "Verjaardag Viering",
+            style: "Vrolijke/Viering stijl"
         }
     ];
 
-    // Subheadline arrays
-    const subheadlines = {
-        en: [
-            "Make Your Loved Ones Happy With Personal Songs",
-            "Make Your Loved Ones Happy With Personal Songs in Less than 3 minutes",
-            "It's music, but personal",
-            "Songs that will not only be stuck in their head, but in their hearts.",
-            "Your mom has enough perfume, but does she have a song?",
-            "It's not simply a song, it's an emotion.",
-            "Make Songs For Your Loved Ones, No Skills Required",
-            "Imagine your loved ones singing your songs in the shower",
-            "It's not simply music, it's a message",
-            "Imagine your favourite song but it's personal and will be remembered forever",
-            "You're going to THAT store again to buy the same gift as last year? Give something unique and create songs that make your loved ones smile",
-            "It's not a gift you give, it's a gift you feel.",
-            "Stop giving lame presents to the people you love, make unique songs that stick.",
-            "Remember your favourite song? It's that, but personal for the ones you love.",
-            "Remember the gift you got her last year? Neither does she. Try This Unforgettable gift and make your loved ones happy.",
-            "The greatest gifts are not wrapped, they're experienced.",
-            "Another generic bottle of wine? They have enough of those. Let's create some music that makes a party.",
-            "Tired of dull Gifts? You're not alone. Discover the most personal gift in the Netherlands.",
-            "It's like a giftcard, but 10 times cooler and it plays on spotify.",
-            "It could be played at a party, it could be played at a funeral. It's the gift that always works."
-        ],
-        nl: [
-            "Maak Je Geliefden Blij Met Persoonlijke Liedjes",
-            "Maak Je Geliefden Blij Met Persoonlijke Liedjes in Minder dan 3 minuten",
-            "Het is muziek, maar dan persoonlijk",
-            "Liedjes die niet alleen in hun hoofd blijven hangen, maar in hun hart.",
-            "Je moeder heeft genoeg parfum, maar heeft ze wel een liedje?",
-            "Het is niet zomaar een liedje, het is een emotie.",
-            "Maak Liedjes Voor Je Geliefden, Geen Vaardigheden Vereist",
-            "Stel je voor dat je geliefden jouw liedjes zingen onder de douche",
-            "Het is niet zomaar muziek, het is een boodschap",
-            "Stel je je favoriete liedje voor, maar dan persoonlijk en voor altijd herinnerd",
-            "Ga je weer naar DIE winkel om hetzelfde cadeau te kopen als vorig jaar? Geef iets unieks en creëer liedjes die je geliefden laten glimlachen",
-            "Het is geen cadeau dat je geeft, het is een cadeau dat je voelt.",
-            "Stop met saaie cadeaus geven aan mensen van wie je houdt, maak unieke liedjes die blijven plakken.",
-            "Weet je nog je favoriete liedje? Dit is dat, maar dan persoonlijk voor degenen van wie je houdt.",
-            "Weet je nog het cadeau dat je haar vorig jaar gaf? Zij ook niet. Probeer dit onvergetelijke cadeau en maak je geliefden blij.",
-            "De beste cadeaus worden niet ingepakt, ze worden ervaren.",
-            "Weer een gewoon flesje wijn? Ze hebben er genoeg van. Laten we wat muziek maken dat een feestje wordt.",
-            "Moe van saaie cadeaus? Je bent niet alleen. Ontdek het meest persoonlijke cadeau van Nederland.",
-            "Het is als een cadeaubon, maar 10 keer cooler en het speelt op Spotify.",
-            "Het kan gespeeld worden op een feestje, het kan gespeeld worden op een begrafenis. Het is het cadeau dat altijd werkt."
-        ]
-    };
+    // Dutch subheadlines only
+    const subheadlines = [
+        "Maak Je Geliefden Blij Met Persoonlijke Liedjes",
+        "Maak Je Geliefden Blij Met Persoonlijke Liedjes in Minder dan 3 minuten",
+        "Het is muziek, maar dan persoonlijk",
+        "Liedjes die niet alleen in hun hoofd blijven hangen, maar in hun hart.",
+        "Je moeder heeft genoeg parfum, maar heeft ze wel een liedje?",
+        "Het is niet zomaar een liedje, het is een emotie.",
+        "Maak Liedjes Voor Je Geliefden, Geen Vaardigheden Vereist",
+        "Stel je voor dat je geliefden jouw liedjes zingen onder de douche",
+        "Het is niet zomaar muziek, het is een boodschap",
+        "Stel je je favoriete liedje voor, maar dan persoonlijk en voor altijd herinnerd",
+        "Ga je weer naar DIE winkel om hetzelfde cadeau te kopen als vorig jaar? Geef iets unieks en creëer liedjes die je geliefden laten glimlachen",
+        "Het is geen cadeau dat je geeft, het is een cadeau dat je voelt.",
+        "Stop met saaie cadeaus geven aan mensen van wie je houdt, maak unieke liedjes die blijven plakken.",
+        "Weet je nog je favoriete liedje? Dit is dat, maar dan persoonlijk voor degenen van wie je houdt.",
+        "Weet je nog het cadeau dat je haar vorig jaar gaf? Zij ook niet. Probeer dit onvergetelijke cadeau en maak je geliefden blij.",
+        "De beste cadeaus worden niet ingepakt, ze worden ervaren.",
+        "Weer een gewoon flesje wijn? Ze hebben er genoeg van. Laten we wat muziek maken dat een feestje wordt.",
+        "Moe van saaie cadeaus? Je bent niet alleen. Ontdek het meest persoonlijke cadeau van Nederland.",
+        "Het is als een cadeaubon, maar 10 keer cooler en het speelt op Spotify.",
+        "Het kan gespeeld worden op een feestje, het kan gespeeld worden op een begrafenis. Het is het cadeau dat altijd werkt."
+    ];
 
     // Initialize the application
     function init() {
-        currentLanguage = document.documentElement.lang || 'en';
+        currentLanguage = 'nl'; // Always Dutch
         setupEventListeners();
         setRandomSubheadline();
         loadRandomAudio(1);
@@ -94,15 +71,6 @@ window.MusicadoApp = (function() {
     }
 
     function setupEventListeners() {
-        // Language switcher
-        document.querySelectorAll('.lang-btn').forEach(btn => {
-            btn.addEventListener('click', function() {
-                document.querySelectorAll('.lang-btn').forEach(b => b.classList.remove('active'));
-                this.classList.add('active');
-                setLanguage(this.dataset.lang);
-            });
-        });
-
         // Package selection
         document.querySelectorAll('input[name="package"]').forEach(radio => {
             radio.addEventListener('change', function() {
@@ -259,7 +227,7 @@ window.MusicadoApp = (function() {
 
     function loadRandomAudio(playerNumber) {
         if (mp3Files.length === 0) {
-            console.error('No MP3 files available');
+            console.error('Geen MP3 bestanden beschikbaar');
             return;
         }
 
@@ -289,17 +257,17 @@ window.MusicadoApp = (function() {
         audioPlayer.innerHTML = '';
         
         const source = document.createElement('source');
-        // Use Shopify CDN URL format for uploaded files
+        // Updated MP3 file path for Shopify CDN
         source.src = window.shopUrl + '/cdn/shop/files/' + selectedFile.filename;
         source.type = 'audio/mpeg';
         audioPlayer.appendChild(source);
 
         const fallback = document.createElement('span');
-        fallback.textContent = 'Your browser does not support the audio element.';
+        fallback.textContent = 'Je browser ondersteunt het audio element niet.';
         audioPlayer.appendChild(fallback);
 
-        audioTitle.textContent = selectedFile.title[currentLanguage];
-        audioDesc.textContent = selectedFile.style[currentLanguage];
+        audioTitle.textContent = selectedFile.title;
+        audioDesc.textContent = selectedFile.style;
 
         audioPlayer.load();
 
@@ -312,20 +280,17 @@ window.MusicadoApp = (function() {
         }, { once: true });
 
         audioPlayer.addEventListener('error', function(e) {
-            console.error(`Error loading audio file: ${selectedFile.filename}`, e);
-            audioTitle.textContent = currentLanguage === 'nl' ? 'Fout bij laden' : 'Loading Error';
-            audioDesc.textContent = currentLanguage === 'nl' ? 
-                'Bestand niet gevonden. Upload MP3 bestanden naar Shopify Files.' : 
-                'File not found. Upload MP3 files to Shopify Files.';
+            console.error(`Fout bij laden van audiobestand: ${selectedFile.filename}`, e);
+            audioTitle.textContent = 'Fout bij laden';
+            audioDesc.textContent = 'Bestand niet gevonden. Upload MP3 bestanden naar Shopify Files.';
             audioTitle.style.opacity = '1';
             audioDesc.style.opacity = '1';
         }, { once: true });
     }
 
     function setRandomSubheadline() {
-        const headlines = subheadlines[currentLanguage];
-        const randomIndex = Math.floor(Math.random() * headlines.length);
-        const selectedHeadline = headlines[randomIndex];
+        const randomIndex = Math.floor(Math.random() * subheadlines.length);
+        const selectedHeadline = subheadlines[randomIndex];
         
         const subheadlineElement = document.getElementById('randomSubheadline');
         if (subheadlineElement) {
@@ -355,7 +320,7 @@ window.MusicadoApp = (function() {
                 
                 const songTitle = document.createElement('div');
                 songTitle.className = 'song-words-title';
-                songTitle.textContent = `Song ${song} - Words/Names:`;
+                songTitle.textContent = `Liedje ${song} - Woorden/Namen:`;
                 songSection.appendChild(songTitle);
                 
                 const wordsRow = document.createElement('div');
@@ -365,7 +330,7 @@ window.MusicadoApp = (function() {
                     const input = document.createElement('input');
                     input.type = 'text';
                     input.name = `song${song}_word${word}`;
-                    input.placeholder = `Word/Name ${word}`;
+                    input.placeholder = `Woord/Naam ${word}`;
                     input.className = 'word-input';
                     wordsRow.appendChild(input);
                 }
@@ -381,7 +346,7 @@ window.MusicadoApp = (function() {
                 const input = document.createElement('input');
                 input.type = 'text';
                 input.name = `word${i}`;
-                input.placeholder = `Word/Name ${i}`;
+                input.placeholder = `Woord/Naam ${i}`;
                 input.style.marginBottom = '10px';
                 wordsRow.appendChild(input);
             }
@@ -412,7 +377,7 @@ window.MusicadoApp = (function() {
             for (let i = 1; i <= numSongs; i++) {
                 const titleField = document.createElement('div');
                 titleField.className = 'title-field';
-                titleField.innerHTML = `<input type="text" name="songTitle${i}" placeholder="Song ${i} Title">`;
+                titleField.innerHTML = `<input type="text" name="songTitle${i}" placeholder="Liedje ${i} Titel">`;
                 titleContainer.appendChild(titleField);
             }
         }
@@ -427,7 +392,7 @@ window.MusicadoApp = (function() {
         const packageSelected = document.querySelector('input[name="package"]:checked');
         if (!packageSelected) {
             isValid = false;
-            missingFields.push(currentLanguage === 'nl' ? 'Pakket selectie' : 'Package selection');
+            missingFields.push('Pakket selectie');
             document.querySelectorAll('input[name="package"]').forEach(radio => {
                 radio.closest('.radio-option').style.borderColor = '#ef4444';
             });
@@ -438,16 +403,16 @@ window.MusicadoApp = (function() {
         }
 
         const requiredFields = [
-            { name: 'musicStyle1', label: currentLanguage === 'nl' ? 'Eerste Muziekstijl' : 'First Music Style' },
-            { name: 'musicStyle2', label: currentLanguage === 'nl' ? 'Tweede Muziekstijl' : 'Second Music Style' },
-            { name: 'reason', label: currentLanguage === 'nl' ? 'Reden' : 'Reason' },
-            { name: 'songLanguage', label: currentLanguage === 'nl' ? 'Liedje taal' : 'Song Language' }
+            { name: 'musicStyle1', label: 'Eerste Muziekstijl' },
+            { name: 'musicStyle2', label: 'Tweede Muziekstijl' },
+            { name: 'reason', label: 'Reden' },
+            { name: 'songLanguage', label: 'Liedje taal' }
         ];
 
         const voiceSelected = document.querySelector('input[name="voiceType"]:checked');
         if (!voiceSelected) {
             isValid = false;
-            missingFields.push(currentLanguage === 'nl' ? 'Stem voorkeur' : 'Voice preference');
+            missingFields.push('Stem voorkeur');
             document.querySelectorAll('input[name="voiceType"]').forEach(radio => {
                 radio.closest('.radio-option').style.borderColor = '#ef4444';
             });
@@ -476,14 +441,12 @@ window.MusicadoApp = (function() {
         const otherReasonField = document.getElementById('otherReason');
         if (reasonSelect && reasonSelect.value === 'other' && (!otherReasonField.value || otherReasonField.value.trim() === '')) {
             isValid = false;
-            missingFields.push(currentLanguage === 'nl' ? 'Andere reden specificatie' : 'Other reason specification');
+            missingFields.push('Andere reden specificatie');
             otherReasonField.style.borderColor = '#ef4444';
         }
 
         if (!isValid) {
-            const message = currentLanguage === 'nl' ? 
-                'Vul de volgende verplichte velden in:\n• ' + missingFields.join('\n• ') :
-                'Please fill in the following required fields:\n• ' + missingFields.join('\n• ');
+            const message = 'Vul de volgende verplichte velden in:\n• ' + missingFields.join('\n• ');
             alert(message);
         }
 
@@ -512,36 +475,357 @@ window.MusicadoApp = (function() {
         }
     }
 
+    function collectCustomerData() {
+        customerData = {
+            firstName: document.getElementById('firstName')?.value || '',
+            lastName: document.getElementById('lastName')?.value || '',
+            email: document.getElementById('customerEmail')?.value || '',
+            phone: document.getElementById('mobilePhone')?.value || '',
+            termsAccepted: document.getElementById('agreeTerms')?.checked || false
+        };
+    }
+
+    function validateCustomerDetails() {
+        collectCustomerData();
+        
+        const required = ['firstName', 'lastName', 'email', 'phone'];
+        const missing = required.filter(field => !customerData[field]);
+        
+        if (missing.length > 0 || !customerData.termsAccepted) {
+            alert('Vul alle klantgegevens in en accepteer de voorwaarden.');
+            return false;
+        }
+
+        // Basic email validation
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailRegex.test(customerData.email)) {
+            alert('Voer een geldig e-mailadres in.');
+            return false;
+        }
+
+        return true;
+    }
+
+    function getProductVariantId(packageType) {
+        console.log('Ophalen variant ID voor pakket:', packageType);
+        
+        // Try to get from theme settings first
+        if (window.themeSettings && window.themeSettings[packageType + 'VariantId']) {
+            const variantId = window.themeSettings[packageType + 'VariantId'];
+            console.log('Variant ID gevonden in instellingen:', variantId);
+            return variantId;
+        }
+        
+        // Try alternative setting names
+        const settingMappings = {
+            'one': ['singleSongVariantId', 'single_song_variant_id'],
+            'ep': ['epVariantId', 'ep_variant_id'],
+            'contact': ['albumVariantId', 'album_variant_id']
+        };
+        
+        if (settingMappings[packageType] && window.themeSettings) {
+            for (const setting of settingMappings[packageType]) {
+                if (window.themeSettings[setting]) {
+                    console.log('Variant ID gevonden in alternatieve instelling:', window.themeSettings[setting]);
+                    return window.themeSettings[setting];
+                }
+            }
+        }
+        
+        // TIJDELIJKE FALLBACK - Vervang deze door je echte variant ID's
+        const fallbackIds = {
+            'one': '',    // VERVANG: Voeg hier je single song variant ID toe
+            'ep': '',     // VERVANG: Voeg hier je EP variant ID toe  
+            'contact': '' // VERVANG: Voeg hier je album variant ID toe
+        };
+        
+        console.log('Gebruik fallback variant ID:', fallbackIds[packageType]);
+        return fallbackIds[packageType] || '';
+    }
+
+    function populateCartProperties() {
+        const packageProp = document.getElementById('packageProperty');
+        const style1Prop = document.getElementById('style1Property');
+        const style2Prop = document.getElementById('style2Property');
+        const voiceProp = document.getElementById('voiceProperty');
+        const customerProp = document.getElementById('customerProperty');
+        const wordsProp = document.getElementById('wordsProperty');
+        const languageProp = document.getElementById('languageProperty');
+        const reasonProp = document.getElementById('reasonProperty');
+
+        if (packageProp) packageProp.value = formData.package || '';
+        if (style1Prop) style1Prop.value = formData.musicStyle1 || '';
+        if (style2Prop) style2Prop.value = formData.musicStyle2 || '';
+        if (voiceProp) voiceProp.value = formData.voiceType || '';
+        if (languageProp) languageProp.value = formData.songLanguage || '';
+        if (reasonProp) reasonProp.value = formData.reason || '';
+        
+        if (customerProp) {
+            customerProp.value = `${customerData.firstName} ${customerData.lastName}, ${customerData.email}, ${customerData.phone}`;
+        }
+        
+        if (wordsProp) {
+            let words = [];
+            if (formData.package === 'ep') {
+                for (let song = 1; song <= 4; song++) {
+                    for (let word = 1; word <= 3; word++) {
+                        const wordValue = formData[`song${song}_word${word}`];
+                        if (wordValue && wordValue.trim()) {
+                            words.push(`Liedje${song}-${wordValue.trim()}`);
+                        }
+                    }
+                }
+            } else {
+                for (let i = 1; i <= 3; i++) {
+                    const wordValue = formData[`word${i}`];
+                    if (wordValue && wordValue.trim()) {
+                        words.push(wordValue.trim());
+                    }
+                }
+            }
+            wordsProp.value = words.join(', ');
+        }
+    }
+
+    function processPayment() {
+        console.log('Betaling verwerken...');
+        
+        if (!validateCustomerDetails()) {
+            return;
+        }
+
+        if (formData.package === 'contact') {
+            handleContactRequest();
+            return;
+        }
+
+        if (shouldUseContactFormFallback()) {
+            handleContactFormFallback();
+            return;
+        }
+
+        addToShopifyCart();
+    }
+
+    function shouldUseContactFormFallback() {
+        const variantId = getProductVariantId(formData.package);
+        
+        if (!variantId || variantId.length < 10 || variantId === '') {
+            console.log('Gebruik contactformulier fallback vanwege ontbrekende/ongeldige variant ID');
+            return true;
+        }
+        
+        return false;
+    }
+
+    function handleContactFormFallback() {
+        console.log('Gebruik contactformulier fallback voor betaling');
+        
+        const customerDetails = `${customerData.firstName} ${customerData.lastName}`;
+        const packageDetails = formData.package === 'one' ? 
+            `Enkel Liedje (€${formData.price})` : 
+            `EP 4 Liedjes (€${formData.price})`;
+        
+        let wordsSection = '';
+        if (formData.package === 'ep') {
+            for (let song = 1; song <= 4; song++) {
+                const songWords = [];
+                for (let word = 1; word <= 3; word++) {
+                    const wordValue = formData[`song${song}_word${word}`];
+                    if (wordValue && wordValue.trim()) {
+                        songWords.push(wordValue.trim());
+                    }
+                }
+                if (songWords.length > 0) {
+                    wordsSection += `Liedje ${song} Woorden: ${songWords.join(', ')}\n`;
+                }
+            }
+        } else {
+            const words = [];
+            for (let i = 1; i <= 3; i++) {
+                const wordValue = formData[`word${i}`];
+                if (wordValue && wordValue.trim()) {
+                    words.push(wordValue.trim());
+                }
+            }
+            if (words.length > 0) {
+                wordsSection = `Woorden/Namen: ${words.join(', ')}\n`;
+            }
+        }
+
+        const payButton = document.querySelector('.payment-btn') || document.querySelector('.btn');
+        if (payButton) {
+            payButton.disabled = true;
+            payButton.textContent = 'Verwerken...';
+        }
+
+        fetch('/contact', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded',
+            },
+            body: new URLSearchParams({
+                'form_type': 'contact',
+                'contact[subject]': `Muziek Bestelling: ${packageDetails}`,
+                'contact[email]': customerData.email,
+                'contact[body]': `MUZIEK BESTELLING
+
+Klant: ${customerDetails}
+Email: ${customerData.email}
+Telefoon: ${customerData.phone}
+
+Pakket: ${packageDetails}
+Totaalprijs: €${formData.finalPrice || formData.price}
+
+Bestelling Details:
+- Muziekstijlen: ${formData.musicStyle1}, ${formData.musicStyle2}
+- Taal: ${formData.songLanguage}
+- Stem voorkeur: ${formData.voiceType}
+- Reden: ${formData.reason}
+
+${wordsSection}
+
+Opmerking: Deze bestelling is ingediend via contactformulier. Stuur betalingsinstructies naar de klant.`
+            })
+        }).then(response => {
+            if (response.ok) {
+                showSuccessMessage();
+            } else {
+                throw new Error('Contactformulier inzending mislukt');
+            }
+        }).catch(error => {
+            console.error('Contactformulier fout:', error);
+            showErrorMessage();
+        }).finally(() => {
+            if (payButton) {
+                payButton.disabled = false;
+                payButton.textContent = 'Nu Betalen';
+            }
+        });
+    }
+
+    function showSuccessMessage() {
+        alert('Bestelling ontvangen! We sturen je binnen 24 uur betalingsinstructies via e-mail. Bedankt voor je bestelling!');
+        showPage('page1');
+        showNotification('Bestelling succesvol verzonden!', 'success');
+    }
+
+    function showErrorMessage() {
+        alert('Er ging iets mis. Probeer het opnieuw of neem direct contact op via contact@musicado.nl');
+    }
+
+    function addToShopifyCart() {
+        const variantId = getProductVariantId(formData.package);
+        
+        if (!variantId) {
+            alert('Productconfiguratie fout. Neem contact op met de ondersteuning.');
+            console.error('Ontbrekende variant ID voor pakket:', formData.package);
+            return;
+        }
+
+        const variantIdInput = document.querySelector('.product-variant-id');
+        if (variantIdInput) {
+            variantIdInput.value = variantId;
+        }
+
+        populateCartProperties();
+
+        const cartForm = document.getElementById('AddToCartForm');
+        if (cartForm) {
+            const payButton = cartForm.querySelector('button');
+            if (payButton) {
+                payButton.disabled = true;
+                payButton.textContent = 'Verwerken...';
+            }
+
+            const formData = new FormData(cartForm);
+            
+            fetch(window.routes.cart_add_url, {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => {
+                if (response.ok) {
+                    window.location.href = '/checkout';
+                } else {
+                    return response.text().then(text => {
+                        throw new Error(`Winkelwagen fout: ${text}`);
+                    });
+                }
+            })
+            .catch(error => {
+                console.error('Winkelwagen inzending fout:', error);
+                alert('Er ging iets mis bij het toevoegen aan winkelwagen. Probeer het opnieuw.');
+                
+                if (payButton) {
+                    payButton.disabled = false;
+                    payButton.textContent = 'Nu Betalen';
+                }
+            });
+        }
+    }
+
+    function handleContactRequest() {
+        const contactData = {
+            name: `${customerData.firstName} ${customerData.lastName}`,
+            email: customerData.email,
+            phone: customerData.phone,
+            package: 'Volledig Album',
+            details: JSON.stringify(formData)
+        };
+
+        fetch('/contact', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded',
+            },
+            body: new URLSearchParams({
+                'form_type': 'contact',
+                'contact[subject]': 'Volledig Album Verzoek',
+                'contact[email]': contactData.email,
+                'contact[body]': `Naam: ${contactData.name}\nTelefoon: ${contactData.phone}\nPakket: ${contactData.package}\nDetails: ${contactData.details}`
+            })
+        }).then(response => {
+            if (response.ok) {
+                alert('Bedankt! We nemen binnen 24 uur contact met u op.');
+            } else {
+                throw new Error('Contactformulier inzending mislukt');
+            }
+        }).catch(error => {
+            console.error('Contactformulier fout:', error);
+            alert('Er ging iets mis. Probeer het opnieuw of neem direct contact op.');
+        });
+    }
+
     function showSummary() {
         const summaryContent = document.getElementById('summaryContent');
-        const totalPrice = document.getElementById('totalPrice');
         
         if (!summaryContent) return;
 
-        let html = '<div class="summary-item"><div class="summary-label">Package:</div><div class="summary-value">';
+        let html = '<div class="summary-item"><div class="summary-label">Pakket:</div><div class="summary-value">';
         
         switch(formData.package) {
-            case 'one': html += currentLanguage === 'nl' ? 'Één Liedje' : 'One Song'; break;
-            case 'ep': html += currentLanguage === 'nl' ? 'EP (4 liedjes)' : 'EP (4 songs)'; break;
-            case 'contact': html += currentLanguage === 'nl' ? 'Volledig Album' : 'Full Album'; break;
+            case 'one': html += 'Één Liedje'; break;
+            case 'ep': html += 'EP (4 liedjes)'; break;
+            case 'contact': html += 'Volledig Album'; break;
         }
         html += '</div></div>';
 
-        html += `<div class="summary-item"><div class="summary-label">Music Style:</div><div class="summary-value">${formData.musicStyle1}, ${formData.musicStyle2}</div></div>`;
-        html += `<div class="summary-item"><div class="summary-label">Language:</div><div class="summary-value">${formData.songLanguage}</div></div>`;
+        html += `<div class="summary-item"><div class="summary-label">Muziekstijl:</div><div class="summary-value">${formData.musicStyle1}, ${formData.musicStyle2}</div></div>`;
+        html += `<div class="summary-item"><div class="summary-label">Taal:</div><div class="summary-value">${formData.songLanguage}</div></div>`;
         
         if (formData.voiceType) {
             let voiceLabel = '';
             switch(formData.voiceType) {
-                case 'male': voiceLabel = currentLanguage === 'nl' ? 'Mannelijke Stem' : 'Male Voice'; break;
-                case 'female': voiceLabel = currentLanguage === 'nl' ? 'Vrouwelijke Stem' : 'Female Voice'; break;
-                case 'no_preference': voiceLabel = currentLanguage === 'nl' ? 'Geen Voorkeur' : 'No Preference'; break;
+                case 'male': voiceLabel = 'Mannelijke Stem'; break;
+                case 'female': voiceLabel = 'Vrouwelijke Stem'; break;
+                case 'no_preference': voiceLabel = 'Geen Voorkeur'; break;
             }
-            html += `<div class="summary-item"><div class="summary-label">Voice:</div><div class="summary-value">${voiceLabel}</div></div>`;
+            html += `<div class="summary-item"><div class="summary-label">Stem:</div><div class="summary-value">${voiceLabel}</div></div>`;
         }
         
         if (formData.artist1 || formData.artist2 || formData.artist3) {
-            html += '<div class="summary-item"><div class="summary-label">Favorite Artists:</div><div class="summary-value">';
+            html += '<div class="summary-item"><div class="summary-label">Favoriete Artiesten:</div><div class="summary-value">';
             const artists = [formData.artist1, formData.artist2, formData.artist3].filter(a => a);
             html += artists.join(', ') + '</div></div>';
         }
@@ -556,32 +840,85 @@ window.MusicadoApp = (function() {
                     }
                 }
                 if (songWords.length > 0) {
-                    html += `<div class="summary-item"><div class="summary-label">Song ${song} Words:</div><div class="summary-value">${songWords.join(', ')}</div></div>`;
+                    html += `<div class="summary-item"><div class="summary-label">Liedje ${song} Woorden:</div><div class="summary-value">${songWords.join(', ')}</div></div>`;
                 }
             }
         } else if (formData.package === 'one') {
             const words = [formData.word1, formData.word2, formData.word3].filter(w => w && w.trim());
             if (words.length > 0) {
-                html += '<div class="summary-item"><div class="summary-label">Words/Names:</div><div class="summary-value">' + words.join(', ') + '</div></div>';
+                html += '<div class="summary-item"><div class="summary-label">Woorden/Namen:</div><div class="summary-value">' + words.join(', ') + '</div></div>';
             }
         }
 
         summaryContent.innerHTML = html;
         
+        addCustomerDetailsForm();
+        
         const paymentSection = document.getElementById('paymentSection');
         const contactSection = document.getElementById('contactSection');
+        const totalPrice = document.getElementById('totalPrice');
         
         if (formData.package === 'contact') {
             if (paymentSection) paymentSection.style.display = 'none';
             if (contactSection) contactSection.style.display = 'block';
             if (totalPrice) {
-                totalPrice.innerHTML = '<div class="total-breakdown"><div class="total-row final"><span>Price:</span><span>' + 
-                    (currentLanguage === 'nl' ? 'Neem contact op voor prijs' : 'Contact us for custom pricing') + '</span></div></div>';
+                totalPrice.innerHTML = '<div class="total-breakdown"><div class="total-row final"><span>Prijs:</span><span>Neem contact op voor prijs</span></div></div>';
             }
         } else {
             if (paymentSection) paymentSection.style.display = 'block';
             if (contactSection) contactSection.style.display = 'none';
             calculateTotal();
+        }
+    }
+
+    function addCustomerDetailsForm() {
+        let customerDetailsSection = document.querySelector('#page2 .customer-details-section');
+        
+        if (!customerDetailsSection) {
+            const page2Card = document.querySelector('#page2 .card');
+            if (page2Card) {
+                const customerDetailsHTML = `
+                    <div class="customer-details-section">
+                        <h3>Klantgegevens</h3>
+                        <div class="form-row" style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1rem;">
+                            <div class="form-group">
+                                <label for="firstName">Voornaam *</label>
+                                <input type="text" id="firstName" name="firstName" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="lastName">Achternaam *</label>
+                                <input type="text" id="lastName" name="lastName" required>
+                            </div>
+                        </div>
+                        <div class="form-row" style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1rem;">
+                            <div class="form-group">
+                                <label for="customerEmail">E-mail *</label>
+                                <input type="email" id="customerEmail" name="customerEmail" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="mobilePhone">Telefoon *</label>
+                                <input type="tel" id="mobilePhone" name="mobilePhone" required placeholder="+31 6 12345678">
+                            </div>
+                        </div>
+                        <div class="form-group" style="margin-bottom: 1rem;">
+                            <div style="display: flex; align-items: center; gap: 0.5rem;">
+                                <input type="checkbox" id="agreeTerms" required>
+                                <label for="agreeTerms">Ik ga akkoord met de algemene voorwaarden</label>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                
+                const totalPriceSection = page2Card.querySelector('.total-price-section');
+                if (totalPriceSection) {
+                    totalPriceSection.insertAdjacentHTML('beforebegin', customerDetailsHTML);
+                } else {
+                    const backButton = page2Card.querySelector('button');
+                    if (backButton) {
+                        backButton.insertAdjacentHTML('beforebegin', customerDetailsHTML);
+                    }
+                }
+            }
         }
     }
 
@@ -607,20 +944,20 @@ window.MusicadoApp = (function() {
         
         if (discountAmount > 0) {
             totalHtml += `<div class="total-row subtotal">
-                <span>Subtotal:</span>
+                <span>Subtotaal:</span>
                 <span>€${originalPrice.toFixed(2)}</span>
             </div>`;
             totalHtml += `<div class="total-row discount">
-                <span>Discount (15%):</span>
+                <span>Korting (15%):</span>
                 <span>-€${discountAmount.toFixed(2)}</span>
             </div>`;
             totalHtml += `<div class="total-row final">
-                <span>Total:</span>
+                <span>Totaal:</span>
                 <span>€${finalPrice.toFixed(2)}</span>
             </div>`;
         } else {
             totalHtml += `<div class="total-row final">
-                <span>Total:</span>
+                <span>Totaal:</span>
                 <span>€${originalPrice.toFixed(2)}</span>
             </div>`;
         }
@@ -647,7 +984,7 @@ window.MusicadoApp = (function() {
         messageDiv.style.display = 'none';
         
         if (appliedDiscountCode || localStorage.getItem('discountAppliedViaModal') === 'true') {
-            showDiscountMessage('error', currentLanguage === 'nl' ? 'Kortingscode al toegepast.' : 'Discount code already applied.');
+            showDiscountMessage('error', 'Kortingscode al toegepast.');
             return;
         }
         
@@ -657,9 +994,7 @@ window.MusicadoApp = (function() {
             window.appliedDiscount = discountAmount;
             appliedDiscountCode = code;
             
-            showDiscountMessage('success', 
-                (currentLanguage === 'nl' ? 'Korting succesvol toegepast! Je bespaart €' : 'Discount applied successfully! You save €') + 
-                discountAmount.toFixed(2));
+            showDiscountMessage('success', 'Korting succesvol toegepast! Je bespaart €' + discountAmount.toFixed(2));
             
             calculateTotal();
             
@@ -670,7 +1005,7 @@ window.MusicadoApp = (function() {
                 applyBtn.style.opacity = '0.6';
             }
         } else {
-            showDiscountMessage('error', currentLanguage === 'nl' ? 'Ongeldige kortingscode. Controleer en probeer opnieuw.' : 'Invalid discount code. Please check and try again.');
+            showDiscountMessage('error', 'Ongeldige kortingscode. Controleer en probeer opnieuw.');
         }
     }
 
@@ -701,14 +1036,14 @@ window.MusicadoApp = (function() {
         const email = emailInput?.value;
         
         if (!email || !email.includes('@')) {
-            alert(currentLanguage === 'nl' ? 'Voer een geldig e-mailadres in.' : 'Please enter a valid email address.');
+            alert('Voer een geldig e-mailadres in.');
             return;
         }
 
         const button = document.querySelector('.newsletter-btn');
         if (button) {
             const originalText = button.textContent;
-            button.textContent = currentLanguage === 'nl' ? 'Aangemeld! ✓' : 'Subscribed! ✓';
+            button.textContent = 'Aangemeld! ✓';
             button.style.background = 'linear-gradient(135deg, #10b981 0%, #059669 100%)';
             button.disabled = true;
             
@@ -720,7 +1055,6 @@ window.MusicadoApp = (function() {
             }, 3000);
         }
 
-        // Submit to Shopify customer list or newsletter service
         fetch('/contact', {
             method: 'POST',
             headers: {
@@ -791,7 +1125,6 @@ window.MusicadoApp = (function() {
         }
 
         updateCarousel();
-        
         window.addEventListener('resize', updateCarousel);
     }
 
@@ -874,17 +1207,13 @@ window.MusicadoApp = (function() {
                 emailInput.style.borderColor = '#ef4444';
                 emailInput.focus();
             }
-            alert(currentLanguage === 'nl' ? 
-                'Voer een geldig e-mailadres in.' : 
-                'Please enter a valid email address.');
+            alert('Voer een geldig e-mailadres in.');
             return;
         }
         
         if (!hasConsent) {
             if (consentSection) consentSection.classList.add('error');
-            alert(currentLanguage === 'nl' ? 
-                'U moet akkoord gaan met het ontvangen van e-mails om uw kortingscode te ontvangen.' : 
-                'You must agree to receive emails to get your discount code.');
+            alert('U moet akkoord gaan met het ontvangen van e-mails om uw kortingscode te ontvangen.');
             return;
         }
         
@@ -892,7 +1221,6 @@ window.MusicadoApp = (function() {
         localStorage.setItem('emailConsent', 'true');
         localStorage.setItem('discountAppliedViaModal', 'true');
         
-        // Submit to Shopify customer list
         fetch('/contact', {
             method: 'POST',
             headers: {
@@ -918,7 +1246,7 @@ window.MusicadoApp = (function() {
                 const button = document.querySelector('.copy-btn');
                 if (button) {
                     const originalText = button.textContent;
-                    button.textContent = currentLanguage === 'nl' ? 'Gekopieerd!' : 'Copied!';
+                    button.textContent = 'Gekopieerd!';
                     button.style.background = '#10b981';
                     
                     setTimeout(() => {
@@ -934,6 +1262,68 @@ window.MusicadoApp = (function() {
         }
     }
 
+    function applyDiscountAndClose() {
+        if (!appliedDiscountCode && !localStorage.getItem('discountAppliedViaModal')) {
+            const originalPrice = parseFloat(formData.price);
+            if (!isNaN(originalPrice)) {
+                window.appliedDiscount = originalPrice * 0.15;
+                appliedDiscountCode = '15%MUSIC';
+                localStorage.setItem('discountAppliedViaModal', 'true');
+            }
+        }
+        
+        closeDiscountModal();
+        
+        if (formData.price && formData.price !== 'contact') {
+            setTimeout(() => {
+                calculateTotal();
+            }, 100);
+        }
+        
+        showNotification('Korting toegepast! Je kunt nu doorgaan naar betaling.', 'success');
+        
+        setTimeout(() => {
+            const paymentSection = document.getElementById('paymentSection');
+            if (paymentSection && paymentSection.style.display !== 'none') {
+                paymentSection.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            }
+        }, 500);
+    }
+
+    function showNotification(message, type = 'info') {
+        const notification = document.createElement('div');
+        notification.className = `notification notification--${type}`;
+        notification.textContent = message;
+        notification.style.cssText = `
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: ${type === 'error' ? '#ef4444' : type === 'success' ? '#10b981' : '#3b82f6'};
+            color: white;
+            padding: 1rem 1.5rem;
+            border-radius: 8px;
+            z-index: 10000;
+            animation: slideInRight 0.3s ease-out;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        `;
+
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes slideInRight {
+                from { transform: translateX(100%); opacity: 0; }
+                to { transform: translateX(0); opacity: 1; }
+            }
+        `;
+        document.head.appendChild(style);
+
+        document.body.appendChild(notification);
+
+        setTimeout(() => {
+            notification.remove();
+            style.remove();
+        }, 4000);
+    }
+
     function fallbackCopyTextToClipboard(text) {
         const textArea = document.createElement("textarea");
         textArea.value = text;
@@ -947,9 +1337,9 @@ window.MusicadoApp = (function() {
         
         try {
             document.execCommand('copy');
-            alert(currentLanguage === 'nl' ? 'Code gekopieerd naar klembord!' : 'Code copied to clipboard!');
+            alert('Code gekopieerd naar klembord!');
         } catch (err) {
-            alert(currentLanguage === 'nl' ? 'Kon niet kopiëren, selecteer de code handmatig' : 'Could not copy, please select the code manually');
+            alert('Kon niet kopiëren, selecteer de code handmatig');
         }
         
         document.body.removeChild(textArea);
@@ -974,7 +1364,7 @@ window.MusicadoApp = (function() {
                 form.reset();
                 const topicField = document.getElementById('fullAlbumTopic');
                 if (topicField) {
-                    topicField.value = 'Interested in a full album please contact me';
+                    topicField.value = 'Geïnteresseerd in een volledig album, neem contact met mij op';
                 }
             }
         }
@@ -990,49 +1380,37 @@ window.MusicadoApp = (function() {
         const notes = formData.get('notes');
 
         if (!email || !phone) {
-            alert(currentLanguage === 'nl' ? 
-                'Vul alle verplichte velden in.' : 
-                'Please fill in all required fields.');
+            alert('Vul alle verplichte velden in.');
             return;
         }
 
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         if (!emailRegex.test(email)) {
-            alert(currentLanguage === 'nl' ? 
-                'Voer een geldig e-mailadres in.' : 
-                'Please enter a valid email address.');
+            alert('Voer een geldig e-mailadres in.');
             return;
         }
 
-        // Submit to Shopify contact form
         fetch('/contact', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/x-www-form-urlencoded',
             },
-            body: `form_type=contact&contact[email]=${encodeURIComponent(email)}&contact[body]=${encodeURIComponent(`Topic: ${topic}\nPhone: ${phone}\nNotes: ${notes || 'None'}`)}&contact[subject]=Full Album Inquiry`
+            body: `form_type=contact&contact[email]=${encodeURIComponent(email)}&contact[body]=${encodeURIComponent(`Onderwerp: ${topic}\nTelefoon: ${phone}\nOpmerkingen: ${notes || 'Geen'}`)}&contact[subject]=Volledig Album Aanvraag`
         }).then(() => {
-            alert(currentLanguage === 'nl' ? 
-                'Bedankt voor uw interesse! We nemen binnen 24 uur contact met u op via e-mail voor een persoonlijk gesprek over uw volledige album.' : 
-                'Thank you for your interest! We will contact you within 24 hours via email for a personal consultation about your full album.');
+            alert('Bedankt voor uw interesse! We nemen binnen 24 uur contact met u op via e-mail voor een persoonlijk gesprek over uw volledige album.');
             closeFullAlbumModal();
         }).catch(console.error);
     }
 
-    function setLanguage(lang) {
-        currentLanguage = lang;
-        setRandomSubheadline();
-        // Language switching would be handled by Shopify's built-in localization
-        window.location.href = `/${lang}`;
-    }
-
-    // Global functions for backward compatibility
+    // Global functions
     window.loadRandomAudio = loadRandomAudio;
     window.showPage = showPage;
     window.goBack = goBack;
     window.applyDiscountCode = applyDiscountCode;
     window.submitDiscountEmail = submitDiscountEmail;
     window.copyDiscountCode = copyDiscountCode;
+    window.processPayment = processPayment;
+    window.applyDiscountAndClose = applyDiscountAndClose;
 
     // Public API
     return {
@@ -1042,6 +1420,8 @@ window.MusicadoApp = (function() {
         goBack: goBack,
         applyDiscountCode: applyDiscountCode,
         submitDiscountEmail: submitDiscountEmail,
-        copyDiscountCode: copyDiscountCode
+        copyDiscountCode: copyDiscountCode,
+        processPayment: processPayment,
+        applyDiscountAndClose: applyDiscountAndClose
     };
 })();
