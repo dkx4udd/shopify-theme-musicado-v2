@@ -1,4 +1,4 @@
-<!-- Discount Code Modal - Dutch Only -->
+<!-- Kortingscode Modal - Alleen Nederlands -->
 <div id="discountModal" class="modal discount-modal">
   <div class="modal-content discount-content">
     <div class="modal-header discount-header">
@@ -6,7 +6,7 @@
       <span class="close discount-close">&times;</span>
     </div>
     <div class="modal-body discount-body">
-      <!-- Step 1: Email Collection with Consent -->
+      <!-- Stap 1: E-mail Verzameling met Toestemming -->
       <div id="discountEmailStep" class="discount-step active">
         <p class="discount-description">
           Voer je e-mailadres in om 15% korting te krijgen op je aangepaste liedjescreatie!
@@ -16,7 +16,7 @@
           <input type="email" id="discountEmail" placeholder="Voer je e-mailadres in" required>
         </div>
         
-        <!-- Email Consent Section -->
+        <!-- E-mail Toestemming Sectie -->
         <div class="discount-consent-section">
           <div class="discount-consent-checkbox" id="emailConsentCheckbox">
             <input type="checkbox" id="emailConsent" name="emailConsent" required>
@@ -37,7 +37,7 @@
         </p>
       </div>
 
-      <!-- Step 2: Success with Discount Code -->
+      <!-- Stap 2: Succes met Kortingscode -->
       <div id="discountSuccessStep" class="discount-step">
         <div class="discount-success">
           <h3>🎉 Dank je wel!</h3>
@@ -67,9 +67,9 @@
   </div>
 </div>
 
-<!-- Fallback JavaScript for when MusicadoApp isn't loaded -->
+<!-- Fallback JavaScript voor wanneer MusicadoApp niet geladen is -->
 <script>
-  // Fallback functions if MusicadoApp isn't available
+  // Fallback functies als MusicadoApp niet beschikbaar is
   if (!window.submitDiscountEmail) {
     window.submitDiscountEmail = function() {
       console.log('Fallback: submitDiscountEmail');
@@ -319,7 +319,7 @@
     box-shadow: 0 8px 20px rgba(16, 185, 129, 0.4);
   }
   
-  /* Mobile adjustments */
+  /* Mobiele aanpassingen */
   @media (max-width: 768px) {
     .discount-modal .modal-content {
       width: 95%;
@@ -353,7 +353,7 @@
     }
   }
   
-  /* Animation for modal appearance */
+  /* Animatie voor modal verschijning */
   .discount-modal {
     animation: fadeIn 0.3s ease-out;
   }
