@@ -1,43 +1,43 @@
-<!-- Full Album Contact Modal -->
+<!-- Volledig Album Contact Modal -->
 <div id="fullAlbumModal" class="modal">
   <div class="modal-content">
     <div class="modal-header">
-      <h2>{{ 'musicado.full_album_contact_title' | t }}</h2>
+      <h2>🎵 Volledig Album Aanvraag</h2>
       <span class="close" id="fullAlbumClose">&times;</span>
     </div>
     <div class="modal-body">
-      <p>{{ 'musicado.full_album_contact_description' | t }}</p>
+      <p>Geïnteresseerd in een volledig album? We maken graag iets geweldigs voor je! Laat je gegevens achter en we nemen binnen 24 uur contact met je op met een persoonlijke offerte.</p>
       
       <form id="fullAlbumContactForm" action="{{ routes.root_url }}contact" method="post">
         <input type="hidden" name="form_type" value="contact">
-        <input type="hidden" name="contact[subject]" value="Full Album Inquiry">
+        <input type="hidden" name="contact[subject]" value="Volledig Album Aanvraag">
         
         <div class="form-group">
-          <label for="fullAlbumEmail">{{ 'musicado.email_address' | t }}</label>
+          <label for="fullAlbumEmail">E-mailadres *</label>
           <input type="email" id="fullAlbumEmail" name="contact[email]" required 
-                 placeholder="{{ 'musicado.email_placeholder' | t }}">
+                 placeholder="jouw@email.nl">
         </div>
         
         <div class="form-group">
-          <label for="fullAlbumPhone">{{ 'musicado.phone_number' | t }}</label>
+          <label for="fullAlbumPhone">Mobiele Telefoon *</label>
           <input type="tel" id="fullAlbumPhone" name="contact[phone]" required 
-                 placeholder="{{ 'musicado.phone_placeholder' | t }}">
+                 placeholder="+31 6 12345678">
         </div>
         
         <div class="form-group">
-          <label for="fullAlbumTopic">{{ 'musicado.topic' | t }}</label>
-          <textarea id="fullAlbumTopic" name="contact[topic]" readonly rows="2">Interested in a full album please contact me</textarea>
+          <label for="fullAlbumTopic">Onderwerp</label>
+          <textarea id="fullAlbumTopic" name="contact[topic]" readonly rows="2">Geïnteresseerd in een volledig album, neem contact met mij op</textarea>
         </div>
         
         <div class="form-group">
-          <label for="fullAlbumNotes">{{ 'musicado.additional_notes' | t }}</label>
+          <label for="fullAlbumNotes">Aanvullende Notities (Optioneel)</label>
           <textarea id="fullAlbumNotes" name="contact[body]" rows="3" 
-                    placeholder="{{ 'musicado.notes_placeholder' | t }}"></textarea>
+                    placeholder="Vertel ons meer over je albumvisie..."></textarea>
         </div>
         
         <div style="text-align: center; margin-top: 1.5rem;">
           <button type="submit" class="btn">
-            {{ 'musicado.submit_contact' | t }}
+            Contact Verzoek Indienen
           </button>
         </div>
       </form>
