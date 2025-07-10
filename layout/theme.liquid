@@ -1,5 +1,5 @@
 <!doctype html>
-<html class="no-js" lang="{{ request.locale.iso_code }}">
+<html class="no-js" lang="nl">
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -16,8 +16,8 @@
 
   <title>
     {{ page_title }}
-    {%- if current_tags %} &ndash; tagged "{{ current_tags | join: ', ' }}"{% endif -%}
-    {%- if current_page != 1 %} &ndash; Page {{ current_page }}{% endif -%}
+    {%- if current_tags %} &ndash; getagd "{{ current_tags | join: ', ' }}"{% endif -%}
+    {%- if current_page != 1 %} &ndash; Pagina {{ current_page }}{% endif -%}
     {%- unless page_title contains shop.name %} &ndash; {{ shop.name }}{% endunless -%}
   </title>
 
@@ -48,7 +48,7 @@
 
 <body class="gradient">
   <a class="skip-to-content-link button visually-hidden" href="#MainContent">
-    Skip to content
+    Ga naar inhoud
   </a>
 
   <!-- Header -->
@@ -56,10 +56,7 @@
     <div class="container">
       <div class="header-content">
         <div class="logo">🎵 {{ shop.name }}</div>
-        <div class="language-selector">
-          <button class="lang-btn active" data-lang="en">English</button>
-          <button class="lang-btn" data-lang="nl">Nederlands</button>
-        </div>
+        <!-- Language selector removed - Dutch only -->
       </div>
     </div>
   </header>
@@ -73,17 +70,17 @@
     <div class="container">
       <div class="privacy-statement">
         <p>
-          Welcome to musicado. Your privacy and the security of your personal information are extremely important to us.
+          Welkom bij musicado. Uw privacy en de beveiliging van uw persoonlijke informatie zijn uiterst belangrijk voor ons.
         </p>
         <div class="footer-links">
-          <a href="#" id="fullPrivacyLink">Read our full privacy policy</a>
+          <a href="#" id="fullPrivacyLink">Lees ons volledige privacybeleid</a>
         </div>
       </div>
     </div>
   </footer>
 
   <ul hidden>
-    <li id="a11y-refresh-page-message">Choosing a selection results in a full page refresh.</li>
+    <li id="a11y-refresh-page-message">Een selectie kiezen zorgt voor het volledig vernieuwen van de pagina.</li>
   </ul>
 
   <script>
@@ -97,14 +94,14 @@
     };
 
     window.cartStrings = {
-      error: `There was an error while updating your cart. Please try again.`,
-      quantityError: `You can only add [quantity] of this item to your cart.`
+      error: `Er was een fout bij het bijwerken van je winkelwagen. Probeer het opnieuw.`,
+      quantityError: `Je kunt slechts [quantity] van dit item aan je winkelwagen toevoegen.`
     }
 
     window.variantStrings = {
-      addToCart: `Add to cart`,
-      soldOut: `Sold out`,
-      unavailable: `Unavailable`,
+      addToCart: `Toevoegen aan winkelwagen`,
+      soldOut: `Uitverkocht`,
+      unavailable: `Niet beschikbaar`,
     }
   </script>
 
