@@ -1,4 +1,4 @@
-// Global JavaScript for Musicado Theme
+// Globale JavaScript voor Musicado Theme - Alleen Nederlands
 class ShopifyGlobal {
   constructor() {
     this.init();
@@ -11,7 +11,7 @@ class ShopifyGlobal {
   }
 
   setupAccessibility() {
-    // Skip to content functionality
+    // Ga naar inhoud functionaliteit
     const skipLink = document.querySelector('.skip-to-content-link');
     if (skipLink) {
       skipLink.addEventListener('click', (e) => {
@@ -25,7 +25,7 @@ class ShopifyGlobal {
       });
     }
 
-    // Keyboard navigation for custom elements
+    // Toetsenbord navigatie voor aangepaste elementen
     document.addEventListener('keydown', (e) => {
       if (e.key === 'Enter' || e.key === ' ') {
         const target = e.target;
@@ -38,7 +38,7 @@ class ShopifyGlobal {
   }
 
   setupFormHelpers() {
-    // Generic form validation helpers
+    // Generieke formulier validatie helpers
     document.addEventListener('invalid', (e) => {
       e.target.classList.add('form-field-error');
     }, true);
@@ -49,7 +49,7 @@ class ShopifyGlobal {
       }
     });
 
-    // Shopify cart form helpers
+    // Shopify winkelwagen formulier helpers
     const cartForms = document.querySelectorAll('form[action*="/cart"]');
     cartForms.forEach(form => {
       form.addEventListener('submit', this.handleCartSubmit.bind(this));
@@ -71,7 +71,7 @@ class ShopifyGlobal {
         const result = await response.json();
         this.showCartSuccess(result);
       } else {
-        throw new Error('Failed to add to cart');
+        throw new Error('Mislukt om toe te voegen aan winkelwagen');
       }
     } catch (error) {
       this.showCartError(error.message);
@@ -79,17 +79,17 @@ class ShopifyGlobal {
   }
 
   showCartSuccess(result) {
-    // Show success notification
-    this.showNotification('Product added to cart!', 'success');
-    // Optionally redirect to cart or update cart UI
+    // Toon succes melding
+    this.showNotification('Product toegevoegd aan winkelwagen!', 'success');
+    // Optioneel omleiding naar winkelwagen of update winkelwagen UI
     if (window.cartStrings) {
-      // Update cart count if cart drawer exists
+      // Update winkelwagen aantal als winkelwagen drawer bestaat
       this.updateCartCount();
     }
   }
 
   showCartError(message) {
-    this.showNotification(message || 'Error adding to cart', 'error');
+    this.showNotification(message || 'Fout bij toevoegen aan winkelwagen', 'error');
   }
 
   showNotification(message, type = 'info') {
@@ -121,31 +121,31 @@ class ShopifyGlobal {
       const response = await fetch('/cart.js');
       const cart = await response.json();
       
-      // Update cart count elements
+      // Update winkelwagen aantal elementen
       const cartCountElements = document.querySelectorAll('.cart-count');
       cartCountElements.forEach(element => {
         element.textContent = cart.item_count;
       });
     } catch (error) {
-      console.error('Failed to update cart count:', error);
+      console.error('Mislukt om winkelwagen aantal bij te werken:', error);
     }
   }
 
   setupErrorHandling() {
-    // Global error handler for uncaught errors
+    // Globale fout handler voor ongevangen fouten
     window.addEventListener('error', (e) => {
-      console.error('Global error:', e.error);
-      // Could send to error tracking service
+      console.error('Globale fout:', e.error);
+      // Zou kunnen verzenden naar fout tracking service
     });
 
-    // Handle promise rejections
+    // Behandel promise afwijzingen
     window.addEventListener('unhandledrejection', (e) => {
-      console.error('Unhandled promise rejection:', e.reason);
+      console.error('Onbehandelde promise afwijzing:', e.reason);
       e.preventDefault();
     });
   }
 
-  // Utility functions
+  // Hulp functies
   static debounce(func, delay) {
     let timeoutId;
     return (...args) => {
@@ -171,12 +171,12 @@ class ShopifyGlobal {
   }
 }
 
-// Initialize when DOM is ready
+// Initialiseer wanneer DOM klaar is
 document.addEventListener('DOMContentLoaded', () => {
   window.ShopifyGlobal = new ShopifyGlobal();
 });
 
-// Export for use in other scripts
+// Export voor gebruik in andere scripts
 window.ShopifyUtils = {
   debounce: ShopifyGlobal.debounce,
   throttle: ShopifyGlobal.throttle,
