@@ -1,8 +1,10 @@
-<div class="banner" 
-     {% if section.settings.banner_image %}
-       style="background-image: linear-gradient(rgba(15, 23, 42, 0.6), rgba(30, 41, 59, 0.6)), url('{{ section.settings.banner_image | image_url: width: 1200 }}');"
-     {% endif %}>
-  <h1>{{ section.settings.banner_text | default: shop.name }}</h1>
+<div class="banner-container">
+  <div class="banner" 
+       {% if section.settings.banner_image %}
+         style="background-image: linear-gradient(rgba(15, 23, 42, 0.6), rgba(30, 41, 59, 0.6)), url('{{ section.settings.banner_image | image_url: width: 1200 }}');"
+       {% endif %}>
+    <h1>{{ section.settings.banner_text | default: shop.name }}</h1>
+  </div>
 </div>
 
 {% schema %}
@@ -12,15 +14,15 @@
     {
       "type": "image_picker",
       "id": "banner_image",
-      "label": "Banner Image",
-      "info": "Recommended size: 1200x300px. If no image is selected, a default gradient background will be used."
+      "label": "Banner Afbeelding",
+      "info": "Aanbevolen afmeting: 1200x300px. Als geen afbeelding is geselecteerd, wordt een standaard gradiënt achtergrond gebruikt."
     },
     {
       "type": "text",
       "id": "banner_text",
-      "label": "Banner Text",
+      "label": "Banner Tekst",
       "default": "🎵 musicado",
-      "info": "The main heading text displayed on the banner"
+      "info": "De hoofdkop tekst weergegeven op de banner"
     },
     {
       "type": "range",
@@ -29,26 +31,26 @@
       "max": 500,
       "step": 50,
       "unit": "px",
-      "label": "Banner Height",
+      "label": "Banner Hoogte",
       "default": 300,
-      "info": "Height of the banner section"
+      "info": "Hoogte van de banner sectie"
     },
     {
       "type": "select",
       "id": "text_alignment",
-      "label": "Text Alignment",
+      "label": "Tekst Uitlijning",
       "options": [
         {
           "value": "left",
-          "label": "Left"
+          "label": "Links"
         },
         {
           "value": "center",
-          "label": "Center"
+          "label": "Midden"
         },
         {
           "value": "right",
-          "label": "Right"
+          "label": "Rechts"
         }
       ],
       "default": "center"
@@ -56,13 +58,13 @@
     {
       "type": "color",
       "id": "text_color",
-      "label": "Text Color",
+      "label": "Tekst Kleur",
       "default": "#ffffff",
-      "info": "Color of the banner text"
+      "info": "Kleur van de banner tekst"
     },
     {
       "type": "header",
-      "content": "Overlay Settings"
+      "content": "Overlay Instellingen"
     },
     {
       "type": "range",
@@ -71,9 +73,9 @@
       "max": 100,
       "step": 10,
       "unit": "%",
-      "label": "Overlay Opacity",
+      "label": "Overlay Doorzichtigheid",
       "default": 60,
-      "info": "Darkness of the overlay on the background image"
+      "info": "Donkerheid van de overlay op de achtergrond afbeelding"
     }
   ],
   "presets": [
@@ -92,17 +94,17 @@
 {% endschema %}
 
 <style>
-  .banner {
+  .banner-container .banner {
     height: {{ section.settings.banner_height }}px;
     text-align: {{ section.settings.text_alignment }};
   }
   
-  .banner h1 {
+  .banner-container .banner h1 {
     color: {{ section.settings.text_color }};
   }
   
   {% if section.settings.banner_image %}
-    .banner::before {
+    .banner-container .banner::before {
       background: rgba(15, 23, 42, {{ section.settings.overlay_opacity | divided_by: 100.0 }});
     }
   {% endif %}
