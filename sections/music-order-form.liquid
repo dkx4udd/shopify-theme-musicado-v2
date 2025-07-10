@@ -1,48 +1,48 @@
 <div class="card">
   <div class="intro-text">
-    {{ 'musicado.intro' | t }}
+    Welkom bij onze professionele muziekcreatie service! Kies uw pakket en laat ons aangepaste liedjes voor u maken.
   </div>
 
   <form id="selectionForm">
-    <!-- Package Selection -->
+    <!-- Pakket Selectie -->
     <div class="form-group">
-      <label>{{ 'musicado.select_package' | t }}</label>
+      <label>Selecteer uw pakket:</label>
       <div class="radio-group">
         <div class="radio-option">
           <input type="radio" name="package" value="one" id="pkg1" data-price="{{ section.settings.single_song_price | default: '49' }}">
           <label for="pkg1">
-            <span>{{ 'musicado.one_song' | t }}</span> - 
+            <span>Één Liedje</span> - 
             <span class="price">€{{ section.settings.single_song_price | default: '49' }}</span>
           </label>
         </div>
         <div class="radio-option">
           <input type="radio" name="package" value="ep" id="pkg2" data-price="{{ section.settings.ep_price | default: '99' }}">
           <label for="pkg2">
-            <span>{{ 'musicado.ep' | t }}</span> - 
+            <span>EP (4 liedjes)</span> - 
             <span class="price">€{{ section.settings.ep_price | default: '99' }}</span>
           </label>
         </div>
         <div class="radio-option">
           <input type="radio" name="package" value="contact" id="pkg3" data-price="contact">
           <label for="pkg3">
-            <span>{{ 'musicado.full_album' | t }}</span> 
-            <span>{{ 'musicado.contact_for_pricing' | t }}</span>
+            <span>Volledig Album:</span> 
+            <span>Neem contact op voor prijs op aanvraag</span>
           </label>
         </div>
       </div>
       <div class="package-disclaimer">
-        <p>{{ 'musicado.usage_disclaimer' | t }}</p>
+        <p>Alle gemaakte liedjes kunnen alleen voor persoonlijk gebruik worden gebruikt. Voor commercieel gebruik, neem contact met ons op. We kunnen uw liedje op verzoek op Spotify publiceren.</p>
       </div>
     </div>
 
-    <!-- Music Style -->
+    <!-- Muziekstijl -->
     <div class="form-group">
-      <label>{{ 'musicado.music_styles' | t }}</label>
+      <label>Selecteer uw twee favoriete muziekstijlen:</label>
       <div class="form-row">
         <div class="form-group">
-          <label for="musicStyle1">{{ 'musicado.first_music_style' | t }}</label>
+          <label for="musicStyle1">Eerste Muziekstijl *</label>
           <select id="musicStyle1" name="musicStyle1" required>
-            <option value="">{{ 'musicado.select_option' | t }}</option>
+            <option value="">-- Selecteer een optie --</option>
             <option value="POP">POP</option>
             <option value="ROCK">ROCK</option>
             <option value="HIP_HOP_RAP">HIP/HOP RAP</option>
@@ -57,9 +57,9 @@
           </select>
         </div>
         <div class="form-group">
-          <label for="musicStyle2">{{ 'musicado.second_music_style' | t }}</label>
+          <label for="musicStyle2">Tweede Muziekstijl *</label>
           <select id="musicStyle2" name="musicStyle2" required>
-            <option value="">{{ 'musicado.select_option' | t }}</option>
+            <option value="">-- Selecteer een optie --</option>
             <option value="POP">POP</option>
             <option value="ROCK">ROCK</option>
             <option value="HIP_HOP_RAP">HIP/HOP RAP</option>
@@ -76,68 +76,68 @@
       </div>
     </div>
 
-    <!-- Favorite Artists -->
+    <!-- Favoriete Artiesten -->
     <div class="form-group">
-      <label>{{ 'musicado.favorite_artists' | t }}</label>
-      <input type="text" name="artist1" placeholder="{{ 'musicado.artist_1' | t }}" style="margin-bottom: 10px;">
-      <input type="text" name="artist2" placeholder="{{ 'musicado.artist_2' | t }}" style="margin-bottom: 10px;">
-      <input type="text" name="artist3" placeholder="{{ 'musicado.artist_3' | t }}">
+      <label>Voer uw favoriete artiesten in:</label>
+      <input type="text" name="artist1" placeholder="Artiest 1" style="margin-bottom: 10px;">
+      <input type="text" name="artist2" placeholder="Artiest 2" style="margin-bottom: 10px;">
+      <input type="text" name="artist3" placeholder="Artiest 3">
     </div>
 
-    <!-- Voice Selection -->
+    <!-- Stem Selectie -->
     <div class="form-group">
-      <label>{{ 'musicado.voice_selection' | t }}</label>
+      <label>Selecteer stem voorkeur:</label>
       <div class="radio-group">
         <div class="radio-option">
           <input type="radio" name="voiceType" value="male" id="voiceMale">
           <label for="voiceMale">
-            <span>{{ 'musicado.male_voice' | t }}</span>
+            <span>Mannelijke Stem</span>
           </label>
         </div>
         <div class="radio-option">
           <input type="radio" name="voiceType" value="female" id="voiceFemale">
           <label for="voiceFemale">
-            <span>{{ 'musicado.female_voice' | t }}</span>
+            <span>Vrouwelijke Stem</span>
           </label>
         </div>
         <div class="radio-option">
           <input type="radio" name="voiceType" value="no_preference" id="voiceNoPreference">
           <label for="voiceNoPreference">
-            <span>{{ 'musicado.no_voice_preference' | t }}</span>
+            <span>Geen Voorkeur</span>
           </label>
         </div>
       </div>
     </div>
 
-    <!-- Reason -->
+    <!-- Reden -->
     <div class="form-group">
-      <label for="reason">{{ 'musicado.reason' | t }}</label>
+      <label for="reason">Reden voor dit liedje:</label>
       <select id="reason" name="reason" required>
-        <option value="">{{ 'musicado.select_option' | t }}</option>
-        <option value="myself">{{ 'musicado.myself' | t }}</option>
-        <option value="love">{{ 'musicado.love' | t }}</option>
-        <option value="friend">{{ 'musicado.friend' | t }}</option>
-        <option value="mom">{{ 'musicado.mom' | t }}</option>
-        <option value="dad">{{ 'musicado.dad' | t }}</option>
-        <option value="sibling">{{ 'musicado.sibling' | t }}</option>
-        <option value="other">{{ 'musicado.other' | t }}</option>
+        <option value="">-- Selecteer een optie --</option>
+        <option value="myself">Voor mezelf</option>
+        <option value="love">Voor mijn liefde</option>
+        <option value="friend">Voor mijn vriend</option>
+        <option value="mom">Voor mama</option>
+        <option value="dad">Voor mijn vader</option>
+        <option value="sibling">Voor mijn broer of zus</option>
+        <option value="other">Anders</option>
       </select>
-      <input type="text" id="otherReason" name="otherReason" placeholder="{{ 'musicado.please_specify' | t }}" style="margin-top: 10px; display: none;">
+      <input type="text" id="otherReason" name="otherReason" placeholder="Specificeer alstublieft" style="margin-top: 10px; display: none;">
     </div>
 
-    <!-- Words/Names -->
+    <!-- Woorden/Namen -->
     <div class="form-group" id="wordsSection">
-      <label>{{ 'musicado.words_names' | t }}</label>
+      <label>Welke woorden of namen wilt u terug hebben in de liedjes:</label>
       <div id="wordsContainer">
-        <!-- Words will be populated based on package selection -->
+        <!-- Woorden worden ingevuld op basis van pakket selectie -->
       </div>
     </div>
 
-    <!-- Language -->
+    <!-- Taal -->
     <div class="form-group">
-      <label for="songLanguage">{{ 'musicado.song_language' | t }}</label>
+      <label for="songLanguage">In welke taal wilt u dat de liedjes zijn:</label>
       <select id="songLanguage" name="songLanguage" required>
-        <option value="">{{ 'musicado.select_option' | t }}</option>
+        <option value="">-- Selecteer een optie --</option>
         <option value="dutch">Nederlands</option>
         <option value="english">English</option>
         <option value="french">Français</option>
@@ -147,48 +147,48 @@
       </select>
     </div>
 
-    <!-- Song Titles -->
+    <!-- Liedje Titels -->
     <div class="form-group song-titles" id="songTitles">
-      <label>{{ 'musicado.song_titles' | t }}</label>
+      <label>Geef de liedjes een titel (laat leeg voor ons om te kiezen):</label>
       <div id="titleFields"></div>
     </div>
 
-    <!-- Own Lyrics -->
+    <!-- Eigen Teksten -->
     <div class="form-group">
-      <label for="ownLyrics">{{ 'musicado.own_lyrics' | t }}</label>
-      <textarea id="ownLyrics" name="ownLyrics" rows="5" placeholder="{{ 'musicado.enter_lyrics_placeholder' | t }}"></textarea>
+      <label for="ownLyrics">Heeft u uw eigen teksten? Voer hier in:</label>
+      <textarea id="ownLyrics" name="ownLyrics" rows="5" placeholder="Voer uw teksten hier in..."></textarea>
     </div>
 
-    <button type="submit" class="btn">{{ 'musicado.continue' | t }}</button>
+    <button type="submit" class="btn">Doorgaan naar Samenvatting</button>
   </form>
 </div>
 
 {% schema %}
 {
-  "name": "Music Order Form",
+  "name": "Muziek Bestel Formulier",
   "settings": [
     {
       "type": "header",
-      "content": "Pricing"
+      "content": "Prijzen"
     },
     {
       "type": "text",
       "id": "single_song_price",
-      "label": "Single Song Price",
+      "label": "Enkel Liedje Prijs",
       "default": "49",
-      "info": "Price for one song (without currency symbol)"
+      "info": "Prijs voor één liedje (zonder valuta symbool)"
     },
     {
       "type": "text",
       "id": "ep_price",
-      "label": "EP Price (4 songs)",
+      "label": "EP Prijs (4 liedjes)",
       "default": "99",
-      "info": "Price for EP package (without currency symbol)"
+      "info": "Prijs voor EP pakket (zonder valuta symbool)"
     }
   ],
   "presets": [
     {
-      "name": "Music Order Form"
+      "name": "Muziek Bestel Formulier"
     }
   ]
 }
