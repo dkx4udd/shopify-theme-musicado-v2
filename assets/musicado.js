@@ -1,16 +1,15 @@
-// Musicado Theme JavaScript - Dutch Only Version
+// Musicado Theme JavaScript - Alleen Nederlands
 window.MusicadoApp = (function() {
     'use strict';
 
-    // Global variables - Dutch only
-    let currentLanguage = 'nl';
+    // Globale variabelen - Alleen Nederlands
     let formData = {};
     let customerData = {};
     let discountModalShown = false;
     let appliedDiscountCode = null;
     let currentlyPlaying = [null, null];
 
-    // MP3 files configuration - Updated with correct Shopify paths
+    // MP3 bestanden configuratie - Bijgewerkt met juiste Shopify paden
     const mp3Files = [
         { 
             filename: "https://cdn.shopify.com/s/files/1/0905/1462/0749/files/Wonderlijke_wereld_van_AI_-_Matelletam.mp3", 
@@ -34,7 +33,7 @@ window.MusicadoApp = (function() {
         }
     ];
 
-    // Dutch subheadlines only
+    // Nederlandse subkoppen
     const subheadlines = [
         "Maak Je Geliefden Blij Met Persoonlijke Liedjes",
         "Maak Je Geliefden Blij Met Persoonlijke Liedjes in Minder dan 3 minuten",
@@ -58,9 +57,8 @@ window.MusicadoApp = (function() {
         "Het kan gespeeld worden op een feestje, het kan gespeeld worden op een begrafenis. Het is het cadeau dat altijd werkt."
     ];
 
-    // Initialize the application
+    // Initialiseer de applicatie
     function init() {
-        currentLanguage = 'nl'; // Always Dutch
         setupEventListeners();
         setRandomSubheadline();
         loadRandomAudio(1);
@@ -71,7 +69,7 @@ window.MusicadoApp = (function() {
     }
 
     function setupEventListeners() {
-        // Package selection
+        // Pakket selectie
         document.querySelectorAll('input[name="package"]').forEach(radio => {
             radio.addEventListener('change', function() {
                 updateSongTitles();
@@ -87,7 +85,7 @@ window.MusicadoApp = (function() {
             });
         });
 
-        // Voice selection
+        // Stem selectie
         document.querySelectorAll('input[name="voiceType"]').forEach(radio => {
             radio.addEventListener('change', function() {
                 document.querySelectorAll('input[name="voiceType"]').forEach(r => {
@@ -97,7 +95,7 @@ window.MusicadoApp = (function() {
             });
         });
 
-        // Reason selection
+        // Reden selectie
         const reasonSelect = document.getElementById('reason');
         if (reasonSelect) {
             reasonSelect.addEventListener('change', function() {
@@ -112,7 +110,7 @@ window.MusicadoApp = (function() {
             });
         }
 
-        // Form submission
+        // Formulier indiening
         const selectionForm = document.getElementById('selectionForm');
         if (selectionForm) {
             selectionForm.addEventListener('submit', function(e) {
@@ -125,7 +123,7 @@ window.MusicadoApp = (function() {
             });
         }
 
-        // Newsletter form
+        // Nieuwsbrief formulier
         const newsletterForm = document.getElementById('newsletterForm');
         if (newsletterForm) {
             newsletterForm.addEventListener('submit', function(e) {
@@ -137,7 +135,7 @@ window.MusicadoApp = (function() {
         // Setup modal listeners
         setupModalListeners();
 
-        // Setup discount functionality
+        // Setup korting functionaliteit
         setupDiscountListeners();
     }
 
@@ -162,7 +160,7 @@ window.MusicadoApp = (function() {
             });
         }
 
-        // Discount modal
+        // Korting modal
         const discountModal = document.getElementById('discountModal');
         const discountClose = discountModal?.querySelector('.discount-close');
 
@@ -170,7 +168,7 @@ window.MusicadoApp = (function() {
             discountClose.addEventListener('click', closeDiscountModal);
         }
 
-        // Full album modal
+        // Volledig album modal
         const fullAlbumModal = document.getElementById('fullAlbumModal');
         const fullAlbumClose = document.getElementById('fullAlbumClose');
         const fullAlbumForm = document.getElementById('fullAlbumContactForm');
@@ -186,7 +184,7 @@ window.MusicadoApp = (function() {
             });
         }
 
-        // Close modals on outside click
+        // Sluit modals bij klikken buiten modal
         [privacyModal, discountModal, fullAlbumModal].forEach(modal => {
             if (modal) {
                 modal.addEventListener('click', function(e) {
@@ -198,7 +196,7 @@ window.MusicadoApp = (function() {
             }
         });
 
-        // ESC key to close modals
+        // ESC toets om modals te sluiten
         document.addEventListener('keydown', function(e) {
             if (e.key === 'Escape') {
                 [privacyModal, discountModal, fullAlbumModal].forEach(modal => {
@@ -212,13 +210,13 @@ window.MusicadoApp = (function() {
     }
 
     function setupDiscountListeners() {
-        // Discount code application
+        // Kortingscode toepassen
         const applyDiscountBtn = document.querySelector('.discount-apply-btn');
         if (applyDiscountBtn) {
             applyDiscountBtn.addEventListener('click', applyDiscountCode);
         }
 
-        // Copy discount code
+        // Kopieer kortingscode
         const copyCodeBtn = document.querySelector('.copy-btn');
         if (copyCodeBtn) {
             copyCodeBtn.addEventListener('click', copyDiscountCode);
@@ -257,8 +255,7 @@ window.MusicadoApp = (function() {
         audioPlayer.innerHTML = '';
         
         const source = document.createElement('source');
-        // Updated MP3 file path for Shopify CDN
-        source.src = window.shopUrl + '/cdn/shop/files/' + selectedFile.filename;
+        source.src = selectedFile.filename;
         source.type = 'audio/mpeg';
         audioPlayer.appendChild(source);
 
@@ -496,7 +493,7 @@ window.MusicadoApp = (function() {
             return false;
         }
 
-        // Basic email validation
+        // Basis e-mail validatie
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         if (!emailRegex.test(customerData.email)) {
             alert('Voer een geldig e-mailadres in.');
@@ -509,14 +506,14 @@ window.MusicadoApp = (function() {
     function getProductVariantId(packageType) {
         console.log('Ophalen variant ID voor pakket:', packageType);
         
-        // Try to get from theme settings first
+        // Probeer eerst van theme instellingen te krijgen
         if (window.themeSettings && window.themeSettings[packageType + 'VariantId']) {
             const variantId = window.themeSettings[packageType + 'VariantId'];
             console.log('Variant ID gevonden in instellingen:', variantId);
             return variantId;
         }
         
-        // Try alternative setting names
+        // Probeer alternatieve instellingsnamen
         const settingMappings = {
             'one': ['singleSongVariantId', 'single_song_variant_id'],
             'ep': ['epVariantId', 'ep_variant_id'],
@@ -1402,7 +1399,7 @@ Opmerking: Deze bestelling is ingediend via contactformulier. Stuur betalingsins
         }).catch(console.error);
     }
 
-    // Global functions
+    // Globale functies
     window.loadRandomAudio = loadRandomAudio;
     window.showPage = showPage;
     window.goBack = goBack;
@@ -1412,7 +1409,7 @@ Opmerking: Deze bestelling is ingediend via contactformulier. Stuur betalingsins
     window.processPayment = processPayment;
     window.applyDiscountAndClose = applyDiscountAndClose;
 
-    // Public API
+    // Publieke API
     return {
         init: init,
         loadRandomAudio: loadRandomAudio,
