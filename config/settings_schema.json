@@ -2,212 +2,30 @@
   {
     "name": "theme_info",
     "theme_name": "Musicado",
-    "theme_version": "1.1.0",
+    "theme_version": "1.0.0",
     "theme_author": "Musicado Team",
     "theme_documentation_url": "https://musicado.nl/theme-docs",
-    "theme_support_url": "https://musicado.nl/support"
+    "theme_support_email": "support@musicado.nl"
   },
   {
     "name": "General",
     "settings": [
       {
-        "type": "header",
-        "content": "Favicon"
-      },
-      {
         "type": "image_picker",
-        "id": "favicon",
-        "label": "Favicon image",
-        "info": "Will be scaled down to 32 x 32px"
-      },
-      {
-        "type": "header",
-        "content": "Social media"
+        "id": "banner_image",
+        "label": "Homepage Banner Image"
       },
       {
         "type": "text",
-        "id": "social_facebook_link",
-        "label": "Facebook",
-        "info": "https://www.facebook.com/musicado"
+        "id": "banner_title",
+        "label": "Homepage Banner Title",
+        "default": "🎵 musicado"
       },
       {
-        "type": "text",
-        "id": "social_instagram_link",
-        "label": "Instagram",
-        "info": "https://www.instagram.com/musicado"
-      },
-      {
-        "type": "text",
-        "id": "social_youtube_link",
-        "label": "YouTube",
-        "info": "https://www.youtube.com/musicado"
-      },
-      {
-        "type": "text",
-        "id": "social_twitter_link",
-        "label": "Twitter",
-        "info": "https://twitter.com/musicado"
-      }
-    ]
-  },
-  {
-    "name": "Typography",
-    "settings": [
-      {
-        "type": "header",
-        "content": "Headings"
-      },
-      {
-        "type": "font_picker",
-        "id": "type_header_font",
-        "default": "assistant_n4",
-        "label": "Font",
-        "info": "Selecting a different font can affect the speed of your store. [Learn more about system fonts.](https://help.shopify.com/en/manual/online-store/os/store-speed/improving-speed#fonts)"
-      },
-      {
-        "type": "range",
-        "id": "heading_scale",
-        "min": 100,
-        "max": 150,
-        "step": 5,
-        "unit": "%",
-        "label": "Font size scale",
-        "default": 100
-      },
-      {
-        "type": "header",
-        "content": "Body text"
-      },
-      {
-        "type": "font_picker",
-        "id": "type_body_font",
-        "default": "assistant_n4",
-        "label": "Font",
-        "info": "Selecting a different font can affect the speed of your store. [Learn more about system fonts.](https://help.shopify.com/en/manual/online-store/os/store-speed/improving-speed#fonts)"
-      },
-      {
-        "type": "range",
-        "id": "body_scale",
-        "min": 100,
-        "max": 130,
-        "step": 5,
-        "unit": "%",
-        "label": "Font size scale",
-        "default": 100
-      }
-    ]
-  },
-  {
-    "name": "Colors",
-    "settings": [
-      {
-        "type": "header",
-        "content": "Primary colors"
-      },
-      {
-        "type": "color",
-        "id": "colors_primary",
-        "default": "#3b82f6",
-        "label": "Primary color"
-      },
-      {
-        "type": "color",
-        "id": "colors_secondary",
-        "default": "#06b6d4",
-        "label": "Secondary color"
-      },
-      {
-        "type": "color",
-        "id": "colors_accent",
-        "default": "#fbbf24",
-        "label": "Accent color"
-      },
-      {
-        "type": "header",
-        "content": "Background colors"
-      },
-      {
-        "type": "color",
-        "id": "colors_background_1",
-        "default": "#0f172a",
-        "label": "Background 1"
-      },
-      {
-        "type": "color",
-        "id": "colors_background_2",
-        "default": "#1e293b",
-        "label": "Background 2"
-      },
-      {
-        "type": "header",
-        "content": "Text colors"
-      },
-      {
-        "type": "color",
-        "id": "colors_text",
-        "default": "#e2e8f0",
-        "label": "Primary text"
-      },
-      {
-        "type": "color",
-        "id": "colors_text_secondary",
-        "default": "#cbd5e1",
-        "label": "Secondary text"
-      }
-    ]
-  },
-  {
-    "name": "Music Settings",
-    "settings": [
-      {
-        "type": "header",
-        "content": "Audio Examples"
-      },
-      {
-        "type": "paragraph",
-        "content": "Upload your MP3 files to Settings > Files in Shopify admin. Then update the musicado.js file to reference your audio files in the mp3Files array."
-      },
-      {
-        "type": "text",
-        "id": "audio_file_1",
-        "label": "Audio File 1 Name",
-        "info": "Filename of your first MP3 (e.g., 'song1.mp3')"
-      },
-      {
-        "type": "text",
-        "id": "audio_file_2",
-        "label": "Audio File 2 Name", 
-        "info": "Filename of your second MP3 (e.g., 'song2.mp3')"
-      },
-      {
-        "type": "text",
-        "id": "audio_file_3",
-        "label": "Audio File 3 Name",
-        "info": "Filename of your third MP3 (e.g., 'song3.mp3')"
-      },
-      {
-        "type": "text",
-        "id": "audio_file_4",
-        "label": "Audio File 4 Name",
-        "info": "Filename of your fourth MP3 (e.g., 'song4.mp3')"
-      },
-      {
-        "type": "header",
-        "content": "Pricing"
-      },
-      {
-        "type": "text",
-        "id": "single_song_price",
-        "label": "Single Song Price",
-        "default": "49",
-        "info": "Price for one song (without currency symbol)"
-      },
-      {
-        "type": "text",
-        "id": "ep_price",
-        "label": "EP Price (4 songs)",
-        "default": "99",
-        "info": "Price for EP package (without currency symbol)"
+        "type": "textarea",
+        "id": "intro_text",
+        "label": "Homepage Introduction Text",
+        "default": "Effortlessly create your own music in just a few clicks: Choose any style— from folk, hip-hop, pop or classic. Add your own words or lyrics, and share your unique track with your loved ones."
       },
       {
         "type": "header",
@@ -217,161 +35,277 @@
         "type": "text",
         "id": "contact_email",
         "label": "Contact Email",
-        "default": "contact@musicado.nl",
-        "info": "Email address for customer inquiries"
+        "default": "contact@musicado.nl"
       },
       {
         "type": "text",
-        "id": "phone_number",
-        "label": "Phone Number",
+        "id": "contact_phone",
+        "label": "Contact Phone",
         "default": "+31 6 12345678"
+      },
+      {
+        "type": "checkbox",
+        "id": "show_product_audio_examples",
+        "label": "Show Audio Examples on Product Pages",
+        "default": true
       }
     ]
   },
   {
-    "name": "Checkout",
+    "name": "Audio Examples",
     "settings": [
       {
         "type": "header",
-        "content": "Payment Processing"
+        "content": "Example Audio Files"
       },
       {
         "type": "paragraph",
-        "content": "Configure Stripe payment processing in your Shopify Payments settings or use Shopify's built-in checkout system."
-      },
-      {
-        "type": "header",
-        "content": "Order Fulfillment"
-      },
-      {
-        "type": "textarea",
-        "id": "delivery_instructions",
-        "label": "Delivery Instructions",
-        "default": "We will send you a link via email to your personal page where you can download your music within 24 hours.",
-        "info": "Instructions shown to customers about how they will receive their music"
+        "content": "Upload your example MP3 files to the assets folder and reference them here."
       },
       {
         "type": "text",
-        "id": "delivery_time",
-        "label": "Delivery Time",
-        "default": "24 hours",
-        "info": "Expected delivery time for music files"
+        "id": "example_audio_1",
+        "label": "Example Audio 1 Filename",
+        "default": "Wonderlijke wereld van AI - Matelletam.mp3",
+        "info": "Just the filename, e.g. 'example1.mp3'"
+      },
+      {
+        "type": "text",
+        "id": "example_audio_1_title",
+        "label": "Example Audio 1 Title",
+        "default": "Wonderlijke wereld van AI - Matelletam"
+      },
+      {
+        "type": "text",
+        "id": "example_audio_1_style",
+        "label": "Example Audio 1 Style",
+        "default": "Electronic/Ambient style"
+      },
+      {
+        "type": "text",
+        "id": "example_audio_2",
+        "label": "Example Audio 2 Filename",
+        "default": "Wonderlijke wereld van AI - RockyRocky.mp3"
+      },
+      {
+        "type": "text",
+        "id": "example_audio_2_title",
+        "label": "Example Audio 2 Title", 
+        "default": "Wonderlijke wereld van AI - RockyRocky"
+      },
+      {
+        "type": "text",
+        "id": "example_audio_2_style",
+        "label": "Example Audio 2 Style",
+        "default": "Rock/Pop style"
+      },
+      {
+        "type": "text",
+        "id": "example_audio_3",
+        "label": "Example Audio 3 Filename",
+        "default": "Survivor - Eye Of The Tiger.mp3"
+      },
+      {
+        "type": "text",
+        "id": "example_audio_3_title",
+        "label": "Example Audio 3 Title",
+        "default": "Survivor - Eye Of The Tiger"
+      },
+      {
+        "type": "text",
+        "id": "example_audio_3_style",
+        "label": "Example Audio 3 Style",
+        "default": "Classic Rock style"
+      },
+      {
+        "type": "text",
+        "id": "example_audio_4",
+        "label": "Example Audio 4 Filename",
+        "default": "Music for vlogs - Birthday.mp3"
+      },
+      {
+        "type": "text",
+        "id": "example_audio_4_title",
+        "label": "Example Audio 4 Title",
+        "default": "Birthday Celebration"
+      },
+      {
+        "type": "text",
+        "id": "example_audio_4_style",
+        "label": "Example Audio 4 Style",
+        "default": "Upbeat/Celebration style"
       }
     ]
   },
   {
-    "name": "Marketing",
+    "name": "Colors",
     "settings": [
       {
         "type": "header",
-        "content": "Discount Settings"
+        "content": "Theme Colors"
       },
       {
-        "type": "text",
-        "id": "discount_code",
-        "label": "Default Discount Code",
-        "default": "15%MUSIC",
-        "info": "The discount code shown in pop-ups and promotions"
+        "type": "color",
+        "id": "color_primary",
+        "label": "Primary Color",
+        "default": "#3b82f6"
+      },
+      {
+        "type": "color", 
+        "id": "color_secondary",
+        "label": "Secondary Color",
+        "default": "#06b6d4"
+      },
+      {
+        "type": "color",
+        "id": "color_accent",
+        "label": "Accent Color",
+        "default": "#fbbf24"
+      },
+      {
+        "type": "color",
+        "id": "color_background",
+        "label": "Background Color",
+        "default": "#0f172a"
+      },
+      {
+        "type": "color",
+        "id": "color_text",
+        "label": "Text Color",
+        "default": "#e2e8f0"
+      }
+    ]
+  },
+  {
+    "name": "Typography",
+    "settings": [
+      {
+        "type": "font_picker",
+        "id": "type_header_font",
+        "default": "assistant_n4",
+        "label": "Heading font",
+        "info": "Used for headings and titles"
       },
       {
         "type": "range",
-        "id": "discount_percentage",
-        "min": 5,
-        "max": 50,
+        "id": "heading_scale",
+        "min": 100,
+        "max": 150,
         "step": 5,
         "unit": "%",
-        "label": "Discount Percentage",
-        "default": 15,
-        "info": "Percentage discount for the promotional code"
+        "label": "Heading scale",
+        "default": 100
       },
       {
-        "type": "header",
-        "content": "Newsletter"
+        "type": "font_picker",
+        "id": "type_body_font",
+        "default": "assistant_n4", 
+        "label": "Body font",
+        "info": "Used for body text and form fields"
       },
       {
-        "type": "text",
-        "id": "newsletter_title",
-        "label": "Newsletter Title",
-        "default": "Sign up to get special discounts"
-      },
-      {
-        "type": "textarea",
-        "id": "newsletter_description",
-        "label": "Newsletter Description",
-        "default": "Be the first to know about new music styles, exclusive offers, and special promotions!"
+        "type": "range",
+        "id": "body_scale",
+        "min": 90,
+        "max": 120,
+        "step": 5,
+        "unit": "%",
+        "label": "Body font scale",
+        "default": 100
       }
     ]
   },
   {
-    "name": "SEO",
+    "name": "Cart",
     "settings": [
       {
-        "type": "header",
-        "content": "Search Engine Optimization"
+        "type": "select",
+        "id": "cart_type",
+        "options": [
+          {
+            "value": "notification",
+            "label": "Notification"
+          },
+          {
+            "value": "drawer",
+            "label": "Drawer"
+          },
+          {
+            "value": "page",
+            "label": "Page"
+          }
+        ],
+        "default": "notification",
+        "label": "Cart type",
+        "info": "Controls how the cart is displayed when items are added"
       },
       {
-        "type": "text",
-        "id": "seo_title",
-        "label": "Homepage title",
-        "info": "This title will appear in search results and browser tabs"
+        "type": "checkbox",
+        "id": "show_cart_note",
+        "default": false,
+        "label": "Enable cart notes"
       },
       {
-        "type": "textarea",
-        "id": "seo_description",
-        "label": "Homepage description",
-        "info": "This description will appear in search results",
-        "default": "Create custom songs in any style with AI. Professional quality music creation service for personal use. Get your personalized song in 24 hours."
-      },
-      {
-        "type": "header",
-        "content": "Social Sharing"
-      },
-      {
-        "type": "image_picker",
-        "id": "share_image",
-        "label": "Social sharing image",
-        "info": "This image will be used when your site is shared on social media. Recommended size: 1200 x 630px"
+        "type": "checkbox",
+        "id": "show_shipping_estimator",
+        "default": true,
+        "label": "Show shipping estimator"
       }
     ]
   },
   {
-    "name": "Custom Code",
+    "name": "Social Media",
     "settings": [
       {
         "type": "header",
-        "content": "Analytics & Tracking"
+        "content": "Social Media Links"
       },
       {
-        "type": "html",
-        "id": "google_analytics",
-        "label": "Google Analytics Code",
-        "info": "Paste your Google Analytics tracking code here"
+        "type": "text",
+        "id": "social_twitter_link",
+        "label": "Twitter",
+        "info": "https://twitter.com/yourstore"
       },
       {
-        "type": "html",
-        "id": "facebook_pixel",
-        "label": "Facebook Pixel Code",
-        "info": "Paste your Facebook Pixel code here"
+        "type": "text",
+        "id": "social_facebook_link", 
+        "label": "Facebook",
+        "info": "https://facebook.com/yourstore"
       },
       {
-        "type": "header",
-        "content": "Custom CSS"
+        "type": "text",
+        "id": "social_pinterest_link",
+        "label": "Pinterest"
       },
       {
-        "type": "html",
-        "id": "custom_css",
-        "label": "Custom CSS",
-        "info": "Add custom CSS styles here. Wrap in <style> tags."
+        "type": "text",
+        "id": "social_instagram_link",
+        "label": "Instagram"
       },
       {
-        "type": "header",
-        "content": "Custom JavaScript"
+        "type": "text",
+        "id": "social_tiktok_link",
+        "label": "TikTok"
       },
       {
-        "type": "html",
-        "id": "custom_js",
-        "label": "Custom JavaScript",
-        "info": "Add custom JavaScript here. Wrap in <script> tags."
+        "type": "text",
+        "id": "social_tumblr_link",
+        "label": "Tumblr"
+      },
+      {
+        "type": "text",
+        "id": "social_snapchat_link",
+        "label": "Snapchat"
+      },
+      {
+        "type": "text",
+        "id": "social_youtube_link",
+        "label": "YouTube"
+      },
+      {
+        "type": "text",
+        "id": "social_vimeo_link",
+        "label": "Vimeo"
       }
     ]
   }
