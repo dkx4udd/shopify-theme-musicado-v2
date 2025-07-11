@@ -1,0 +1,416 @@
+<!-- Header Section -->
+<!-- File: sections/header.liquid -->
+
+<header class="site-header" id="site-header-{{ section.id }}">
+  <div class="header-container">
+    <!-- Logo Section -->
+    <div class="header-logo">
+      <a href="{{ routes.root_url }}" class="logo-link">
+        {% if section.settings.logo %}
+          <img src="{{ section.settings.logo | image_url: width: 200 }}" alt="{{ shop.name }}" class="logo-image">
+        {% else %}
+          <div class="logo-text">
+            <span class="logo-icon">🎵</span>
+            <span class="logo-name">{{ section.settings.site_name | default: shop.name }}</span>
+          </div>
+        {% endif %}
+      </a>
+    </div>
+    
+    <!-- Language Toggle -->
+    <div class="language-toggle">
+      {% if section.settings.show_language_toggle %}
+        <div class="language-buttons">
+          <button class="lang-btn {% if section.settings.default_language == 'en' %}active{% endif %}" 
+                  data-lang="en" onclick="setLanguage('en')">
+            {{ section.settings.english_label | default: 'English' }}
+          </button>
+          <button class="lang-btn {% if section.settings.default_language == 'nl' %}active{% endif %}" 
+                  data-lang="nl" onclick="setLanguage('nl')">
+            {{ section.settings.dutch_label | default: 'Nederlands' }}
+          </button>
+        </div>
+      {% endif %}
+    </div>
+  </div>
+</header>
+
+<style>
+/* Header Styles */
+.site-header {
+  background: {{ section.settings.header_background | default: 'linear-gradient(135deg, #1e293b 0%, #334155 50%, #475569 100%)' }};
+  padding: {{ section.settings.header_padding | default: 16 }}px 0;
+  position: relative;
+  z-index: 100;
+}
+
+.header-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* Logo Styles */
+.header-logo {
+  flex: 1;
+}
+
+.logo-link {
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+}
+
+.logo-image {
+  height: {{ section.settings.logo_height | default: 40 }}px;
+  width: auto;
+}
+
+.logo-text {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.logo-icon {
+  font-size: {{ section.settings.icon_size | default: 28 }}px;
+  color: {{ section.settings.icon_color | default: '#3b82f6' }};
+}
+
+.logo-name {
+  font-size: {{ section.settings.logo_text_size | default: 24 }}px;
+  font-weight: {{ section.settings.logo_font_weight | default: 600 }};
+  color: {{ section.settings.logo_text_color | default: '#3b82f6' }};
+  text-transform: lowercase;
+}
+
+/* Language Toggle Styles */
+.language-toggle {
+  display: flex;
+  align-items: center;
+}
+
+.language-buttons {
+  display: flex;
+  gap: 8px;
+}
+
+.lang-btn {
+  padding: {{ section.settings.button_padding | default: '8px 16px' }};
+  border: 2px solid {{ section.settings.button_border_color | default: '#3b82f6' }};
+  border-radius: {{ section.settings.button_border_radius | default: 20 }}px;
+  background: transparent;
+  color: {{ section.settings.button_text_color | default: '#3b82f6' }};
+  font-size: {{ section.settings.button_font_size | default: 14 }}px;
+  font-weight: {{ section.settings.button_font_weight | default: 500 }};
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-decoration: none;
+  display: inline-block;
+}
+
+.lang-btn:hover {
+  background: {{ section.settings.button_hover_bg | default: '#3b82f6' }};
+  color: {{ section.settings.button_hover_text | default: '#ffffff' }};
+}
+
+.lang-btn.active {
+  background: {{ section.settings.button_active_bg | default: '#3b82f6' }};
+  color: {{ section.settings.button_active_text | default: '#ffffff' }};
+}
+
+/* Mobile Responsive */
+@media (max-width: 768px) {
+  .header-container {
+    padding: 0 16px;
+  }
+  
+  .logo-name {
+    font-size: {{ section.settings.logo_text_size_mobile | default: 20 }}px;
+  }
+  
+  .logo-icon {
+    font-size: {{ section.settings.icon_size_mobile | default: 24 }}px;
+  }
+  
+  .lang-btn {
+    padding: 6px 12px;
+    font-size: 12px;
+  }
+}
+
+@media (max-width: 480px) {
+  .language-buttons {
+    gap: 4px;
+  }
+  
+  .lang-btn {
+    padding: 6px 10px;
+    font-size: 11px;
+  }
+}
+</style>
+
+<script>
+// Language toggle functionality
+function setLanguage(lang) {
+  // Update active button
+  document.querySelectorAll('.lang-btn').forEach(btn => {
+    btn.classList.remove('active');
+  });
+  document.querySelector(`[data-lang="${lang}"]`).classList.add('active');
+  
+  // Store language preference
+  localStorage.setItem('musicado_language', lang);
+  
+  // You can add actual language switching logic here
+  console.log('Language set to:', lang);
+  
+  // Optional: reload page with language parameter
+  // window.location.href = `${window.location.pathname}?lang=${lang}`;
+}
+
+// Load saved language on page load
+document.addEventListener('DOMContentLoaded', function() {
+  const savedLang = localStorage.getItem('musicado_language') || '{{ section.settings.default_language | default: "nl" }}';
+  setLanguage(savedLang);
+});
+</script>
+
+{% schema %}
+{
+  "name": "Header",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Logo Settings"
+    },
+    {
+      "type": "image_picker",
+      "id": "logo",
+      "label": "Logo Image",
+      "info": "Upload a logo image (optional)"
+    },
+    {
+      "type": "text",
+      "id": "site_name",
+      "label": "Site Name",
+      "default": "musicado",
+      "info": "Text logo when no image is uploaded"
+    },
+    {
+      "type": "range",
+      "id": "logo_height",
+      "min": 20,
+      "max": 80,
+      "step": 2,
+      "unit": "px",
+      "label": "Logo Height",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "logo_text_size",
+      "min": 16,
+      "max": 36,
+      "step": 1,
+      "unit": "px",
+      "label": "Logo Text Size (Desktop)",
+      "default": 24
+    },
+    {
+      "type": "range",
+      "id": "logo_text_size_mobile",
+      "min": 14,
+      "max": 28,
+      "step": 1,
+      "unit": "px",
+      "label": "Logo Text Size (Mobile)",
+      "default": 20
+    },
+    {
+      "type": "select",
+      "id": "logo_font_weight",
+      "label": "Logo Font Weight",
+      "options": [
+        {
+          "value": "400",
+          "label": "Normal"
+        },
+        {
+          "value": "500",
+          "label": "Medium"
+        },
+        {
+          "value": "600",
+          "label": "Semi Bold"
+        },
+        {
+          "value": "700",
+          "label": "Bold"
+        }
+      ],
+      "default": "600"
+    },
+    {
+      "type": "color",
+      "id": "logo_text_color",
+      "label": "Logo Text Color",
+      "default": "#3b82f6"
+    },
+    {
+      "type": "range",
+      "id": "icon_size",
+      "min": 16,
+      "max": 40,
+      "step": 2,
+      "unit": "px",
+      "label": "Icon Size (Desktop)",
+      "default": 28
+    },
+    {
+      "type": "range",
+      "id": "icon_size_mobile",
+      "min": 14,
+      "max": 32,
+      "step": 2,
+      "unit": "px",
+      "label": "Icon Size (Mobile)",
+      "default": 24
+    },
+    {
+      "type": "color",
+      "id": "icon_color",
+      "label": "Icon Color",
+      "default": "#3b82f6"
+    },
+    {
+      "type": "header",
+      "content": "Header Background"
+    },
+    {
+      "type": "color_background",
+      "id": "header_background",
+      "label": "Header Background",
+      "default": "linear-gradient(135deg, #1e293b 0%, #334155 50%, #475569 100%)"
+    },
+    {
+      "type": "range",
+      "id": "header_padding",
+      "min": 8,
+      "max": 32,
+      "step": 2,
+      "unit": "px",
+      "label": "Header Padding",
+      "default": 16
+    },
+    {
+      "type": "header",
+      "content": "Language Toggle"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_language_toggle",
+      "label": "Show Language Toggle",
+      "default": true
+    },
+    {
+      "type": "select",
+      "id": "default_language",
+      "label": "Default Language",
+      "options": [
+        {
+          "value": "nl",
+          "label": "Nederlands"
+        },
+        {
+          "value": "en",
+          "label": "English"
+        }
+      ],
+      "default": "nl"
+    },
+    {
+      "type": "text",
+      "id": "english_label",
+      "label": "English Button Label",
+      "default": "English"
+    },
+    {
+      "type": "text",
+      "id": "dutch_label",
+      "label": "Dutch Button Label",
+      "default": "Nederlands"
+    },
+    {
+      "type": "color",
+      "id": "button_border_color",
+      "label": "Button Border Color",
+      "default": "#3b82f6"
+    },
+    {
+      "type": "color",
+      "id": "button_text_color",
+      "label": "Button Text Color",
+      "default": "#3b82f6"
+    },
+    {
+      "type": "color",
+      "id": "button_hover_bg",
+      "label": "Button Hover Background",
+      "default": "#3b82f6"
+    },
+    {
+      "type": "color",
+      "id": "button_hover_text",
+      "label": "Button Hover Text",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "button_active_bg",
+      "label": "Button Active Background",
+      "default": "#3b82f6"
+    },
+    {
+      "type": "color",
+      "id": "button_active_text",
+      "label": "Button Active Text",
+      "default": "#ffffff"
+    },
+    {
+      "type": "range",
+      "id": "button_font_size",
+      "min": 10,
+      "max": 18,
+      "step": 1,
+      "unit": "px",
+      "label": "Button Font Size",
+      "default": 14
+    },
+    {
+      "type": "range",
+      "id": "button_border_radius",
+      "min": 0,
+      "max": 30,
+      "step": 2,
+      "unit": "px",
+      "label": "Button Border Radius",
+      "default": 20
+    }
+  ],
+  "presets": [
+    {
+      "name": "Header",
+      "settings": {
+        "site_name": "musicado",
+        "show_language_toggle": true,
+        "default_language": "nl"
+      }
+    }
+  ]
+}
+{% endschema %}
