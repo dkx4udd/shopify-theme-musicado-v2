@@ -1,5 +1,5 @@
 <!doctype html>
-<html class="no-js" lang="nl">
+<html class="no-js" lang="{{ request.locale.iso_code }}">
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -16,8 +16,8 @@
 
   <title>
     {{ page_title }}
-    {%- if current_tags %} &ndash; getagd "{{ current_tags | join: ', ' }}"{% endif -%}
-    {%- if current_page != 1 %} &ndash; Pagina {{ current_page }}{% endif -%}
+    {%- if current_tags %} &ndash; tagged "{{ current_tags | join: ', ' }}"{% endif -%}
+    {%- if current_page != 1 %} &ndash; Page {{ current_page }}{% endif -%}
     {%- unless page_title contains shop.name %} &ndash; {{ shop.name }}{% endunless -%}
   </title>
 
@@ -48,7 +48,7 @@
 
 <body class="gradient">
   <a class="skip-to-content-link button visually-hidden" href="#MainContent">
-    Ga naar inhoud
+    {{ 'accessibility.skip_to_text' | t }}
   </a>
 
   <!-- Header -->
@@ -68,15 +68,36 @@
     {{ content_for_layout }}
   </main>
 
+  <!-- Newsletter Signup Section -->
+  <div class="newsletter-section">
+    <div class="container">
+      <div class="newsletter-card">
+        <div class="newsletter-content">
+          <h3 data-translate="newsletterTitle">Sign up to get special discounts</h3>
+          <p data-translate="newsletterDescription">Be the first to know about new music styles, exclusive offers, and special promotions!</p>
+          <form id="newsletterForm" class="newsletter-form">
+            <div class="newsletter-input-group">
+              <input type="email" id="newsletterEmail" name="newsletterEmail" placeholder="Enter your email address" data-translate-placeholder="newsletterEmailPlaceholder" required>
+              <button type="submit" class="btn newsletter-btn" data-translate="subscribe">Subscribe</button>
+            </div>
+            <p class="newsletter-terms" data-translate="newsletterTerms">
+              No spam, unsubscribe at any time. We respect your privacy.
+            </p>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <!-- Footer -->
   <footer class="footer">
     <div class="container">
       <div class="privacy-statement">
-        <p>
-          Welkom bij <strong>{{ shop.name }}</strong> ("wij," "ons," of "onze"). Uw privacy en de beveiliging van uw persoonlijke informatie zijn uiterst belangrijk voor ons. Deze Privacy- en Beschermingsverklaring legt uit hoe wij uw gegevens verzamelen, gebruiken, opslaan en beschermen wanneer u onze website bezoekt en AI-gecreëerde muziek koopt of onze gerelateerde diensten gebruikt.
+        <p data-translate="privacyStatement">
+          Welcome to <strong>{{ shop.name }}</strong> ("we," "our," or "us"). Your privacy and the security of your personal information are extremely important to us. This Privacy and Protection Statement explains how we collect, use, store, and protect your data when you visit our website and purchase AI-created music or use our related services.
         </p>
         <div class="footer-links">
-          <a href="#" id="fullPrivacyLink">Lees ons volledige privacybeleid</a>
+          <a href="#" id="fullPrivacyLink" data-translate="readFullPrivacy">Read our full privacy policy</a>
         </div>
       </div>
     </div>
@@ -86,138 +107,138 @@
   <div id="privacyModal" class="modal">
     <div class="modal-content">
       <div class="modal-header">
-        <h2>Juridisch Document voor Websitegebruik</h2>
+        <h2 data-translate="legalDocumentTitle">Legal Document for Website Use</h2>
         <span class="close">&times;</span>
       </div>
       <div class="modal-body">
-        <div class="legal-content">
-          <p><strong>Geldt voor: {{ shop.name }}</strong><br>
-          <strong>Laatste update: 19-06-2025</strong></p>
+        <div class="legal-content" data-translate="legalDocument">
+          <p><strong>Applies to: {{ shop.name }}</strong><br>
+          <strong>Last update: 19-06-2025</strong></p>
 
-          <h3>1. Privacyverklaring</h3>
-          <p>{{ shop.name }} respecteert de privacy van alle gebruikers van haar website en draagt er zorg voor dat de persoonlijke informatie die u ons verschaft vertrouwelijk wordt behandeld.</p>
+          <h3>1. Privacy Policy</h3>
+          <p>{{ shop.name }} respects the privacy of all users of its website and ensures that the personal information you provide us is treated confidentially.</p>
           
-          <h4>1.1 Gegevens die wij verzamelen</h4>
+          <h4>1.1 Data we collect</h4>
           <ul>
-            <li>Naam, e-mailadres, telefoonnummer</li>
-            <li>Factuurgegevens en betaalgegevens</li>
-            <li>IP-adres en browsergegevens</li>
-            <li>Gebruiksdata (bijv. paginaweergaves, aankopen)</li>
+            <li>Name, email address, telephone number</li>
+            <li>Billing and payment information</li>
+            <li>IP address and browser information</li>
+            <li>Usage data (e.g. page views, purchases)</li>
           </ul>
           
-          <h4>1.2 Doeleinden</h4>
+          <h4>1.2 Purposes</h4>
           <ul>
-            <li>Verwerken van bestellingen en betalingen</li>
-            <li>Verbeteren van de website en klantbeleving</li>
-            <li>Verzenden van updates of marketing (na toestemming)</li>
+            <li>Processing orders and payments</li>
+            <li>Improving the website and customer experience</li>
+            <li>Sending updates or marketing (after consent)</li>
           </ul>
           
-          <h4>1.3 Rechtsgrond</h4>
+          <h4>1.3 Legal basis</h4>
           <ul>
-            <li>Uitvoering van een overeenkomst</li>
-            <li>Wettelijke verplichting</li>
-            <li>Toestemming (voor bijv. marketing)</li>
-            <li>Gerechtvaardigd belang (bijv. beveiliging)</li>
+            <li>Performance of a contract</li>
+            <li>Legal obligation</li>
+            <li>Consent (for e.g. marketing)</li>
+            <li>Legitimate interest (e.g. security)</li>
           </ul>
           
-          <h4>1.4 Bewaartermijn</h4>
-          <p>Persoonsgegevens worden niet langer bewaard dan noodzakelijk is, conform wettelijke bewaartermijnen.</p>
+          <h4>1.4 Retention period</h4>
+          <p>Personal data is not kept longer than necessary, in accordance with legal retention periods.</p>
           
-          <h4>1.5 Delen met derden</h4>
+          <h4>1.5 Sharing with third parties</h4>
           <ul>
-            <li>Betrouwbare verwerkers zoals betalingsproviders, hostingdiensten en nieuwsbrieftools</li>
-            <li>Alleen als dat nodig is voor dienstverlening of om te voldoen aan wettelijke verplichtingen</li>
+            <li>Trusted processors such as payment providers, hosting services and newsletter tools</li>
+            <li>Only when necessary for service provision or to comply with legal obligations</li>
           </ul>
           
-          <h4>1.6 Beveiliging</h4>
-          <p>SSL-beveiliging, beperkte toegang, en versleuteling van gevoelige data</p>
+          <h4>1.6 Security</h4>
+          <p>SSL security, limited access, and encryption of sensitive data</p>
           
-          <h4>1.7 Rechten van betrokkenen</h4>
-          <p>Recht op inzage, correctie, verwijdering, bezwaar en dataportabiliteit<br>
-          Verzoeken kunnen worden gestuurd naar: contact@musicado.nl</p>
+          <h4>1.7 Data subject rights</h4>
+          <p>Right to access, correction, deletion, objection and data portability<br>
+          Requests can be sent to: contact@{{ shop.domain }}</p>
           
-          <h4>1.8 Internationale doorgifte</h4>
-          <p>Als gegevens buiten de EU worden verwerkt, zorgen wij voor adequate bescherming via bijvoorbeeld EU-standaardcontracten.</p>
+          <h4>1.8 International transfer</h4>
+          <p>If data is processed outside the EU, we ensure adequate protection through, for example, EU standard contracts.</p>
 
-          <h3>2. Cookieverklaring</h3>
+          <h3>2. Cookie Policy</h3>
           
-          <h4>2.1 Wat zijn cookies?</h4>
-          <p>Cookies zijn kleine tekstbestanden die op uw apparaat worden geplaatst wanneer u onze website bezoekt.</p>
+          <h4>2.1 What are cookies?</h4>
+          <p>Cookies are small text files that are placed on your device when you visit our website.</p>
           
-          <h4>2.2 Soorten cookies die wij gebruiken</h4>
+          <h4>2.2 Types of cookies we use</h4>
           <ul>
-            <li>Functionele cookies (noodzakelijk)</li>
-            <li>Analytische cookies (bijv. Google Analytics)</li>
-            <li>Marketing/tracking cookies (alleen met toestemming)</li>
+            <li>Functional cookies (necessary)</li>
+            <li>Analytical cookies (e.g. Google Analytics)</li>
+            <li>Marketing/tracking cookies (only with consent)</li>
           </ul>
           
-          <h4>2.3 Cookiebanner</h4>
-          <p>Bij eerste bezoek vragen wij om toestemming voor niet-noodzakelijke cookies. U kunt uw voorkeuren altijd aanpassen via de instellingen.</p>
+          <h4>2.3 Cookie banner</h4>
+          <p>On first visit we ask for consent for non-essential cookies. You can always adjust your preferences via the settings.</p>
           
-          <h4>2.4 Cookiebeheer</h4>
-          <p>U kunt cookies verwijderen of blokkeren via uw browserinstellingen.</p>
+          <h4>2.4 Cookie management</h4>
+          <p>You can delete or block cookies via your browser settings.</p>
 
           <h3>3. Disclaimer</h3>
-          <p>De inhoud van deze website is met de grootst mogelijke zorg samengesteld. Toch aanvaardt {{ shop.name }} geen aansprakelijkheid voor onjuistheden of onvolledigheden.</p>
+          <p>The content of this website has been compiled with the greatest possible care. However, {{ shop.name }} accepts no liability for inaccuracies or incompleteness.</p>
           <ul>
-            <li>Informatie en prijzen op deze site kunnen op elk moment worden aangepast.</li>
-            <li>Er kunnen geen rechten worden ontleend aan de inhoud van deze site.</li>
-            <li>{{ shop.name }} is niet verantwoordelijk voor inhoud van externe links.</li>
+            <li>Information and prices on this site may be changed at any time.</li>
+            <li>No rights can be derived from the content of this site.</li>
+            <li>{{ shop.name }} is not responsible for content of external links.</li>
           </ul>
 
-          <h3>4. Algemene Voorwaarden</h3>
+          <h3>4. General Terms and Conditions</h3>
           
-          <h4>4.1 Identiteit van de ondernemer</h4>
+          <h4>4.1 Identity of the entrepreneur</h4>
           <p>{{ shop.name }}<br>
-          [Adres]<br>
-          KvK: [KvK nummer]<br>
-          BTW: [BTW nummer]<br>
-          E-mail: contact@musicado.nl</p>
+          [Address]<br>
+          Chamber of Commerce: [CoC number]<br>
+          VAT: [VAT number]<br>
+          Email: contact@{{ shop.domain }}</p>
           
-          <h4>4.2 Toepasselijkheid</h4>
-          <p>Deze algemene voorwaarden zijn van toepassing op elk aanbod van {{ shop.name }} en op elke tot stand gekomen overeenkomst.</p>
+          <h4>4.2 Applicability</h4>
+          <p>These general terms and conditions apply to every offer from {{ shop.name }} and to every agreement concluded.</p>
           
-          <h4>4.3 Aanbod en overeenkomst</h4>
+          <h4>4.3 Offer and agreement</h4>
           <ul>
-            <li>Producten worden duidelijk en volledig omschreven.</li>
-            <li>De overeenkomst komt tot stand bij aanvaarding van het aanbod en betaling.</li>
+            <li>Products are clearly and completely described.</li>
+            <li>The agreement is concluded upon acceptance of the offer and payment.</li>
           </ul>
           
-          <h4>4.4 Prijzen</h4>
+          <h4>4.4 Prices</h4>
           <ul>
-            <li>Alle prijzen zijn inclusief btw, tenzij anders vermeld.</li>
-            <li>Kennelijke fouten zijn niet bindend.</li>
+            <li>All prices include VAT, unless otherwise stated.</li>
+            <li>Obvious errors are not binding.</li>
           </ul>
           
-          <h4>4.5 Herroepingsrecht (consumenten)</h4>
+          <h4>4.5 Right of withdrawal (consumers)</h4>
           <ul>
-            <li>U heeft 14 dagen bedenktijd zonder opgave van reden.</li>
-            <li>De termijn gaat in op de dag na levering.</li>
-            <li>Bij digitale producten geldt dat het herroepingsrecht vervalt zodra het product is gedownload en u daarvoor expliciet toestemming hebt gegeven.</li>
+            <li>You have 14 days to change your mind without giving a reason.</li>
+            <li>The period starts the day after delivery.</li>
+            <li>For digital products, the right of withdrawal expires as soon as the product has been downloaded and you have given explicit consent for this.</li>
           </ul>
           
-          <h4>4.6 Levering en uitvoering</h4>
+          <h4>4.6 Delivery and performance</h4>
           <ul>
-            <li>Levering vindt plaats digitaal of fysiek, zoals overeengekomen.</li>
-            <li>Termijnen zijn indicatief.</li>
+            <li>Delivery takes place digitally or physically, as agreed.</li>
+            <li>Terms are indicative.</li>
           </ul>
           
-          <h4>4.7 Klachtenregeling</h4>
+          <h4>4.7 Complaints procedure</h4>
           <ul>
-            <li>Klachten dienen binnen 7 dagen na constatering te worden gemeld.</li>
-            <li>Wij streven ernaar klachten binnen 14 dagen te behandelen.</li>
+            <li>Complaints must be reported within 7 days of detection.</li>
+            <li>We strive to handle complaints within 14 days.</li>
           </ul>
           
-          <h4>4.8 Aansprakelijkheid</h4>
-          <p>{{ shop.name }} is niet aansprakelijk voor indirecte schade tenzij wettelijk verplicht.</p>
+          <h4>4.8 Liability</h4>
+          <p>{{ shop.name }} is not liable for indirect damage unless legally required.</p>
           
-          <h4>4.9 Toepasselijk recht</h4>
+          <h4>4.9 Applicable law</h4>
           <ul>
-            <li>Op alle overeenkomsten is Nederlands recht van toepassing.</li>
-            <li>Geschillen worden voorgelegd aan de bevoegde rechter in het arrondissement van {{ shop.name }}.</li>
+            <li>Dutch law applies to all agreements.</li>
+            <li>Disputes are submitted to the competent court in the district of {{ shop.name }}.</li>
           </ul>
 
-          <p><strong>Voor vragen kunt u contact opnemen via: contact@musicado.nl</strong></p>
+          <p><strong>For questions you can contact us via: contact@{{ shop.domain }}</strong></p>
         </div>
       </div>
     </div>
@@ -227,41 +248,42 @@
   <div id="fullAlbumModal" class="modal">
     <div class="modal-content">
       <div class="modal-header">
-        <h2>🎵 Volledig Album Aanvraag</h2>
+        <h2 data-translate="fullAlbumContactTitle">🎵 Full Album Inquiry</h2>
         <span class="close" id="fullAlbumClose">&times;</span>
       </div>
       <div class="modal-body">
-        <p>
-          Geïnteresseerd in een volledig album? We maken graag iets geweldigs voor je! 
-          Laat je gegevens achter en we nemen binnen 24 uur contact met je op met een persoonlijke offerte.
+        <p data-translate="fullAlbumContactDescription">
+          Interested in a full album? We'd love to create something amazing for you! 
+          Leave your details and we'll contact you within 24 hours with a personalized quote.
         </p>
         
         <form id="fullAlbumContactForm">
           <div class="form-group">
-            <label for="fullAlbumEmail">E-mailadres *</label>
+            <label for="fullAlbumEmail" data-translate="emailAddress">Email Address *</label>
             <input type="email" id="fullAlbumEmail" name="email" required 
-                   placeholder="jouw@email.nl">
+                   placeholder="your@email.com" data-translate-placeholder="emailPlaceholder">
           </div>
           
           <div class="form-group">
-            <label for="fullAlbumPhone">Mobiele Telefoon *</label>
+            <label for="fullAlbumPhone" data-translate="phoneNumber">Mobile Phone *</label>
             <input type="tel" id="fullAlbumPhone" name="phone" required 
-                   placeholder="+31 6 12345678">
+                   placeholder="+31 6 12345678" data-translate-placeholder="phonePlaceholder">
           </div>
           
           <div class="form-group">
-            <label for="fullAlbumTopic">Onderwerp</label>
-            <textarea id="fullAlbumTopic" name="topic" readonly rows="2">Geïnteresseerd in een volledig album, neem contact met mij op</textarea>
+            <label for="fullAlbumTopic" data-translate="topic">Topic</label>
+            <textarea id="fullAlbumTopic" name="topic" readonly rows="2">Interested in a full album please contact me</textarea>
           </div>
           
           <div class="form-group">
-            <label for="fullAlbumNotes">Aanvullende Notities (Optioneel)</label>
+            <label for="fullAlbumNotes" data-translate="additionalNotes">Additional Notes (Optional)</label>
             <textarea id="fullAlbumNotes" name="notes" rows="3" 
-                      placeholder="Vertel ons meer over je albumvisie..."></textarea>
+                      placeholder="Tell us more about your album vision..." 
+                      data-translate-placeholder="notesPlaceholder"></textarea>
           </div>
           
           <div style="text-align: center; margin-top: 1.5rem;">
-            <button type="submit" class="btn">Contact Verzoek Indienen</button>
+            <button type="submit" class="btn" data-translate="submitContact">Submit Contact Request</button>
           </div>
         </form>
       </div>
@@ -272,61 +294,62 @@
   <div id="discountModal" class="modal discount-modal">
     <div class="modal-content discount-content">
       <div class="modal-header discount-header">
-        <h2>🎵 Krijg 15% KORTING op uw aankoop!</h2>
+        <h2 data-translate="discountTitle">🎵 Get 15% OFF Your Purchase!</h2>
         <span class="close discount-close">&times;</span>
       </div>
       <div class="modal-body discount-body">
         <!-- Step 1: Email Collection with Consent -->
         <div id="discountEmailStep" class="discount-step active">
-          <p class="discount-description">
-            Voer uw e-mailadres in om 15% korting te krijgen op uw aangepaste liedjescreatie!
+          <p class="discount-description" data-translate="discountEmailDescription">
+            Enter your email to unlock 15% off your custom song creation!
           </p>
           
           <div class="discount-input-group">
-            <input type="email" id="discountEmail" placeholder="Voer uw e-mailadres in" required>
+            <input type="email" id="discountEmail" placeholder="Enter your email address" 
+                   data-translate-placeholder="discountEmailPlaceholder" required>
           </div>
           
           <!-- Email Consent Section -->
           <div class="discount-consent-section">
             <div class="discount-consent-checkbox" id="emailConsentCheckbox">
               <input type="checkbox" id="emailConsent" name="emailConsent" required>
-              <label for="emailConsent">
-                Ik ga akkoord met het ontvangen van promotionele e-mails en speciale aanbiedingen van musicado. U kunt zich op elk moment uitschrijven.
+              <label for="emailConsent" data-translate="emailConsentText">
+                I agree to receive promotional emails and special offers from {{ shop.name }}. You can unsubscribe at any time.
               </label>
             </div>
           </div>
           
           <div style="text-align: center; margin-top: 1.5rem;">
-            <button onclick="submitDiscountEmail()" class="btn discount-btn">
-              Krijg Mijn 15% Korting
+            <button onclick="submitDiscountEmail()" class="btn discount-btn" data-translate="getDiscount">
+              Get My 15% Discount
             </button>
           </div>
           
-          <p class="discount-terms">
-            We respecteren uw privacy. Geen spam, en u kunt zich altijd uitschrijven.
+          <p class="discount-terms" data-translate="discountTermsPrivacy">
+            We respect your privacy. No spam, and you can unsubscribe anytime.
           </p>
         </div>
 
         <!-- Step 2: Success with Discount Code -->
         <div id="discountSuccessStep" class="discount-step">
           <div class="discount-success">
-            <h3>🎉 Dank je wel!</h3>
-            <p class="discount-instructions">
-              Uw korting is toegepast! Gebruik de onderstaande code bij het afrekenen:
+            <h3 data-translate="discountSuccessTitle">🎉 Thank You!</h3>
+            <p class="discount-instructions" data-translate="discountSuccessMessage">
+              Your discount has been applied! Use the code below at checkout:
             </p>
             
             <div class="discount-code-display">
               <span class="discount-code">15%MUSIC</span>
-              <button onclick="copyDiscountCode()" class="copy-btn">Kopieer Code</button>
+              <button onclick="copyDiscountCode()" class="copy-btn" data-translate="copyCode">Copy Code</button>
             </div>
             
-            <p class="discount-instructions">
-              Deze code is 30 dagen geldig en is automatisch toegepast op uw winkelwagen.
+            <p class="discount-instructions" data-translate="discountValidityInfo">
+              This code is valid for 30 days and has been automatically applied to your cart.
             </p>
             
             <div style="text-align: center; margin-top: 1.5rem;">
-              <button onclick="applyDiscountAndClose()" class="btn discount-continue">
-                Ga door naar Afrekenen
+              <button onclick="applyDiscountAndClose()" class="btn discount-continue" data-translate="continueToCheckout">
+                Continue to Checkout
               </button>
             </div>
           </div>
@@ -336,7 +359,7 @@
   </div>
 
   <ul hidden>
-    <li id="a11y-refresh-page-message">Een selectie kiezen zorgt voor het volledig vernieuwen van de pagina.</li>
+    <li id="a11y-refresh-page-message">{{ 'accessibility.refresh_page' | t }}</li>
   </ul>
 
   <script>
@@ -350,39 +373,18 @@
     };
 
     window.cartStrings = {
-      error: `Er was een fout bij het bijwerken van je winkelwagen. Probeer het opnieuw.`,
-      quantityError: `Je kunt slechts [quantity] van dit item aan je winkelwagen toevoegen.`
+      error: `{{ 'sections.cart.cart_error' | t }}`,
+      quantityError: `{{ 'sections.cart.quantity_error' | t }}`
     }
 
     window.variantStrings = {
-      addToCart: `Toevoegen aan winkelwagen`,
-      soldOut: `Uitverkocht`,
-      unavailable: `Niet beschikbaar`,
+      addToCart: `{{ 'products.product.add_to_cart' | t }}`,
+      soldOut: `{{ 'products.product.sold_out' | t }}`,
+      unavailable: `{{ 'products.product.unavailable' | t }}`,
     }
-    
-    // Language switcher functionality
-    document.addEventListener('DOMContentLoaded', function() {
-      // Language switcher
-      document.querySelectorAll('.lang-btn').forEach(btn => {
-        btn.addEventListener('click', function() {
-          document.querySelectorAll('.lang-btn').forEach(b => b.classList.remove('active'));
-          this.classList.add('active');
-          // Here you can add actual language switching logic
-        });
-      });
-    });
   </script>
 
   <!-- Theme JavaScript -->
   {{ 'musicado.js' | asset_url | script_tag }}
-
-  <!-- Initialize application -->
-  <script>
-    document.addEventListener('DOMContentLoaded', function() {
-      if (window.MusicadoApp && window.MusicadoApp.init) {
-        window.MusicadoApp.init();
-      }
-    });
-  </script>
 </body>
 </html>
