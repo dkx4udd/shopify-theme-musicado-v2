@@ -1,420 +1,449 @@
-<!-- Updated Musicado Template with Customizable Banner -->
-<!-- File: templates/index.liquid -->
-
-<!-- Pagina 1: Muziek Bestel Formulier -->
-<div id="page1" class="page active">
-  
-  <!-- Customizable Hero Banner Section -->
-  {% section 'hero-banner' %}
-  
-  <!-- Introductie -->
-  <div class="container">
-    <div class="card">
-      <div class="intro-description">
-        <p>Creëer moeiteloos uw eigen muziek in slechts een paar klikken: Kies elke stijl— van folk, hip-hop, pop of klassiek. Voeg uw eigen woorden of teksten toe, en deel uw unieke track met uw geliefden.</p>
-      </div>
-    </div>
-  </div>
-
-  <!-- Price Comparison -->
-  <div class="container">
-    <div class="card">
-      <div class="price-comparison">
-        <h2 style="text-align: center; margin-bottom: 30px;">Maak Je Geliefden Blij Met Persoonlijke Liedjes</h2>
-        
-        <div class="comparison-container">
-          <div class="expensive-option">
-            <h3>De Traditionele Manier</h3>
-            <ul style="list-style: none; margin-bottom: 16px;">
-              <li>Instrument: €2000,-</li>
-              <li>Studiosessie: €3000,-</li>
-              <li>Tijd: 20-40 uur</li>
-            </ul>
-            <div style="font-weight: 700; color: #ef4444;">Totaal: €5000+ & weken werk</div>
-          </div>
-          
-          <div class="vs-divider">
-            <span>VS</span>
-          </div>
-          
-          <div class="our-option">
-            <h3>Onze Manier</h3>
-            <ul style="list-style: none; margin-bottom: 16px;">
-              <li>Een paar klikken</li>
-              <li>Een liefdevol bericht</li>
-              <li>Professionele kwaliteit</li>
-            </ul>
-            <div style="font-weight: 700; color: #10b981;">Vanaf slechts €49</div>
-          </div>
-        </div>
-        
-        <div class="comparison-conclusion">
-          <p>Waarom duizenden uitgeven als je iets even moois en persoonlijks kunt maken voor een fractie van de kosten?</p>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- Simple Audio Examples -->
-  <div class="container">
-    <div class="card">
-      <h2 class="audio-title">🎵 Luister naar onze voorbeelden</h2>
-      <p class="audio-subtitle">Ontdek de kwaliteit van onze muziek met deze voorbeelden</p>
-      
-      <div class="audio-grid">
-        <!-- Audio Example 1 -->
-        <div class="audio-item">
-          <div class="audio-info">
-            <h3>AI Wonderlijke Wereld - RockyRocky</h3>
-            <p>Moderne elektronische muziek met unieke AI-elementen</p>
-            <span class="audio-genre">Electronic • Pop</span>
-          </div>
-          <audio controls>
-            <source src="https://cdn.shopify.com/s/files/1/0905/1462/0749/files/Wonderlijke_wereld_van_AI_-_RockyRocky.mp3?v=1751830504" type="audio/mpeg">
-            Uw browser ondersteunt geen audio.
-          </audio>
-        </div>
-        
-        <!-- Audio Example 2 -->
-        <div class="audio-item">
-          <div class="audio-info">
-            <h3>AI Wonderlijke Wereld - Matelletam</h3>
-            <p>Experimentele AI-muziek met klassieke invloeden</p>
-            <span class="audio-genre">Electronic • Classical</span>
-          </div>
-          <audio controls>
-            <source src="https://cdn.shopify.com/s/files/1/0905/1462/0749/files/Wonderlijke_wereld_van_AI_-_Matelletam.mp3?v=1751830505" type="audio/mpeg">
-            Uw browser ondersteunt geen audio.
-          </audio>
-        </div>
-        
-        <!-- Audio Example 3 -->
-        <div class="audio-item">
-          <div class="audio-info">
-            <h3>Eye of the Tiger</h3>
-            <p>Klassieke rock anthem voor motivatie en kracht</p>
-            <span class="audio-genre">Rock • Pop</span>
-          </div>
-          <audio controls>
-            <source src="https://cdn.shopify.com/s/files/1/0905/1462/0749/files/Survivor_-_Eye_Of_The_Tiger_Official_HD_Video.mp3?v=1751830504" type="audio/mpeg">
-            Uw browser ondersteunt geen audio.
-          </audio>
-        </div>
-        
-        <!-- Audio Example 4 -->
-        <div class="audio-item">
-          <div class="audio-info">
-            <h3>Birthday Celebration</h3>
-            <p>Vrolijke verjaardagsmuziek voor speciale momenten</p>
-            <span class="audio-genre">Pop • Country</span>
-          </div>
-          <audio controls>
-            <source src="https://cdn.shopify.com/s/files/1/0905/1462/0749/files/Music_for_vlogs_-_Birthday.mp3?v=1751830505" type="audio/mpeg">
-            Uw browser ondersteunt geen audio.
-          </audio>
-        </div>
-      </div>
-      
-      <div class="audio-note">
-        <p>✨ Deze voorbeelden tonen de kwaliteit van onze aangepaste muziek. Uw persoonlijke liedje wordt speciaal voor u gemaakt met uw gewenste stijl, woorden en voorkeuren.</p>
-      </div>
-    </div>
-  </div>
-
-  <!-- Muziek Bestel Formulier -->
-  <div class="container">
-    <div class="card" id="selectionForm">
-      <div class="intro-text">
-        <h2>Bestel Uw Persoonlijke Muziek</h2>
-        <p>Kies uw pakket en laat ons aangepaste liedjes voor u maken.</p>
-      </div>
-
-      <form id="orderForm">
-        <!-- Pakket Selectie -->
-        <div class="form-group">
-          <label>Selecteer uw pakket:</label>
-          <div class="radio-group">
-            <div class="radio-option">
-              <input type="radio" name="package" value="one" id="pkg1" data-price="49">
-              <label for="pkg1">
-                <span>Één Liedje</span> - 
-                <span class="price">€49</span>
-              </label>
-            </div>
-            <div class="radio-option">
-              <input type="radio" name="package" value="ep" id="pkg2" data-price="99">
-              <label for="pkg2">
-                <span>EP (4 liedjes)</span> - 
-                <span class="price">€99</span>
-              </label>
-            </div>
-            <div class="radio-option">
-              <input type="radio" name="package" value="contact" id="pkg3" data-price="contact">
-              <label for="pkg3">
-                <span>Volledig Album:</span> 
-                <span>Neem contact op voor prijs op aanvraag</span>
-              </label>
-            </div>
-          </div>
-          <div class="package-disclaimer">
-            <p><small>Alle gemaakte liedjes kunnen alleen voor persoonlijk gebruik worden gebruikt. Voor commercieel gebruik, neem contact met ons op.</small></p>
-          </div>
-        </div>
-
-        <!-- Muziekstijl -->
-        <div class="form-group">
-          <label>Selecteer uw twee favoriete muziekstijlen:</label>
-          <div class="form-row">
-            <div class="form-group">
-              <label for="musicStyle1">Eerste Muziekstijl *</label>
-              <select id="musicStyle1" name="musicStyle1" required>
-                <option value="">-- Selecteer een optie --</option>
-                <option value="POP">POP</option>
-                <option value="ROCK">ROCK</option>
-                <option value="HIP_HOP_RAP">HIP/HOP RAP</option>
-                <option value="ELECTRONIC">Electronic</option>
-                <option value="LATIN">LATIN</option>
-                <option value="CLASSICAL">CLASSICAL</option>
-                <option value="COUNTRY">COUNTRY</option>
-                <option value="JAZZ_BLUES">JAZZ/BLUES</option>
-                <option value="METAL">METAL</option>
-                <option value="REGGAE">REGGAE</option>
-                <option value="LOCAL">LOCAL</option>
-              </select>
-            </div>
-            <div class="form-group">
-              <label for="musicStyle2">Tweede Muziekstijl *</label>
-              <select id="musicStyle2" name="musicStyle2" required>
-                <option value="">-- Selecteer een optie --</option>
-                <option value="POP">POP</option>
-                <option value="ROCK">ROCK</option>
-                <option value="HIP_HOP_RAP">HIP/HOP RAP</option>
-                <option value="ELECTRONIC">Electronic</option>
-                <option value="LATIN">LATIN</option>
-                <option value="CLASSICAL">CLASSICAL</option>
-                <option value="COUNTRY">COUNTRY</option>
-                <option value="JAZZ_BLUES">JAZZ/BLUES</option>
-                <option value="METAL">METAL</option>
-                <option value="REGGAE">REGGAE</option>
-                <option value="LOCAL">LOCAL</option>
-              </select>
-            </div>
-          </div>
-        </div>
-
-        <!-- Stem Selectie -->
-        <div class="form-group">
-          <label>Selecteer stem voorkeur:</label>
-          <div class="radio-group">
-            <div class="radio-option">
-              <input type="radio" name="voiceType" value="male" id="voiceMale">
-              <label for="voiceMale">
-                <span>Mannelijke Stem</span>
-              </label>
-            </div>
-            <div class="radio-option">
-              <input type="radio" name="voiceType" value="female" id="voiceFemale">
-              <label for="voiceFemale">
-                <span>Vrouwelijke Stem</span>
-              </label>
-            </div>
-            <div class="radio-option">
-              <input type="radio" name="voiceType" value="no_preference" id="voiceNoPreference">
-              <label for="voiceNoPreference">
-                <span>Geen Voorkeur</span>
-              </label>
-            </div>
-          </div>
-        </div>
-
-        <!-- Taal -->
-        <div class="form-group">
-          <label for="songLanguage">In welke taal wilt u dat de liedjes zijn:</label>
-          <select id="songLanguage" name="songLanguage" required>
-            <option value="">-- Selecteer een optie --</option>
-            <option value="dutch">Nederlands</option>
-            <option value="english">English</option>
-            <option value="french">Français</option>
-            <option value="german">Deutsch</option>
-            <option value="spanish">Español</option>
-            <option value="portuguese">Português</option>
-          </select>
-        </div>
-
-        <!-- Reden -->
-        <div class="form-group">
-          <label for="reason">Reden voor dit liedje:</label>
-          <select id="reason" name="reason" required>
-            <option value="">-- Selecteer een optie --</option>
-            <option value="myself">Voor mezelf</option>
-            <option value="love">Voor mijn liefde</option>
-            <option value="friend">Voor mijn vriend</option>
-            <option value="mom">Voor mama</option>
-            <option value="dad">Voor mijn vader</option>
-            <option value="sibling">Voor mijn broer of zus</option>
-            <option value="other">Anders</option>
-          </select>
-          <input type="text" id="otherReason" name="otherReason" placeholder="Specificeer alstublieft" style="margin-top: 10px; display: none;">
-        </div>
-
-        <!-- Woorden/Namen -->
-        <div class="form-group" id="wordsSection">
-          <label>Welke woorden of namen wilt u terug hebben in de liedjes:</label>
-          <div id="wordsContainer">
-            <!-- Woorden worden ingevuld op basis van pakket selectie -->
-          </div>
-        </div>
-
-        <button type="submit" class="btn">Doorgaan naar Samenvatting</button>
-      </form>
-    </div>
-  </div>
-
-  <!-- Testimonials -->
-  <div class="container">
-    <div class="card">
-      <h2 style="text-align: center; margin-bottom: 30px;">Wat Onze Klanten Zeggen</h2>
-      
-      <div class="featured-testimonials">
-        <div class="testimonial">
-          <div class="stars">★★★★★</div>
-          <p class="testimonial-text">"De kwaliteit was overweldigend! Het liedje was nog beter dan ik me had voorgesteld - echt professioneel werk!"</p>
-          <div class="customer-name">- Jennifer B.</div>
-        </div>
-        
-        <div class="testimonial">
-          <div class="stars">★★★★★</div>
-          <p class="testimonial-text">"Perfect voor onze bruiloft! Het liedje werd het hoogtepunt van onze ceremonie. Absoluut perfect!"</p>
-          <div class="customer-name">- Mark & Anna</div>
-        </div>
-
-        <div class="testimonial">
-          <div class="stars">★★★★★</div>
-          <p class="testimonial-text">"Perfect voor mama's verjaardag! Ze huilde tranen van geluk. Zo'n persoonlijk cadeau!"</p>
-          <div class="customer-name">- David L.</div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- Newsletter -->
-  <div class="newsletter-section">
+<!-- Customer Page 1: Selection -->
+<div class="page active" id="page1">
     <div class="container">
-      <div class="newsletter-card">
-        <div class="newsletter-content">
-          <h3>Meld je aan voor speciale kortingen</h3>
-          <p>Wees de eerste die hoort over nieuwe muziekstijlen en exclusieve aanbiedingen!</p>
-          <form id="newsletterForm" class="newsletter-form">
-            <div class="newsletter-input-group">
-              <input type="email" id="newsletterEmail" name="email" placeholder="Voer je e-mailadres in" required>
-              <button type="submit" class="btn newsletter-btn">Aanmelden</button>
+        <div class="banner"></div>
+        
+        <!-- Intro Description Box -->
+        <div class="card">
+            <div class="intro-description">
+                <p>
+                    Creëer moeiteloos uw eigen muziek in slechts een paar klikken: Kies elke stijl— van folk, hip-hop, pop of klassiek. Voeg uw eigen woorden of teksten toe, en deel uw unieke track met uw geliefden.
+                </p>
             </div>
-            <p class="newsletter-terms">Geen spam, uitschrijven kan altijd.</p>
-          </form>
         </div>
-      </div>
+        
+        <!-- Audio Examples Section -->
+        <div class="card">
+            <h2 class="audio-examples-title">Luister naar onze voorbeelden</h2>
+            <div class="audio-players">
+                <div class="audio-player">
+                    <div class="audio-info">
+                        <h3 id="audioTitle1">Laden...</h3>
+                        <p id="audioDesc1">Willekeurig voorbeeld uit onze collectie</p>
+                    </div>
+                    <audio id="audioPlayer1" controls preload="metadata">
+                        <span>Uw browser ondersteunt het audio element niet.</span>
+                    </audio>
+                    <button onclick="loadRandomAudio(1)" class="btn audio-refresh-btn">🔄 Speel Ander Voorbeeld</button>
+                </div>
+                
+                <div class="audio-player">
+                    <div class="audio-info">
+                        <h3 id="audioTitle2">Laden...</h3>
+                        <p id="audioDesc2">Willekeurig voorbeeld uit onze collectie</p>
+                    </div>
+                    <audio id="audioPlayer2" controls preload="metadata">
+                        <span>Uw browser ondersteunt het audio element niet.</span>
+                    </audio>
+                    <button onclick="loadRandomAudio(2)" class="btn audio-refresh-btn">🔄 Speel Ander Voorbeeld</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Dynamic Subheadline Section -->
+        <div class="card">
+            <div class="dynamic-subheadline-section">
+                <h2 class="random-subheadline" id="randomSubheadline"></h2>
+                
+                <div class="price-comparison">
+                    <div class="comparison-container">
+                        <div class="expensive-option">
+                            <h3>De Traditionele Manier</h3>
+                            <ul class="expensive-list">
+                                <li>Instrument: €2000,-</li>
+                                <li>Studiosessie: €3000,-</li>
+                                <li>Tijd: 20-40 uur</li>
+                            </ul>
+                            <div class="total-expensive">Totaal: €5000+ & weken werk</div>
+                        </div>
+                        
+                        <div class="vs-divider">
+                            <span>VS</span>
+                        </div>
+                        
+                        <div class="our-option">
+                            <h3>Onze Manier</h3>
+                            <ul class="our-list">
+                                <li>Een paar klikken</li>
+                                <li>Een liefdevol bericht</li>
+                                <li>Professionele kwaliteit</li>
+                            </ul>
+                            <div class="total-ours">Vanaf slechts €49 (Volledige Albums: Prijs op aanvraag)</div>
+                        </div>
+                    </div>
+                    
+                    <div class="comparison-conclusion">
+                        <p>Waarom duizenden uitgeven als je iets even moois en persoonlijks kunt maken voor een fractie van de kosten?</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Featured Testimonials Section -->
+        <div class="card">
+            <div class="featured-testimonials-container">
+                <div class="featured-testimonials" id="featuredTestimonials">
+                    <div class="testimonial featured">
+                        <div class="stars">★★★★★</div>
+                        <p class="testimonial-text">"De kwaliteit was overweldigend! Na het horen van hun voorbeelden wist ik dat ik moest bestellen. Het uiteindelijke liedje was nog beter dan ik me had voorgesteld - echt professioneel werk!"</p>
+                        <div class="customer-name">- Jennifer B.</div>
+                    </div>
+                    
+                    <div class="testimonial featured">
+                        <div class="stars">★★★★★</div>
+                        <p class="testimonial-text">"Ik luisterde naar hun voorbeelden en plaatste meteen een bestelling voor onze bruiloft. Het liedje dat ze creëerden werd het hoogtepunt van onze ceremonie. Absoluut perfect!"</p>
+                        <div class="customer-name">- Mark & Anna</div>
+                    </div>
+
+                    <div class="testimonial featured">
+                        <div class="stars">★★★★★</div>
+                        <p class="testimonial-text">"Perfect voor mama's verjaardag! Het liedje vatte al onze familie herinneringen prachtig samen. Ze huilde tranen van geluk toen ze het hoorde. Zo'n persoonlijk en betekenisvol cadeau!"</p>
+                        <div class="customer-name">- David L.</div>
+                    </div>
+
+                    <div class="testimonial featured">
+                        <div class="stars">★★★★★</div>
+                        <p class="testimonial-text">"Geweldige kwaliteit en super snelle levering! Ik bestelde een verrassingsliedje voor mijn vriendin en het werd ongelooflijk. De teksten waren precies wat ik wilde zeggen."</p>
+                        <div class="customer-name">- Thomas K.</div>
+                    </div>
+                </div>
+                
+                <!-- Mobile Navigation -->
+                <div class="testimonials-nav mobile-only">
+                    <div class="nav-dots" id="testimonialDots">
+                        <span class="dot active" data-slide="0"></span>
+                        <span class="dot" data-slide="1"></span>
+                        <span class="dot" data-slide="2"></span>
+                        <span class="dot" data-slide="3"></span>
+                    </div>
+                    <div class="swipe-hint">← Veeg voor meer reviews →</div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="card">
+            <div class="intro-text">
+                Welkom bij onze professionele muziekcreatie service! Kies uw pakket en laat ons aangepaste liedjes voor u maken.
+            </div>
+
+            <form id="selectionForm">
+                <!-- Package Selection -->
+                <div class="form-group">
+                    <label>Selecteer uw pakket:</label>
+                    <div class="radio-group">
+                        <div class="radio-option">
+                            <input type="radio" name="package" value="one" id="pkg1" data-price="49">
+                            <label for="pkg1">
+                                <span>Één Liedje</span> - 
+                                <span class="price">€49</span>
+                            </label>
+                        </div>
+                        <div class="radio-option">
+                            <input type="radio" name="package" value="ep" id="pkg2" data-price="99">
+                            <label for="pkg2">
+                                <span>EP (4 liedjes)</span> - 
+                                <span class="price">€99</span>
+                            </label>
+                        </div>
+                        <div class="radio-option">
+                            <input type="radio" name="package" value="contact" id="pkg3" data-price="contact">
+                            <label for="pkg3">
+                                <span>Volledig Album:</span> 
+                                <span>Neem contact op voor prijs op aanvraag</span>
+                            </label>
+                        </div>
+                    </div>
+                    <div class="package-disclaimer">
+                        <p>Alle gemaakte liedjes kunnen alleen voor persoonlijk gebruik worden gebruikt. Voor commercieel gebruik, neem contact met ons op. We kunnen uw liedje op verzoek op Spotify publiceren.</p>
+                    </div>
+                </div>
+
+                <!-- Music Style -->
+                <div class="form-group">
+                    <label>Selecteer uw twee favoriete muziekstijlen:</label>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="musicStyle1">Eerste Muziekstijl *</label>
+                            <select id="musicStyle1" name="musicStyle1" required>
+                                <option value="">-- Selecteer een optie --</option>
+                                <option value="POP">POP</option>
+                                <option value="ROCK">ROCK</option>
+                                <option value="HIP_HOP_RAP">HIP/HOP RAP</option>
+                                <option value="ELECTRONIC">Electronic</option>
+                                <option value="LATIN">LATIN</option>
+                                <option value="CLASSICAL">CLASSICAL</option>
+                                <option value="COUNTRY">COUNTRY</option>
+                                <option value="JAZZ_BLUES">JAZZ/BLUES</option>
+                                <option value="METAL">METAL</option>
+                                <option value="REGGAE">REGGAE</option>
+                                <option value="LOCAL">LOCAL</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="musicStyle2">Tweede Muziekstijl *</label>
+                            <select id="musicStyle2" name="musicStyle2" required>
+                                <option value="">-- Selecteer een optie --</option>
+                                <option value="POP">POP</option>
+                                <option value="ROCK">ROCK</option>
+                                <option value="HIP_HOP_RAP">HIP/HOP RAP</option>
+                                <option value="ELECTRONIC">Electronic</option>
+                                <option value="LATIN">LATIN</option>
+                                <option value="CLASSICAL">CLASSICAL</option>
+                                <option value="COUNTRY">COUNTRY</option>
+                                <option value="JAZZ_BLUES">JAZZ/BLUES</option>
+                                <option value="METAL">METAL</option>
+                                <option value="REGGAE">REGGAE</option>
+                                <option value="LOCAL">LOCAL</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Favorite Artists -->
+                <div class="form-group">
+                    <label>Voer uw favoriete artiesten in:</label>
+                    <input type="text" name="artist1" placeholder="Artiest 1" style="margin-bottom: 10px;">
+                    <input type="text" name="artist2" placeholder="Artiest 2" style="margin-bottom: 10px;">
+                    <input type="text" name="artist3" placeholder="Artiest 3">
+                </div>
+
+                <!-- Voice Selection -->
+                <div class="form-group">
+                    <label>Selecteer stem voorkeur:</label>
+                    <div class="radio-group">
+                        <div class="radio-option">
+                            <input type="radio" name="voiceType" value="male" id="voiceMale">
+                            <label for="voiceMale">
+                                <span>Mannelijke Stem</span>
+                            </label>
+                        </div>
+                        <div class="radio-option">
+                            <input type="radio" name="voiceType" value="female" id="voiceFemale">
+                            <label for="voiceFemale">
+                                <span>Vrouwelijke Stem</span>
+                            </label>
+                        </div>
+                        <div class="radio-option">
+                            <input type="radio" name="voiceType" value="no_preference" id="voiceNoPreference">
+                            <label for="voiceNoPreference">
+                                <span>Geen Voorkeur</span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Reason -->
+                <div class="form-group">
+                    <label for="reason">Reden voor dit liedje:</label>
+                    <select id="reason" name="reason" required>
+                        <option value="">-- Selecteer een optie --</option>
+                        <option value="myself">Voor mezelf</option>
+                        <option value="love">Voor mijn liefde</option>
+                        <option value="friend">Voor mijn vriend</option>
+                        <option value="mom">Voor mama</option>
+                        <option value="dad">Voor mijn vader</option>
+                        <option value="sibling">Voor mijn broer of zus</option>
+                        <option value="other">Anders</option>
+                    </select>
+                    <input type="text" id="otherReason" name="otherReason" placeholder="Specificeer alstublieft" style="margin-top: 10px; display: none;">
+                </div>
+
+                <!-- Words/Names -->
+                <div class="form-group" id="wordsSection">
+                    <label>Welke woorden of namen wilt u terug hebben in de liedjes:</label>
+                    <div id="wordsContainer">
+                        <!-- Words will be populated based on package selection -->
+                    </div>
+                </div>
+
+                <!-- Language -->
+                <div class="form-group">
+                    <label for="songLanguage">In welke taal wilt u dat de liedjes zijn:</label>
+                    <select id="songLanguage" name="songLanguage" required>
+                        <option value="">-- Selecteer een optie --</option>
+                        <option value="dutch">Nederlands</option>
+                        <option value="english">English</option>
+                        <option value="french">Français</option>
+                        <option value="german">Deutsch</option>
+                        <option value="spanish">Español</option>
+                        <option value="portuguese">Português</option>
+                    </select>
+                </div>
+
+                <!-- Song Titles -->
+                <div class="form-group song-titles" id="songTitles">
+                    <label>Geef de liedjes een titel (laat leeg voor ons om te kiezen):</label>
+                    <div id="titleFields"></div>
+                </div>
+
+                <!-- Own Lyrics -->
+                <div class="form-group">
+                    <label for="ownLyrics">Heeft u uw eigen teksten? Voer hier in:</label>
+                    <textarea id="ownLyrics" name="ownLyrics" rows="5" placeholder="Voer uw teksten hier in..."></textarea>
+                </div>
+
+                <button type="submit" class="btn">Doorgaan naar Samenvatting</button>
+            </form>
+        </div>
+
+        <!-- Customer Testimonials Section -->
+        <div class="card">
+            <h2 class="testimonials-title">Wat onze klanten zeggen</h2>
+            <div class="testimonials-grid">
+                <div class="testimonial">
+                    <div class="stars">★★★★★</div>
+                    <p class="testimonial-text">"Geweldig! Ze hebben het perfecte liefdesliedje voor onze verjaardag gemaakt. Mijn partner was in tranen - het was precies wat we droomden. Zeer aanbevolen!"</p>
+                    <div class="customer-name">- Sarah M.</div>
+                </div>
+                
+                <div class="testimonial">
+                    <div class="stars">★★★★★</div>
+                    <p class="testimonial-text">"Ik bestelde een EP voor mama's 60e verjaardag met familiherinneringen in de teksten. De kwaliteit was uitstekend en ze speelt het elke dag!"</p>
+                    <div class="customer-name">- Michael R.</div>
+                </div>
+                
+                <div class="testimonial">
+                    <div class="stars">★★★★★</div>
+                    <p class="testimonial-text">"Professionele service van begin tot eind. Het rockalbum dat ze voor onze band maakten klinkt alsof het in een grote studio is geproduceerd. Elke euro waard!"</p>
+                    <div class="customer-name">- Lisa K.</div>
+                </div>
+            </div>
+            
+            <div class="rating-summary">
+                <div class="overall-rating">
+                    <div class="big-stars">★★★★★</div>
+                    <div class="rating-text">
+                        <span class="rating-number">4.9/5</span>
+                        <span class="rating-label">Gebaseerd op 247+ beoordelingen</span>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-  </div>
 </div>
 
-<!-- Pagina 2: Bestelling Samenvatting -->
-<div id="page2" class="page">
-  <div class="container">
-    <div class="card">
-      <h2>Bestelling Samenvatting</h2>
-      
-      <!-- Bestelling Samenvatting Inhoud -->
-      <div id="summaryContent"></div>
-      
-      <!-- Kortingscode Sectie -->
-      <div class="discount-code-section">
-        <h3>Kortingscode</h3>
-        <div class="discount-input-container">
-          <input type="text" id="discountCodeInput" name="discountCode" placeholder="Voer kortingscode in (optioneel)">
-          <button type="button" onclick="window.MusicadoApp && window.MusicadoApp.applyDiscountCode()" class="btn discount-apply-btn">
-            Toepassen
-          </button>
-        </div>
-        <div id="discountMessage" class="discount-message"></div>
-      </div>
-      
-      <!-- Totaal Prijs -->
-      <div class="total-price-section">
-        <div id="totalPrice"></div>
-      </div>
+<!-- Customer Page 2: Summary & Payment -->
+<div class="page" id="page2">
+    <div class="container">
+        <div class="card">
+            <h2>Bestelling Samenvatting</h2>
+            <div id="summaryContent"></div>
+            <div class="total" id="totalPrice"></div>
 
-      <!-- Betaling Sectie -->
-      <div class="payment-section" id="paymentSection">
-        <h3>Betalingsinformatie</h3>
-        <p style="margin-bottom: 20px; color: #6b7280;">Veilige betalingsverwerking door Shopify</p>
-        
-        <button type="button" onclick="processPayment()" class="btn payment-btn" id="paymentButton">
-          Nu Betalen
-        </button>
-        
-        <div style="text-align: center; margin-top: 16px; color: #6b7280; font-size: 14px;">
-          🔒 Uw betalingsinformatie is veilig en versleuteld
-        </div>
-      </div>
+            <!-- Customer Details Form -->
+            <div class="customer-details-section">
+                <h3>Klantgegevens</h3>
+                <form id="customerDetailsForm">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="firstName">Voornaam *</label>
+                            <input type="text" id="firstName" name="firstName" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="middleName">Tussenvoegsel</label>
+                            <input type="text" id="middleName" name="middleName">
+                        </div>
+                        <div class="form-group">
+                            <label for="lastName">Achternaam *</label>
+                            <input type="text" id="lastName" name="lastName" required>
+                        </div>
+                    </div>
 
-      <!-- Contact Sectie -->
-      <div class="contact-request-section" id="contactSection" style="display: none;">
-        <h3>Volledig Album Verzoek</h3>
-        <div style="margin-bottom: 20px;">
-          <p>We nemen binnen 24 uur contact met u op om uw aangepaste album wensen te bespreken.</p>
-        </div>
-        
-        <button type="button" onclick="processPayment()" class="btn contact-btn">
-          Album Verzoek Indienen
-        </button>
-        
-        <div style="margin-top: 20px; padding: 16px; background: #f0fdf4; border-radius: 8px;">
-          <p style="margin: 0;">
-            <strong>Direct contact:</strong><br>
-            📧 contact@musicado.nl<br>
-            📞 +31 6 12345678
-          </p>
-        </div>
-      </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="customerEmail">E-mailadres *</label>
+                            <input type="email" id="customerEmail" name="customerEmail" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="mobilePhone">Mobiele Telefoon *</label>
+                            <input type="tel" id="mobilePhone" name="mobilePhone" required placeholder="+31 6 12345678">
+                        </div>
+                    </div>
 
-      <!-- Bestelling Info -->
-      <div class="order-reminder">
-        <h4>Belangrijke Informatie</h4>
-        <ul>
-          <li>Je ontvangt binnen 24 uur een download link via e-mail</li>
-          <li>Liedjes zijn alleen voor persoonlijk gebruik</li>
-          <li>Vragen? <a href="mailto:contact@musicado.nl">contact@musicado.nl</a></li>
-        </ul>
-      </div>
-      
-      <!-- Terug Knop -->
-      <button onclick="window.MusicadoApp && window.MusicadoApp.goBack()" class="btn back-btn">
-        Ga Terug
-      </button>
+                    <div class="form-group">
+                        <label>Muziek Bezorg Informatie</label>
+                        <div class="delivery-info-box">
+                            <p>📧 We sturen je een link via e-mail naar je persoonlijke pagina waar je je muziek binnen 24 uur kunt downloaden.</p>
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+            <!-- Terms and Conditions Agreement -->
+            <div class="terms-agreement-section">
+                <div class="terms-checkbox">
+                    <input type="checkbox" id="agreeTerms" name="agreeTerms" required>
+                    <label for="agreeTerms">
+                        Ik ga akkoord met de algemene voorwaarden en het privacybeleid
+                    </label>
+                </div>
+            </div>
+
+            <!-- Discount Code Section -->
+            <div class="discount-code-section">
+                <h3>Kortingscode</h3>
+                <div class="discount-input-container">
+                    <input type="text" id="discountCodeInput" name="discountCode" placeholder="Voer kortingscode in (optioneel)">
+                    <button type="button" onclick="applyDiscountCode()" class="btn discount-apply-btn">Toepassen</button>
+                </div>
+                <div id="discountMessage" class="discount-message"></div>
+            </div>
+
+            <!-- Disclaimer Section -->
+            <div class="disclaimer-section">
+                <div class="disclaimer-box">
+                    <h4>Belangrijke Informatie</h4>
+                    <ul>
+                        <li>Je ontvangt binnen 24 uur een e-mail link om je muziek te downloaden.</li>
+                        <li>
+                            Vragen over uw bestelling? 
+                            <a href="mailto:contact@musicado.nl" class="contact-link">contact@musicado.nl</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Payment Section - Hide for contact requests -->
+            <div class="stripe-form" id="paymentSection">
+                <h3>Betalingsinformatie</h3>
+                <p>Veilige betalingsverwerking mogelijk gemaakt door Shopify</p>
+                <!-- Stripe Elements will be inserted here -->
+                <div id="card-element" style="padding: 15px; border: 1px solid #ddd; border-radius: 5px; margin: 15px 0;">
+                    <!-- Stripe payment form placeholder -->
+                    <p style="color: #666; text-align: center;">Shopify betalingsformulier wordt hier geïntegreerd</p>
+                </div>
+                <button class="btn" onclick="processPayment()">Nu Betalen</button>
+            </div>
+
+            <!-- Contact Request Section - Show for contact requests -->
+            <div class="contact-request-section" id="contactSection" style="display: none;">
+                <h3>Contact Verzoek</h3>
+                <p>We nemen binnen 24 uur contact met u op om uw aangepaste muziek wensen te bespreken en een persoonlijke offerte te verstrekken.</p>
+                <button class="btn" onclick="processPayment()">Contact Verzoek Indienen</button>
+            </div>
+
+            <button class="btn" onclick="goBack()" style="background: #6c757d; margin-top: 1rem;">Ga Terug</button>
+        </div>
     </div>
-  </div>
 </div>
 
-<!-- Include the CSS and JS files -->
-<link rel="stylesheet" href="{{ 'musicado.css' | asset_url }}">
-<script src="{{ 'musicado.js' | asset_url }}"></script>
-
-<!-- Smooth scroll for CTA button -->
-<script>
-document.addEventListener('DOMContentLoaded', function() {
-  // Handle smooth scroll for CTA button
-  const heroBtn = document.querySelector('.hero-btn');
-  if (heroBtn && heroBtn.getAttribute('href') === '#selectionForm') {
-    heroBtn.addEventListener('click', function(e) {
-      e.preventDefault();
-      const target = document.getElementById('selectionForm');
-      if (target) {
-        target.scrollIntoView({ 
-          behavior: 'smooth',
-          block: 'start'
-        });
-      }
-    });
-  }
-});
-</script>
+<!-- Newsletter Signup Section -->
+<div class="newsletter-section">
+    <div class="container">
+        <div class="newsletter-card">
+            <div class="newsletter-content">
+                <h3>Meld je aan voor speciale kortingen</h3>
+                <p>Wees de eerste die hoort over nieuwe muziekstijlen, exclusieve aanbiedingen en speciale promoties!</p>
+                <form id="newsletterForm" class="newsletter-form">
+                    <div class="newsletter-input-group">
+                        <input type="email" id="newsletterEmail" name="newsletterEmail" placeholder="Voer je e-mailadres in" required>
+                        <button type="submit" class="btn newsletter-btn">Aanmelden</button>
+                    </div>
+                    <p class="newsletter-terms">
+                        Geen spam, uitschrijven kan altijd. We respecteren je privacy.
+                    </p>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
