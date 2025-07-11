@@ -1,4 +1,4 @@
-// Musicado Application JavaScript - Updated with Variant IDs
+// Musicado Application JavaScript - Updated with Variant IDs and Fixed Payment Processing
 (function() {
     'use strict';
 
@@ -307,8 +307,12 @@
     let currentLanguage = navigator.language.startsWith('nl') ? 'nl' : 'en';
     let formData = {};
     let orders = JSON.parse(localStorage.getItem('musicOrders') || '[]');
-    let discountModalShown = false;
     let appliedDiscountCode = null;
+    
+    // Fixed payment processing variables
+    let isProcessingPayment = false;
+    let discountModalShown = false;
+    let discountApplied = false;
 
     // MP3 files - Updated with actual Shopify CDN URLs
     const mp3Files = [
@@ -673,18 +677,111 @@
             return VARIANT_IDS[packageType] || null;
         },
 
-        addToShopifyCart: function() {
-            const variantId = this.getVariantId(formData.package);
-            
-            if (!variantId) {
-                console.error('No variant ID found for package:', formData.package);
-                alert('Product configuration error. Please try again.');
+        getPackageDisplayName: function(packageType) {
+            const names = {
+                'one': currentLanguage === 'nl' ? 'Één Liedje' : 'One Song',
+                'ep': currentLanguage === 'nl' ? 'EP (4 liedjes)' : 'EP (4 songs)',
+                'album': currentLanguage === 'nl' ? 'Volledig Album' : 'Full Album'
+            };
+            return names[packageType] || packageType;
+        },
+
+        // Fixed processPayment function
+        processPayment: function() {
+            // Prevent double submission
+            if (isProcessingPayment) {
+                console.log('Payment already in progress, preventing double submission');
+                return;
+            }
+
+            // Validate customer details first
+            if (!this.validateCustomerDetails()) {
                 return;
             }
 
             // Collect customer details
             const customerForm = document.getElementById('customerDetailsForm');
             if (!customerForm) return;
+            
+            const customerData = new FormData(customerForm);
+            const customerDetails = {};
+            for (let [key, value] of customerData.entries()) {
+                customerDetails[key] = value;
+            }
+
+            // Handle contact us option differently
+            if (formData.package === 'contact') {
+                this.handleContactRequest(customerDetails);
+                return;
+            }
+
+            // Set processing flag
+            isProcessingPayment = true;
+            
+            // Show loading state
+            if (window.showPaymentLoading) {
+                window.showPaymentLoading();
+            }
+
+            try {
+                // For actual products, integrate with Shopify cart
+                this.addToShopifyCart();
+            } catch (error) {
+                console.error('Payment processing error:', error);
+                isProcessingPayment = false;
+                if (window.showPaymentError) {
+                    window.showPaymentError('Er is een fout opgetreden. Probeer het opnieuw.');
+                }
+            }
+        },
+
+        // Separate contact request handling
+        handleContactRequest: function(customerDetails) {
+            alert(currentLanguage === 'nl' ? 
+                'Bedankt voor uw interesse! We nemen binnen 24 uur contact met u op via e-mail voor een persoonlijk gesprek.' : 
+                'Thank you for your interest! We will contact you within 24 hours via email for a personal consultation.');
+            
+            // Save contact request
+            const contactRequest = {
+                id: Date.now(),
+                date: new Date().toLocaleDateString(),
+                customerName: `${customerDetails.firstName} ${customerDetails.middleName || ''} ${customerDetails.lastName}`.replace(/\s+/g, ' ').trim(),
+                customerEmail: customerDetails.customerEmail,
+                customerPhone: customerDetails.mobilePhone,
+                deliveryMethod: 'email',
+                package: 'Full Album Request',
+                originalPrice: 'Contact',
+                finalPrice: 'Contact',
+                status: 'contact_request',
+                orderData: formData,
+                customerDetails: customerDetails
+            };
+            
+            orders.push(contactRequest);
+            localStorage.setItem('musicOrders', JSON.stringify(orders));
+            
+            this.showPage('page1');
+        },
+
+        // Fixed addToShopifyCart function with better error handling
+        addToShopifyCart: function() {
+            const variantId = this.getVariantId(formData.package);
+            
+            if (!variantId) {
+                console.error('No variant ID found for package:', formData.package);
+                isProcessingPayment = false;
+                if (window.showPaymentError) {
+                    window.showPaymentError('Product configuration error. Please try again.');
+                }
+                return;
+            }
+
+            // Collect customer details
+            const customerForm = document.getElementById('customerDetailsForm');
+            if (!customerForm) {
+                isProcessingPayment = false;
+                return;
+            }
             
             const customerData = new FormData(customerForm);
             const customerDetails = {};
@@ -755,27 +852,59 @@
                 },
                 body: JSON.stringify(cartData)
             })
-            .then(response => response.json())
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                return response.json();
+            })
             .then(data => {
                 console.log('Added to cart:', data);
+                
+                // Apply discount code if one was used
+                if (appliedDiscountCode && appliedDiscountCode === '15%MUSIC') {
+                    return this.applyShopifyDiscountCode('15%MUSIC');
+                }
+                
+                return Promise.resolve();
+            })
+            .then(() => {
+                // Reset processing flag
+                isProcessingPayment = false;
+                
                 // Redirect to cart
                 window.location.href = '/cart';
             })
             .catch(error => {
                 console.error('Error adding to cart:', error);
-                alert(currentLanguage === 'nl' ? 
-                    'Er was een fout bij het toevoegen aan winkelwagen. Probeer het opnieuw.' : 
-                    'There was an error adding to cart. Please try again.');
+                isProcessingPayment = false;
+                
+                if (window.showPaymentError) {
+                    window.showPaymentError(currentLanguage === 'nl' ? 
+                        'Er was een fout bij het toevoegen aan winkelwagen. Probeer het opnieuw.' : 
+                        'There was an error adding to cart. Please try again.');
+                } else {
+                    alert(currentLanguage === 'nl' ? 
+                        'Er was een fout bij het toevoegen aan winkelwagen. Probeer het opnieuw.' : 
+                        'There was an error adding to cart. Please try again.');
+                }
             });
         },
 
-        getPackageDisplayName: function(packageType) {
-            const names = {
-                'one': currentLanguage === 'nl' ? 'Één Liedje' : 'One Song',
-                'ep': currentLanguage === 'nl' ? 'EP (4 liedjes)' : 'EP (4 songs)',
-                'album': currentLanguage === 'nl' ? 'Volledig Album' : 'Full Album'
-            };
-            return names[packageType] || packageType;
+        // New function to apply discount code to Shopify cart
+        applyShopifyDiscountCode: function(code) {
+            return fetch('/discount/' + encodeURIComponent(code), {
+                method: 'GET'
+            }).then(response => {
+                if (response.ok) {
+                    console.log('Discount code applied successfully');
+                } else {
+                    console.warn('Could not apply discount code automatically');
+                }
+            }).catch(error => {
+                console.warn('Discount code application failed:', error);
+                // Don't throw error as this shouldn't block the cart process
+            });
         },
 
         updateSongTitles: function() {
@@ -1134,55 +1263,6 @@
             this.showPage('page1');
         },
 
-        processPayment: function() {
-            // Validate customer details first
-            if (!this.validateCustomerDetails()) {
-                return;
-            }
-
-            // Collect customer details
-            const customerForm = document.getElementById('customerDetailsForm');
-            if (!customerForm) return;
-            
-            const customerData = new FormData(customerForm);
-            const customerDetails = {};
-            for (let [key, value] of customerData.entries()) {
-                customerDetails[key] = value;
-            }
-
-            // Handle contact us option differently
-            if (formData.package === 'contact') {
-                alert(currentLanguage === 'nl' ? 
-                    'Bedankt voor uw interesse! We nemen binnen 24 uur contact met u op via e-mail voor een persoonlijk gesprek.' : 
-                    'Thank you for your interest! We will contact you within 24 hours via email for a personal consultation.');
-                
-                // Save contact request
-                const contactRequest = {
-                    id: Date.now(),
-                    date: new Date().toLocaleDateString(),
-                    customerName: `${customerDetails.firstName} ${customerDetails.middleName || ''} ${customerDetails.lastName}`.replace(/\s+/g, ' ').trim(),
-                    customerEmail: customerDetails.customerEmail,
-                    customerPhone: customerDetails.mobilePhone,
-                    deliveryMethod: 'email',
-                    package: 'Full Album Request',
-                    originalPrice: 'Contact',
-                    finalPrice: 'Contact',
-                    status: 'contact_request',
-                    orderData: formData,
-                    customerDetails: customerDetails
-                };
-                
-                orders.push(contactRequest);
-                localStorage.setItem('musicOrders', JSON.stringify(orders));
-                
-                this.showPage('page1');
-                return;
-            }
-
-            // For actual products, integrate with Shopify cart
-            this.addToShopifyCart();
-        },
-
         validateCustomerDetails: function() {
             const requiredFields = ['firstName', 'lastName', 'customerEmail', 'mobilePhone'];
             let isValid = true;
@@ -1326,6 +1406,7 @@
             }
         },
 
+        // Fixed discount modal submission
         submitDiscountEmail: function() {
             const emailInput = document.getElementById('discountEmail');
             const consentCheckbox = document.getElementById('emailConsent');
@@ -1370,6 +1451,8 @@
             
             // Apply discount to current session
             appliedDiscountCode = '15%MUSIC';
+            discountApplied = true;
+            
             if (formData.price && formData.price !== 'contact') {
                 const originalPrice = parseFloat(formData.price);
                 window.appliedDiscount = originalPrice * 0.15;
@@ -1379,9 +1462,11 @@
             this.showDiscountStep('discountSuccessStep');
         },
 
+        // Improved discount application
         applyDiscountAndClose: function() {
             // Ensure discount is applied
             appliedDiscountCode = '15%MUSIC';
+            discountApplied = true;
             localStorage.setItem('discountAppliedViaModal', 'true');
             
             // Update discount field if it exists
@@ -1650,8 +1735,13 @@
             });
         },
 
-        // Scroll trigger for discount banner
+        // Fixed scroll trigger to prevent multiple popups
         setupScrollTrigger: function() {
+            // Don't show if already shown or discount already applied
+            if (discountModalShown || discountApplied || localStorage.getItem('discountAppliedViaModal') === 'true') {
+                return;
+            }
+
             // Wait a bit for DOM to be fully ready
             setTimeout(() => {
                 const pricingSection = document.querySelector('.radio-group');
@@ -1659,9 +1749,11 @@
                 if (pricingSection) {
                     const observer = new IntersectionObserver((entries) => {
                         entries.forEach(entry => {
-                            if (entry.isIntersecting && !discountModalShown) {
+                            if (entry.isIntersecting && !discountModalShown && !discountApplied) {
                                 this.showDiscountModal();
                                 discountModalShown = true;
+                                // Disconnect observer to prevent multiple triggers
+                                observer.disconnect();
                             }
                         });
                     }, { 
@@ -1670,14 +1762,6 @@
                     });
 
                     observer.observe(pricingSection);
-                } else {
-                    // Fallback: show modal after 3 seconds if pricing section not found
-                    setTimeout(() => {
-                        if (!discountModalShown) {
-                            this.showDiscountModal();
-                            discountModalShown = true;
-                        }
-                    }, 3000);
                 }
             }, 500);
         },
