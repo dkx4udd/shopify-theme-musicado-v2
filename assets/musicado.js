@@ -1,6 +1,13 @@
-// Musicado Application JavaScript
+// Musicado Application JavaScript - Updated with Variant IDs
 (function() {
     'use strict';
+
+    // Product Variant IDs
+    const VARIANT_IDS = {
+        'one': '52062844846413',      // One song
+        'ep': '52062845796685',       // EP (4 songs)
+        'album': '52062847467853'     // Full album
+    };
 
     // Translations
     const translations = {
@@ -583,7 +590,7 @@
             }
         },
 
-        // Audio Management Functions - Updated to use CDN URLs
+        // Audio Management Functions
         loadRandomAudio: function(playerNumber) {
             if (mp3Files.length === 0) {
                 console.error('No MP3 files available');
@@ -660,6 +667,115 @@
                 audioTitle.style.opacity = '1';
                 audioDesc.style.opacity = '1';
             }, { once: true });
+        },
+
+        getVariantId: function(packageType) {
+            return VARIANT_IDS[packageType] || null;
+        },
+
+        addToShopifyCart: function() {
+            const variantId = this.getVariantId(formData.package);
+            
+            if (!variantId) {
+                console.error('No variant ID found for package:', formData.package);
+                alert('Product configuration error. Please try again.');
+                return;
+            }
+
+            // Collect customer details
+            const customerForm = document.getElementById('customerDetailsForm');
+            if (!customerForm) return;
+            
+            const customerData = new FormData(customerForm);
+            const customerDetails = {};
+            for (let [key, value] of customerData.entries()) {
+                customerDetails[key] = value;
+            }
+
+            // Prepare cart data
+            const cartData = {
+                items: [{
+                    id: variantId,
+                    quantity: 1,
+                    properties: {
+                        'Package': this.getPackageDisplayName(formData.package),
+                        'Music Style 1': formData.musicStyle1,
+                        'Music Style 2': formData.musicStyle2,
+                        'Voice Type': formData.voiceType,
+                        'Language': formData.songLanguage,
+                        'Reason': formData.reason,
+                        'Customer Name': `${customerDetails.firstName} ${customerDetails.lastName}`,
+                        'Customer Email': customerDetails.customerEmail,
+                        'Customer Phone': customerDetails.mobilePhone
+                    }
+                }]
+            };
+
+            // Add optional properties
+            if (formData.artist1 || formData.artist2 || formData.artist3) {
+                const artists = [formData.artist1, formData.artist2, formData.artist3].filter(a => a);
+                cartData.items[0].properties['Favorite Artists'] = artists.join(', ');
+            }
+
+            if (formData.ownLyrics) {
+                cartData.items[0].properties['Custom Lyrics'] = formData.ownLyrics;
+            }
+
+            // Add words/names based on package
+            if (formData.package === 'ep') {
+                for (let song = 1; song <= 4; song++) {
+                    const songWords = [];
+                    for (let word = 1; word <= 3; word++) {
+                        const wordValue = formData[`song${song}_word${word}`];
+                        if (wordValue && wordValue.trim()) {
+                            songWords.push(wordValue.trim());
+                        }
+                    }
+                    if (songWords.length > 0) {
+                        cartData.items[0].properties[`Song ${song} Words`] = songWords.join(', ');
+                    }
+                }
+            } else if (formData.package === 'one') {
+                const words = [formData.word1, formData.word2, formData.word3].filter(w => w && w.trim());
+                if (words.length > 0) {
+                    cartData.items[0].properties['Words/Names'] = words.join(', ');
+                }
+            }
+
+            // Add discount information if applied
+            if (appliedDiscountCode) {
+                cartData.items[0].properties['Discount Applied'] = appliedDiscountCode;
+            }
+
+            // Add to cart via Shopify API
+            fetch('/cart/add.js', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(cartData)
+            })
+            .then(response => response.json())
+            .then(data => {
+                console.log('Added to cart:', data);
+                // Redirect to cart
+                window.location.href = '/cart';
+            })
+            .catch(error => {
+                console.error('Error adding to cart:', error);
+                alert(currentLanguage === 'nl' ? 
+                    'Er was een fout bij het toevoegen aan winkelwagen. Probeer het opnieuw.' : 
+                    'There was an error adding to cart. Please try again.');
+            });
+        },
+
+        getPackageDisplayName: function(packageType) {
+            const names = {
+                'one': currentLanguage === 'nl' ? 'Één Liedje' : 'One Song',
+                'ep': currentLanguage === 'nl' ? 'EP (4 liedjes)' : 'EP (4 songs)',
+                'album': currentLanguage === 'nl' ? 'Volledig Album' : 'Full Album'
+            };
+            return names[packageType] || packageType;
         },
 
         updateSongTitles: function() {
@@ -1065,60 +1181,6 @@
 
             // For actual products, integrate with Shopify cart
             this.addToShopifyCart();
-        },
-
-        addToShopifyCart: function() {
-            // In a real Shopify integration, you would add the product to cart here
-            // This is a placeholder for the Shopify cart integration
-            
-            if (window.routes && window.routes.cart_add_url) {
-                // Example Shopify cart integration
-                const cartData = {
-                    items: [{
-                        quantity: 1,
-                        id: this.getProductVariantId(), // You would need to determine this based on the selected package
-                        properties: {
-                            'Music Style 1': formData.musicStyle1,
-                            'Music Style 2': formData.musicStyle2,
-                            'Voice Type': formData.voiceType,
-                            'Language': formData.songLanguage,
-                            'Reason': formData.reason
-                        }
-                    }]
-                };
-
-                fetch(window.routes.cart_add_url, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify(cartData)
-                })
-                .then(response => response.json())
-                .then(data => {
-                    // Redirect to cart or checkout
-                    window.location.href = window.routes.cart_url;
-                })
-                .catch(error => {
-                    console.error('Error adding to cart:', error);
-                    alert('There was an error adding the item to your cart. Please try again.');
-                });
-            } else {
-                // Fallback for development
-                alert(currentLanguage === 'nl' ? 
-                    'Item toegevoegd aan winkelwagen! (Dit zou normaal naar de checkout gaan)' : 
-                    'Item added to cart! (This would normally go to checkout)');
-            }
-        },
-
-        getProductVariantId: function() {
-            // This function would return the appropriate Shopify product variant ID
-            // based on the selected package
-            switch(formData.package) {
-                case 'one': return 'one-song-variant-id';
-                case 'ep': return 'ep-variant-id';
-                default: return 'default-variant-id';
-            }
         },
 
         validateCustomerDetails: function() {
