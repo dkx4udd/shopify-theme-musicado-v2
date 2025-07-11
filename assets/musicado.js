@@ -303,25 +303,25 @@
     let discountModalShown = false;
     let appliedDiscountCode = null;
 
-    // MP3 files - Add your actual MP3 filenames here
+    // MP3 files - Updated with actual Shopify CDN URLs
     const mp3Files = [
         { 
-            filename: "Wonderlijke wereld van AI - Matelletam.mp3", 
+            url: "https://cdn.shopify.com/s/files/1/0905/1462/0749/files/Wonderlijke_wereld_van_AI_-_Matelletam.mp3?v=1751830505", 
             title: { en: "Wonderlijke wereld van AI - Matelletam", nl: "Wonderlijke wereld van AI - Matelletam" },
             style: { en: "Electronic/Ambient style", nl: "Electronic/Ambient stijl" }
         },
         { 
-            filename: "Wonderlijke wereld van AI - RockyRocky.mp3", 
+            url: "https://cdn.shopify.com/s/files/1/0905/1462/0749/files/Wonderlijke_wereld_van_AI_-_RockyRocky.mp3?v=1751830504", 
             title: { en: "Wonderlijke wereld van AI - RockyRocky", nl: "Wonderlijke wereld van AI - RockyRocky" },
             style: { en: "Rock/Pop style", nl: "Rock/Pop stijl" }
         },
         { 
-            filename: "Survivor - Eye Of The Tiger (Official HD Video).mp3", 
+            url: "https://cdn.shopify.com/s/files/1/0905/1462/0749/files/Survivor_-_Eye_Of_The_Tiger_Official_HD_Video.mp3?v=1751830504", 
             title: { en: "Survivor - Eye Of The Tiger", nl: "Survivor - Eye Of The Tiger" },
             style: { en: "Classic Rock style", nl: "Klassieke Rock stijl" }
         },
         { 
-            filename: "Music for vlogs  - Birthday.mp3", 
+            url: "https://cdn.shopify.com/s/files/1/0905/1462/0749/files/Music_for_vlogs_-_Birthday.mp3?v=1751830505", 
             title: { en: "Birthday Celebration", nl: "Verjaardag Viering" },
             style: { en: "Upbeat/Celebration style", nl: "Vrolijke/Viering stijl" }
         }
@@ -583,7 +583,7 @@
             }
         },
 
-        // Audio Management Functions
+        // Audio Management Functions - Updated to use CDN URLs
         loadRandomAudio: function(playerNumber) {
             if (mp3Files.length === 0) {
                 console.error('No MP3 files available');
@@ -621,9 +621,9 @@
             // Clear previous source
             audioPlayer.innerHTML = '';
             
-            // Create new source element
+            // Create new source element with the CDN URL
             const source = document.createElement('source');
-            source.src = `mp3/${selectedFile.filename}`;
+            source.src = selectedFile.url; // Use the CDN URL directly
             source.type = 'audio/mpeg';
             audioPlayer.appendChild(source);
 
@@ -652,11 +652,11 @@
 
             // Handle loading errors
             audioPlayer.addEventListener('error', function(e) {
-                console.error(`Error loading audio file: mp3/${selectedFile.filename}`, e);
+                console.error(`Error loading audio file: ${selectedFile.url}`, e);
                 audioTitle.textContent = currentLanguage === 'nl' ? 'Fout bij laden' : 'Loading Error';
                 audioDesc.textContent = currentLanguage === 'nl' ? 
-                    'Bestand niet gevonden. Controleer of het MP3-bestand bestaat.' : 
-                    'File not found. Please check if the MP3 file exists.';
+                    'Bestand niet gevonden. Probeer een ander voorbeeld.' : 
+                    'File not found. Try another example.';
                 audioTitle.style.opacity = '1';
                 audioDesc.style.opacity = '1';
             }, { once: true });
