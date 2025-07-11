@@ -1,6 +1,6 @@
-<!-- Betaling Sectie - Bijgewerkt om dubbele winkelwagen toevoegingen te voorkomen -->
+<!-- Fixed Payment Section - sections/payment-section.liquid -->
 <div class="payment-container">
-  <!-- Kortingscode Sectie -->
+  <!-- Discount Code Section -->
   <div class="discount-code-section">
     <h3>Kortingscode</h3>
     <div class="discount-input-container">
@@ -12,32 +12,15 @@
     <div id="discountMessage" class="discount-message" style="display: none;"></div>
   </div>
 
-  <!-- Betaling Sectie - Verbergen voor contact verzoeken -->
+  <!-- Payment Section - Verbergen voor contact verzoeken -->
   <div class="stripe-form" id="paymentSection">
     <h3>Betalingsinformatie</h3>
     <p class="payment-notice">{{ section.settings.payment_notice | default: 'Veilige betalingsverwerking mogelijk gemaakt door Shopify' }}</p>
     
-    <!-- Updated: Removed form action to prevent double submission -->
+    <!-- Single Payment Button - Simplified -->
     <div class="cart-form-container" id="cartFormContainer">
-      <!-- Hidden fields for Shopify cart properties - will be populated by JavaScript -->
-      <input type="hidden" name="properties[Pakket]" id="packageProperty" value="">
-      <input type="hidden" name="properties[Muziekstijl 1]" id="style1Property" value="">
-      <input type="hidden" name="properties[Muziekstijl 2]" id="style2Property" value="">
-      <input type="hidden" name="properties[Stem Voorkeur]" id="voiceProperty" value="">
-      <input type="hidden" name="properties[Liedje Taal]" id="languageProperty" value="">
-      <input type="hidden" name="properties[Reden]" id="reasonProperty" value="">
-      <input type="hidden" name="properties[Woorden/Namen]" id="wordsProperty" value="">
-      <input type="hidden" name="properties[Klant Details]" id="customerProperty" value="">
-      
-      <!-- Optionele Eigenschappen -->
-      <input type="hidden" name="properties[Artiesten]" id="artistsProperty" value="">
-      <input type="hidden" name="properties[Liedje Titels]" id="titlesProperty" value="">
-      <input type="hidden" name="properties[Eigen Teksten]" id="lyricsProperty" value="">
-      <input type="hidden" name="properties[Korting Toegepast]" id="discountProperty" value="">
-      <input type="hidden" name="properties[Eindprijs]" id="finalPriceProperty" value="">
-      
-      <!-- Betaling Knop - Updated to prevent double submission -->
-      <button type="button" onclick="processPayment()" class="btn payment-btn" id="paymentButton">
+      <!-- Payment Button -->
+      <button type="button" onclick="processPaymentOnce()" class="btn payment-btn" id="paymentButton">
         <span class="button-text">Nu Betalen</span>
         <span class="button-loading" style="display: none;">
           <span class="loading-spinner"></span>
@@ -45,13 +28,13 @@
         </span>
       </button>
       
-      <!-- Betaling Beveiliging Bericht -->
+      <!-- Payment Security Notice -->
       <div class="payment-security">
         <p>🔒 Uw betalingsinformatie is veilig en versleuteld</p>
       </div>
     </div>
     
-    <!-- Betaling Fout Weergave -->
+    <!-- Payment Error Display -->
     <div id="paymentError" class="payment-error" style="display: none;">
       <p class="error-message"></p>
       <button type="button" onclick="retryPayment()" class="btn btn-secondary">
@@ -60,14 +43,14 @@
     </div>
   </div>
 
-  <!-- Contact Verzoek Sectie - Tonen voor contact verzoeken -->
+  <!-- Contact Request Section - Tonen voor contact verzoeken -->
   <div class="contact-request-section" id="contactSection" style="display: none;">
     <h3>Volledig Album Verzoek</h3>
     <div class="contact-notice">
       <p>We nemen binnen 24 uur contact met u op om uw aangepaste volledig album wensen te bespreken en een persoonlijke offerte te verstrekken.</p>
     </div>
     
-    <button type="button" onclick="processPayment()" class="btn contact-btn">
+    <button type="button" onclick="processPaymentOnce()" class="btn contact-btn">
       Volledig Album Verzoek Indienen
     </button>
     
@@ -96,21 +79,32 @@
   </div>
 </div>
 
-<!-- JavaScript Functies - Updated to prevent double submission -->
+<!-- Improved JavaScript for Payment Processing -->
 <script>
-  // Prevent double submission flag
+  // Single processing flag - global scope
   let isProcessingPayment = false;
+  let paymentAttempted = false;
 
-  // Globale betalingsverwerking functie - Updated with double submission prevention
-  function processPayment() {
-    // Prevent double submission
-    if (isProcessingPayment) {
-      console.log('Payment already in progress, preventing double submission');
+  // Main payment processing function - called only once
+  function processPaymentOnce() {
+    // Prevent any double execution
+    if (isProcessingPayment || paymentAttempted) {
+      console.log('Payment already in progress or attempted, preventing double execution');
       return;
     }
 
+    // Set flags immediately
+    isProcessingPayment = true;
+    paymentAttempted = true;
+    
+    // Disable the button immediately
+    const button = document.getElementById('paymentButton');
+    if (button) {
+      button.disabled = true;
+      button.style.pointerEvents = 'none';
+    }
+
     if (window.MusicadoApp && window.MusicadoApp.processPayment) {
-      isProcessingPayment = true;
       showPaymentLoading();
       
       try {
@@ -118,15 +112,30 @@
       } catch (error) {
         console.error('Payment processing error:', error);
         showPaymentError('Er is een fout opgetreden. Probeer het opnieuw.');
-        isProcessingPayment = false;
+        resetPaymentState();
       }
     } else {
       console.error('MusicadoApp niet geladen');
       alert('Applicatiefout. Ververs de pagina.');
+      resetPaymentState();
     }
   }
 
-  // Probeer betaling opnieuw functie
+  // Reset payment state for retry
+  function resetPaymentState() {
+    isProcessingPayment = false;
+    paymentAttempted = false;
+    
+    const button = document.getElementById('paymentButton');
+    if (button) {
+      button.disabled = false;
+      button.style.pointerEvents = 'auto';
+      button.querySelector('.button-text').style.display = 'inline';
+      button.querySelector('.button-loading').style.display = 'none';
+    }
+  }
+
+  // Retry payment function
   function retryPayment() {
     const errorDiv = document.getElementById('paymentError');
     const paymentSection = document.getElementById('paymentSection');
@@ -134,26 +143,11 @@
     if (errorDiv) errorDiv.style.display = 'none';
     if (paymentSection) paymentSection.style.display = 'block';
     
-    // Reset payment processing flag
-    isProcessingPayment = false;
-    
-    // Reset knop status
-    resetPaymentButton();
+    // Reset payment state
+    resetPaymentState();
   }
 
-  // Reset betaling knop naar initiële status
-  function resetPaymentButton() {
-    const button = document.getElementById('paymentButton');
-    if (button) {
-      button.disabled = false;
-      button.querySelector('.button-text').style.display = 'inline';
-      button.querySelector('.button-loading').style.display = 'none';
-    }
-    // Reset processing flag
-    isProcessingPayment = false;
-  }
-
-  // Toon betaling laad status
+  // Show payment loading state
   function showPaymentLoading() {
     const button = document.getElementById('paymentButton');
     if (button) {
@@ -163,7 +157,7 @@
     }
   }
 
-  // Toon betaling fout
+  // Show payment error
   function showPaymentError(message) {
     const errorDiv = document.getElementById('paymentError');
     const paymentSection = document.getElementById('paymentSection');
@@ -174,38 +168,28 @@
       paymentSection.style.display = 'none';
     }
     
-    // Reset processing flag
-    isProcessingPayment = false;
-    resetPaymentButton();
+    resetPaymentState();
   }
 
   // Success callback to reset processing flag
   function onPaymentSuccess() {
-    isProcessingPayment = false;
+    console.log('Payment completed successfully');
+    // Don't reset flags on success - let the page redirect
   }
 
   // Error callback to reset processing flag
   function onPaymentError(error) {
     console.error('Payment error:', error);
-    isProcessingPayment = false;
     showPaymentError(error.message || 'Er is een fout opgetreden bij de betaling.');
   }
 
-  // Maak functies globaal beschikbaar
+  // Make functions globally available
   window.showPaymentLoading = showPaymentLoading;
   window.showPaymentError = showPaymentError;
-  window.resetPaymentButton = resetPaymentButton;
+  window.resetPaymentButton = resetPaymentState;
   window.onPaymentSuccess = onPaymentSuccess;
   window.onPaymentError = onPaymentError;
-
-  // Stel theme instellingen in voor JavaScript
-  window.themeSettings = {
-    singleSongVariantId: '{{ section.settings.single_song_variant_id }}',
-    epVariantId: '{{ section.settings.ep_variant_id }}',
-    albumVariantId: '{{ section.settings.album_variant_id }}',
-    defaultDiscountCode: '{{ section.settings.default_discount_code | default: "15%MUSIC" }}',
-    discountPercentage: {{ section.settings.discount_percentage | default: 15 }}
-  };
+  window.processPayment = processPaymentOnce; // Alias for compatibility
 
   // Page unload prevention during payment processing
   window.addEventListener('beforeunload', function(e) {
@@ -215,9 +199,21 @@
       return e.returnValue;
     }
   });
+
+  // Prevent form submissions and other interactions during processing
+  document.addEventListener('DOMContentLoaded', function() {
+    // Disable all other buttons during payment processing
+    const originalAddEventListener = EventTarget.prototype.addEventListener;
+    EventTarget.prototype.addEventListener = function(type, listener, options) {
+      if (type === 'click' && this.tagName === 'BUTTON' && isProcessingPayment) {
+        return; // Don't add click listeners during processing
+      }
+      return originalAddEventListener.call(this, type, listener, options);
+    };
+  });
 </script>
 
-<!-- CSS Stijlen - Updated with loading states -->
+<!-- Improved CSS Styles -->
 <style>
   .payment-container {
     max-width: 600px;
@@ -265,7 +261,7 @@
     white-space: nowrap;
   }
 
-  .discount-apply-btn:hover {
+  .discount-apply-btn:hover:not(:disabled) {
     background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
     transform: translateY(-2px);
   }
@@ -287,12 +283,14 @@
     background: rgba(16, 185, 129, 0.1);
     border: 1px solid rgba(16, 185, 129, 0.3);
     color: #10b981;
+    display: block;
   }
 
   .discount-message.error {
     background: rgba(239, 68, 68, 0.1);
     border: 1px solid rgba(239, 68, 68, 0.3);
     color: #ef4444;
+    display: block;
   }
 
   .stripe-form {
@@ -344,6 +342,7 @@
     opacity: 0.7;
     cursor: not-allowed;
     transform: none;
+    pointer-events: none;
   }
 
   .button-loading {
@@ -421,7 +420,7 @@
     padding: 16px 24px;
   }
 
-  .contact-btn:hover {
+  .contact-btn:hover:not(:disabled) {
     background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
   }
 
@@ -499,7 +498,7 @@
     pointer-events: none;
   }
 
-  /* Mobiele Responsiviteit */
+  /* Mobile Responsiveness */
   @media (max-width: 768px) {
     .payment-container {
       margin: 0;
@@ -519,59 +518,50 @@
       padding: 1.5rem;
     }
   }
+
+  /* Prevent interactions during processing */
+  .processing-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.3);
+    z-index: 9999;
+    display: none;
+    backdrop-filter: blur(2px);
+  }
+
+  .processing-overlay.show {
+    display: block;
+  }
 </style>
 
 {% schema %}
 {
-  "name": "Betaling Sectie",
+  "name": "Fixed Payment Section",
   "settings": [
     {
       "type": "header",
-      "content": "Product Configuratie"
-    },
-    {
-      "type": "paragraph",
-      "content": "U moet eerst producten aanmaken in uw Shopify admin, voer dan de variant ID's hier in. Ga naar Producten → [Uw Product] → Varianten om deze ID's te vinden."
-    },
-    {
-      "type": "text",
-      "id": "single_song_variant_id",
-      "label": "Enkel Liedje Variant ID",
-      "info": "De Shopify variant ID voor uw enkel liedje product"
-    },
-    {
-      "type": "text",
-      "id": "ep_variant_id",
-      "label": "EP Variant ID",
-      "info": "De Shopify variant ID voor uw EP (4 liedjes) product"
-    },
-    {
-      "type": "text",
-      "id": "album_variant_id",
-      "label": "Volledig Album Variant ID",
-      "info": "De Shopify variant ID voor uw volledig album product"
-    },
-    {
-      "type": "header",
-      "content": "Betaling Instellingen"
+      "content": "Payment Settings"
     },
     {
       "type": "text",
       "id": "payment_notice",
-      "label": "Betaling Bericht",
+      "label": "Payment Notice",
       "default": "Veilige betalingsverwerking mogelijk gemaakt door Shopify",
-      "info": "Tekst getoond boven het betaling formulier"
+      "info": "Text shown above the payment form"
     },
     {
       "type": "header",
-      "content": "Korting Instellingen"
+      "content": "Discount Settings"
     },
     {
       "type": "text",
       "id": "default_discount_code",
-      "label": "Standaard Kortingscode",
+      "label": "Default Discount Code",
       "default": "15%MUSIC",
-      "info": "De kortingscode die klanten kunnen gebruiken"
+      "info": "The discount code that customers can use"
     },
     {
       "type": "range",
@@ -580,32 +570,32 @@
       "max": 50,
       "step": 5,
       "unit": "%",
-      "label": "Korting Percentage",
+      "label": "Discount Percentage",
       "default": 15,
-      "info": "Percentage korting om toe te passen met de code"
+      "info": "Percentage discount to apply with the code"
     },
     {
       "type": "header",
-      "content": "Contact Informatie"
+      "content": "Contact Information"
     },
     {
       "type": "text",
       "id": "contact_email",
-      "label": "Contact E-mail",
+      "label": "Contact Email",
       "default": "contact@musicado.nl",
-      "info": "E-mailadres voor klant vragen"
+      "info": "Email address for customer inquiries"
     },
     {
       "type": "text",
       "id": "phone_number",
-      "label": "Telefoonnummer",
+      "label": "Phone Number",
       "default": "+31 6 12345678",
-      "info": "Telefoonnummer voor klant ondersteuning"
+      "info": "Phone number for customer support"
     }
   ],
   "presets": [
     {
-      "name": "Betaling Sectie"
+      "name": "Fixed Payment Section"
     }
   ]
 }
