@@ -134,19 +134,24 @@
       </div>
 
       <form id="selectionForm">
-        <!-- Package Selection -->
+        <!-- Package Selection - Fixed with hardcoded packages -->
         <div class="form-group">
           <label data-translate="selectPackage">Select your package:</label>
           <div class="radio-group">
-            {% for product in collections.packages.products %}
-              <div class="radio-option">
-                <input type="radio" name="package" value="{{ product.handle }}" id="pkg{{ forloop.index }}" data-price="{{ product.price | money_without_currency }}">
-                <label for="pkg{{ forloop.index }}">
-                  <span>{{ product.title }}</span> - 
-                  <span class="price">{{ product.price | money }}</span>
-                </label>
-              </div>
-            {% endfor %}
+            <div class="radio-option">
+              <input type="radio" name="package" value="one" id="pkg1" data-price="49">
+              <label for="pkg1">
+                <span data-translate="oneSong">One Song</span> - 
+                <span class="price">€49</span>
+              </label>
+            </div>
+            <div class="radio-option">
+              <input type="radio" name="package" value="ep" id="pkg2" data-price="99">
+              <label for="pkg2">
+                <span data-translate="ep">EP (4 songs)</span> - 
+                <span class="price">€99</span>
+              </label>
+            </div>
             <div class="radio-option">
               <input type="radio" name="package" value="contact" id="pkgContact" data-price="contact">
               <label for="pkgContact">
