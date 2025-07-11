@@ -1,240 +1,487 @@
-<!-- Header Section -->
-<!-- File: sections/header.liquid -->
+<!-- Modern Hero Banner Section - 800x300 Optimized -->
+<!-- File: sections/hero-banner.liquid -->
 
-<header class="site-header" id="site-header-{{ section.id }}">
-  <div class="header-container">
-    <!-- Logo Section -->
-    <div class="header-logo">
-      <a href="{{ routes.root_url }}" class="logo-link">
-        {% if section.settings.logo %}
-          <img src="{{ section.settings.logo | image_url: width: 200 }}" alt="{{ shop.name }}" class="logo-image">
-        {% else %}
-          <div class="logo-text">
-            <span class="logo-icon">🎵</span>
-            <span class="logo-name">{{ section.settings.site_name | default: shop.name }}</span>
+<section class="hero-banner-section" id="hero-banner-{{ section.id }}">
+  <div class="banner-container">
+    <div class="hero-banner" 
+         {% if section.settings.banner_image %}
+           style="background-image: linear-gradient(135deg, 
+                  rgba(59, 130, 246, 0.7), 
+                  rgba(30, 64, 175, 0.6)), 
+                  url('{{ section.settings.banner_image | image_url: width: 1600 }}');"
+         {% endif %}>
+      
+      <!-- Banner Content -->
+      <div class="banner-content">
+        <div class="banner-text">
+          <h1 class="banner-title">{{ section.settings.banner_title | default: '🎵 musicado' }}</h1>
+          {% if section.settings.banner_subtitle %}
+            <p class="banner-subtitle">{{ section.settings.banner_subtitle }}</p>
+          {% endif %}
+          {% if section.settings.show_cta_button %}
+            <div class="banner-cta">
+              <a href="{{ section.settings.cta_link | default: '#selectionForm' }}" class="hero-cta-btn">
+                {{ section.settings.cta_text | default: 'Start Nu' }}
+                <span class="cta-arrow">→</span>
+              </a>
+            </div>
+          {% endif %}
+        </div>
+      </div>
+      
+      <!-- Decorative Elements -->
+      {% if section.settings.show_music_notes %}
+        <div class="music-notes-decoration">
+          <span class="note note-1">♪</span>
+          <span class="note note-2">♫</span>
+          <span class="note note-3">♪</span>
+          <span class="note note-4">♫</span>
+          <span class="note note-5">♪</span>
+        </div>
+      {% endif %}
+      
+      <!-- Scroll Indicator -->
+      {% if section.settings.show_scroll_indicator %}
+        <div class="scroll-indicator">
+          <div class="scroll-arrow">
+            <span>↓</span>
           </div>
-        {% endif %}
-      </a>
-    </div>
-    
-    <!-- Language Toggle -->
-    <div class="language-toggle">
-      {% if section.settings.show_language_toggle %}
-        <div class="language-buttons">
-          <button class="lang-btn {% if section.settings.default_language == 'en' %}active{% endif %}" 
-                  data-lang="en" onclick="setLanguage('en')">
-            {{ section.settings.english_label | default: 'English' }}
-          </button>
-          <button class="lang-btn {% if section.settings.default_language == 'nl' %}active{% endif %}" 
-                  data-lang="nl" onclick="setLanguage('nl')">
-            {{ section.settings.dutch_label | default: 'Nederlands' }}
-          </button>
+          <p>Scroll voor meer</p>
         </div>
       {% endif %}
     </div>
   </div>
-</header>
+</section>
 
 <style>
-/* Header Styles */
-.site-header {
-  background: {{ section.settings.header_background | default: 'linear-gradient(135deg, #1e293b 0%, #334155 50%, #475569 100%)' }};
-  padding: {{ section.settings.header_padding | default: 16 }}px 0;
+/* Hero Banner Styles - Optimized for 800x300 */
+.hero-banner-section {
+  width: 100%;
+  margin: 0;
+  padding: 0;
   position: relative;
-  z-index: 100;
 }
 
-.header-container {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 0 20px;
+.banner-container {
+  width: 100%;
+  max-width: 100%;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.hero-banner {
+  width: 100%;
+  height: {{ section.settings.banner_height | default: 400 }}px;
+  background: {% if section.settings.banner_image %}
+    linear-gradient(135deg, rgba(59, 130, 246, 0.7), rgba(30, 64, 175, 0.6)), 
+    url('{{ section.settings.banner_image | image_url: width: 1600 }}') center/cover
+  {% else %}
+    linear-gradient(135deg, #3b82f6 0%, #1e40af 50%, #1e3a8a 100%)
+  {% endif %};
+  
   display: flex;
-  justify-content: space-between;
   align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+  border-radius: 0;
+  margin: 0;
+  box-sizing: border-box;
 }
 
-/* Logo Styles */
-.header-logo {
-  flex: 1;
+/* Banner Content */
+.banner-content {
+  position: relative;
+  z-index: 3;
+  text-align: {{ section.settings.text_alignment | default: 'center' }};
+  max-width: 800px;
+  width: 100%;
+  padding: 0 2rem;
 }
 
-.logo-link {
+.banner-text {
+  animation: fadeInUp 0.8s ease-out;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.banner-title {
+  font-size: {{ section.settings.title_size | default: 48 }}px;
+  font-weight: {{ section.settings.title_weight | default: 800 }};
+  color: {{ section.settings.title_color | default: '#ffffff' }};
+  margin: 0 0 1rem 0;
+  text-shadow: 2px 2px 8px rgba(0,0,0,0.7);
+  letter-spacing: -0.025em;
+  line-height: 1.1;
+}
+
+.banner-subtitle {
+  font-size: {{ section.settings.subtitle_size | default: 20 }}px;
+  font-weight: {{ section.settings.subtitle_weight | default: 500 }};
+  color: {{ section.settings.subtitle_color | default: '#f1f5f9' }};
+  margin: 0 0 2rem 0;
+  text-shadow: 1px 1px 4px rgba(0,0,0,0.5);
+  line-height: 1.5;
+  opacity: 0.95;
+}
+
+/* CTA Button */
+.banner-cta {
+  margin-top: 2rem;
+}
+
+.hero-cta-btn {
+  background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+  color: white;
+  padding: 16px 32px;
+  border-radius: 50px;
   text-decoration: none;
+  font-weight: 700;
+  font-size: 1.1rem;
   display: inline-flex;
   align-items: center;
-}
-
-.logo-image {
-  height: {{ section.settings.logo_height | default: 40 }}px;
-  width: auto;
-}
-
-.logo-text {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-
-.logo-icon {
-  font-size: {{ section.settings.icon_size | default: 28 }}px;
-  color: {{ section.settings.icon_color | default: '#3b82f6' }};
-}
-
-.logo-name {
-  font-size: {{ section.settings.logo_text_size | default: 24 }}px;
-  font-weight: {{ section.settings.logo_font_weight | default: 600 }};
-  color: {{ section.settings.logo_text_color | default: '#3b82f6' }};
-  text-transform: lowercase;
-}
-
-/* Language Toggle Styles */
-.language-toggle {
-  display: flex;
-  align-items: center;
-}
-
-.language-buttons {
-  display: flex;
-  gap: 8px;
-}
-
-.lang-btn {
-  padding: {{ section.settings.button_padding | default: '8px 16px' }};
-  border: 2px solid {{ section.settings.button_border_color | default: '#3b82f6' }};
-  border-radius: {{ section.settings.button_border_radius | default: 20 }}px;
-  background: transparent;
-  color: {{ section.settings.button_text_color | default: '#3b82f6' }};
-  font-size: {{ section.settings.button_font_size | default: 14 }}px;
-  font-weight: {{ section.settings.button_font_weight | default: 500 }};
-  cursor: pointer;
+  gap: 10px;
   transition: all 0.3s ease;
-  text-decoration: none;
-  display: inline-block;
+  box-shadow: 0 8px 25px rgba(16, 185, 129, 0.3);
+  border: 2px solid rgba(255, 255, 255, 0.2);
 }
 
-.lang-btn:hover {
-  background: {{ section.settings.button_hover_bg | default: '#3b82f6' }};
-  color: {{ section.settings.button_hover_text | default: '#ffffff' }};
+.hero-cta-btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 15px 35px rgba(16, 185, 129, 0.4);
+  background: linear-gradient(135deg, #059669 0%, #047857 100%);
 }
 
-.lang-btn.active {
-  background: {{ section.settings.button_active_bg | default: '#3b82f6' }};
-  color: {{ section.settings.button_active_text | default: '#ffffff' }};
+.cta-arrow {
+  transition: transform 0.3s ease;
 }
 
-/* Mobile Responsive */
+.hero-cta-btn:hover .cta-arrow {
+  transform: translateX(5px);
+}
+
+/* Music Notes Decoration */
+.music-notes-decoration {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.note {
+  position: absolute;
+  color: rgba(255, 255, 255, 0.2);
+  font-size: 2rem;
+  animation: float 6s ease-in-out infinite;
+}
+
+.note-1 {
+  top: 20%;
+  left: 10%;
+  animation-delay: 0s;
+}
+
+.note-2 {
+  top: 60%;
+  left: 85%;
+  animation-delay: 1s;
+}
+
+.note-3 {
+  top: 30%;
+  right: 15%;
+  animation-delay: 2s;
+}
+
+.note-4 {
+  bottom: 40%;
+  left: 5%;
+  animation-delay: 3s;
+}
+
+.note-5 {
+  bottom: 20%;
+  right: 10%;
+  animation-delay: 4s;
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0px) rotate(0deg);
+    opacity: 0.2;
+  }
+  50% {
+    transform: translateY(-20px) rotate(5deg);
+    opacity: 0.4;
+  }
+}
+
+/* Scroll Indicator */
+.scroll-indicator {
+  position: absolute;
+  bottom: 2rem;
+  left: 50%;
+  transform: translateX(-50%);
+  text-align: center;
+  z-index: 3;
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.scroll-arrow {
+  animation: bounce 2s infinite;
+}
+
+.scroll-arrow span {
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+.scroll-indicator p {
+  margin: 0.5rem 0 0 0;
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+
+@keyframes bounce {
+  0%, 20%, 50%, 80%, 100% {
+    transform: translateY(0);
+  }
+  40% {
+    transform: translateY(-10px);
+  }
+  60% {
+    transform: translateY(-5px);
+  }
+}
+
+/* Responsive Design */
 @media (max-width: 768px) {
-  .header-container {
-    padding: 0 16px;
+  .hero-banner {
+    height: {{ section.settings.banner_height_mobile | default: 300 }}px;
   }
   
-  .logo-name {
-    font-size: {{ section.settings.logo_text_size_mobile | default: 20 }}px;
+  .banner-content {
+    padding: 0 1rem;
   }
   
-  .logo-icon {
-    font-size: {{ section.settings.icon_size_mobile | default: 24 }}px;
+  .banner-title {
+    font-size: {{ section.settings.title_size_mobile | default: 32 }}px;
   }
   
-  .lang-btn {
-    padding: 6px 12px;
-    font-size: 12px;
+  .banner-subtitle {
+    font-size: {{ section.settings.subtitle_size_mobile | default: 16 }}px;
+  }
+  
+  .hero-cta-btn {
+    padding: 14px 28px;
+    font-size: 1rem;
+  }
+  
+  .note {
+    font-size: 1.5rem;
   }
 }
 
 @media (max-width: 480px) {
-  .language-buttons {
-    gap: 4px;
+  .hero-banner {
+    height: 250px;
   }
   
-  .lang-btn {
-    padding: 6px 10px;
-    font-size: 11px;
+  .banner-title {
+    font-size: 28px;
   }
+  
+  .banner-subtitle {
+    font-size: 14px;
+  }
+  
+  .hero-cta-btn {
+    padding: 12px 24px;
+    font-size: 0.9rem;
+  }
+  
+  .scroll-indicator {
+    bottom: 1rem;
+  }
+}
+
+/* Hover Effects for Banner */
+.hero-banner:hover .note {
+  animation-duration: 4s;
+}
+
+.hero-banner:hover .banner-text {
+  transform: scale(1.02);
+  transition: transform 0.3s ease;
 }
 </style>
 
-<script>
-// Language toggle functionality
-function setLanguage(lang) {
-  // Update active button
-  document.querySelectorAll('.lang-btn').forEach(btn => {
-    btn.classList.remove('active');
-  });
-  document.querySelector(`[data-lang="${lang}"]`).classList.add('active');
-  
-  // Store language preference
-  localStorage.setItem('musicado_language', lang);
-  
-  // You can add actual language switching logic here
-  console.log('Language set to:', lang);
-  
-  // Optional: reload page with language parameter
-  // window.location.href = `${window.location.pathname}?lang=${lang}`;
-}
-
-// Load saved language on page load
-document.addEventListener('DOMContentLoaded', function() {
-  const savedLang = localStorage.getItem('musicado_language') || '{{ section.settings.default_language | default: "nl" }}';
-  setLanguage(savedLang);
-});
-</script>
-
 {% schema %}
 {
-  "name": "Header",
+  "name": "Hero Banner",
   "settings": [
     {
       "type": "header",
-      "content": "Logo Settings"
+      "content": "Banner Image"
     },
     {
       "type": "image_picker",
-      "id": "logo",
-      "label": "Logo Image",
-      "info": "Upload a logo image (optional)"
+      "id": "banner_image",
+      "label": "Banner Background Image",
+      "info": "Recommended size: 1600x400px for best quality. Supports JPG, PNG, WebP formats."
+    },
+    {
+      "type": "range",
+      "id": "banner_height",
+      "min": 300,
+      "max": 600,
+      "step": 20,
+      "unit": "px",
+      "label": "Banner Height (Desktop)",
+      "default": 400
+    },
+    {
+      "type": "range",
+      "id": "banner_height_mobile",
+      "min": 200,
+      "max": 400,
+      "step": 20,
+      "unit": "px",
+      "label": "Banner Height (Mobile)",
+      "default": 300
+    },
+    {
+      "type": "header",
+      "content": "Banner Text"
     },
     {
       "type": "text",
-      "id": "site_name",
-      "label": "Site Name",
-      "default": "musicado",
-      "info": "Text logo when no image is uploaded"
+      "id": "banner_title",
+      "label": "Banner Title",
+      "default": "🎵 musicado",
+      "info": "Main headline displayed on the banner"
     },
     {
-      "type": "range",
-      "id": "logo_height",
-      "min": 20,
-      "max": 80,
-      "step": 2,
-      "unit": "px",
-      "label": "Logo Height",
-      "default": 40
-    },
-    {
-      "type": "range",
-      "id": "logo_text_size",
-      "min": 16,
-      "max": 36,
-      "step": 1,
-      "unit": "px",
-      "label": "Logo Text Size (Desktop)",
-      "default": 24
-    },
-    {
-      "type": "range",
-      "id": "logo_text_size_mobile",
-      "min": 14,
-      "max": 28,
-      "step": 1,
-      "unit": "px",
-      "label": "Logo Text Size (Mobile)",
-      "default": 20
+      "type": "textarea",
+      "id": "banner_subtitle",
+      "label": "Banner Subtitle",
+      "info": "Optional subtitle text below the main title"
     },
     {
       "type": "select",
-      "id": "logo_font_weight",
-      "label": "Logo Font Weight",
+      "id": "text_alignment",
+      "label": "Text Alignment",
+      "options": [
+        {
+          "value": "left",
+          "label": "Left"
+        },
+        {
+          "value": "center",
+          "label": "Center"
+        },
+        {
+          "value": "right",
+          "label": "Right"
+        }
+      ],
+      "default": "center"
+    },
+    {
+      "type": "header",
+      "content": "Title Styling"
+    },
+    {
+      "type": "range",
+      "id": "title_size",
+      "min": 24,
+      "max": 72,
+      "step": 4,
+      "unit": "px",
+      "label": "Title Size (Desktop)",
+      "default": 48
+    },
+    {
+      "type": "range",
+      "id": "title_size_mobile",
+      "min": 20,
+      "max": 48,
+      "step": 2,
+      "unit": "px",
+      "label": "Title Size (Mobile)",
+      "default": 32
+    },
+    {
+      "type": "select",
+      "id": "title_weight",
+      "label": "Title Font Weight",
+      "options": [
+        {
+          "value": "400",
+          "label": "Normal"
+        },
+        {
+          "value": "600",
+          "label": "Semi Bold"
+        },
+        {
+          "value": "700",
+          "label": "Bold"
+        },
+        {
+          "value": "800",
+          "label": "Extra Bold"
+        }
+      ],
+      "default": "800"
+    },
+    {
+      "type": "color",
+      "id": "title_color",
+      "label": "Title Color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "header",
+      "content": "Subtitle Styling"
+    },
+    {
+      "type": "range",
+      "id": "subtitle_size",
+      "min": 14,
+      "max": 32,
+      "step": 2,
+      "unit": "px",
+      "label": "Subtitle Size (Desktop)",
+      "default": 20
+    },
+    {
+      "type": "range",
+      "id": "subtitle_size_mobile",
+      "min": 12,
+      "max": 24,
+      "step": 2,
+      "unit": "px",
+      "label": "Subtitle Size (Mobile)",
+      "default": 16
+    },
+    {
+      "type": "select",
+      "id": "subtitle_weight",
+      "label": "Subtitle Font Weight",
       "options": [
         {
           "value": "400",
@@ -247,168 +494,69 @@ document.addEventListener('DOMContentLoaded', function() {
         {
           "value": "600",
           "label": "Semi Bold"
-        },
-        {
-          "value": "700",
-          "label": "Bold"
         }
       ],
-      "default": "600"
+      "default": "500"
     },
     {
       "type": "color",
-      "id": "logo_text_color",
-      "label": "Logo Text Color",
-      "default": "#3b82f6"
-    },
-    {
-      "type": "range",
-      "id": "icon_size",
-      "min": 16,
-      "max": 40,
-      "step": 2,
-      "unit": "px",
-      "label": "Icon Size (Desktop)",
-      "default": 28
-    },
-    {
-      "type": "range",
-      "id": "icon_size_mobile",
-      "min": 14,
-      "max": 32,
-      "step": 2,
-      "unit": "px",
-      "label": "Icon Size (Mobile)",
-      "default": 24
-    },
-    {
-      "type": "color",
-      "id": "icon_color",
-      "label": "Icon Color",
-      "default": "#3b82f6"
+      "id": "subtitle_color",
+      "label": "Subtitle Color",
+      "default": "#f1f5f9"
     },
     {
       "type": "header",
-      "content": "Header Background"
-    },
-    {
-      "type": "color_background",
-      "id": "header_background",
-      "label": "Header Background",
-      "default": "linear-gradient(135deg, #1e293b 0%, #334155 50%, #475569 100%)"
-    },
-    {
-      "type": "range",
-      "id": "header_padding",
-      "min": 8,
-      "max": 32,
-      "step": 2,
-      "unit": "px",
-      "label": "Header Padding",
-      "default": 16
-    },
-    {
-      "type": "header",
-      "content": "Language Toggle"
+      "content": "Call to Action Button"
     },
     {
       "type": "checkbox",
-      "id": "show_language_toggle",
-      "label": "Show Language Toggle",
+      "id": "show_cta_button",
+      "label": "Show CTA Button",
       "default": true
     },
     {
-      "type": "select",
-      "id": "default_language",
-      "label": "Default Language",
-      "options": [
-        {
-          "value": "nl",
-          "label": "Nederlands"
-        },
-        {
-          "value": "en",
-          "label": "English"
-        }
-      ],
-      "default": "nl"
+      "type": "text",
+      "id": "cta_text",
+      "label": "CTA Button Text",
+      "default": "Start Nu"
     },
     {
       "type": "text",
-      "id": "english_label",
-      "label": "English Button Label",
-      "default": "English"
+      "id": "cta_link",
+      "label": "CTA Button Link",
+      "default": "#selectionForm",
+      "info": "Use # followed by element ID for smooth scrolling"
     },
     {
-      "type": "text",
-      "id": "dutch_label",
-      "label": "Dutch Button Label",
-      "default": "Nederlands"
+      "type": "header",
+      "content": "Decorative Elements"
     },
     {
-      "type": "color",
-      "id": "button_border_color",
-      "label": "Button Border Color",
-      "default": "#3b82f6"
+      "type": "checkbox",
+      "id": "show_music_notes",
+      "label": "Show Floating Music Notes",
+      "default": true,
+      "info": "Animated musical notes in the background"
     },
     {
-      "type": "color",
-      "id": "button_text_color",
-      "label": "Button Text Color",
-      "default": "#3b82f6"
-    },
-    {
-      "type": "color",
-      "id": "button_hover_bg",
-      "label": "Button Hover Background",
-      "default": "#3b82f6"
-    },
-    {
-      "type": "color",
-      "id": "button_hover_text",
-      "label": "Button Hover Text",
-      "default": "#ffffff"
-    },
-    {
-      "type": "color",
-      "id": "button_active_bg",
-      "label": "Button Active Background",
-      "default": "#3b82f6"
-    },
-    {
-      "type": "color",
-      "id": "button_active_text",
-      "label": "Button Active Text",
-      "default": "#ffffff"
-    },
-    {
-      "type": "range",
-      "id": "button_font_size",
-      "min": 10,
-      "max": 18,
-      "step": 1,
-      "unit": "px",
-      "label": "Button Font Size",
-      "default": 14
-    },
-    {
-      "type": "range",
-      "id": "button_border_radius",
-      "min": 0,
-      "max": 30,
-      "step": 2,
-      "unit": "px",
-      "label": "Button Border Radius",
-      "default": 20
+      "type": "checkbox",
+      "id": "show_scroll_indicator",
+      "label": "Show Scroll Indicator",
+      "default": true,
+      "info": "Animated arrow encouraging users to scroll"
     }
   ],
   "presets": [
     {
-      "name": "Header",
+      "name": "Modern Hero Banner",
       "settings": {
-        "site_name": "musicado",
-        "show_language_toggle": true,
-        "default_language": "nl"
+        "banner_title": "🎵 musicado",
+        "banner_subtitle": "Creëer uw eigen professionele muziek in enkele klikken",
+        "text_alignment": "center",
+        "show_cta_button": true,
+        "cta_text": "Start Nu",
+        "show_music_notes": true,
+        "show_scroll_indicator": true
       }
     }
   ]
