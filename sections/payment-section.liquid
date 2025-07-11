@@ -1,4 +1,4 @@
-<!-- Betaling Sectie - Bijgewerkt met Volledige Winkelwagen Integratie -->
+<!-- Betaling Sectie - Bijgewerkt om dubbele winkelwagen toevoegingen te voorkomen -->
 <div class="payment-container">
   <!-- Kortingscode Sectie -->
   <div class="discount-code-section">
@@ -17,13 +17,9 @@
     <h3>Betalingsinformatie</h3>
     <p class="payment-notice">{{ section.settings.payment_notice | default: 'Veilige betalingsverwerking mogelijk gemaakt door Shopify' }}</p>
     
-    <!-- Shopify Checkout Integratie -->
-    <form action="{{ routes.cart_add_url }}" method="post" enctype="multipart/form-data" id="AddToCartForm" class="cart-form">
-      <!-- Dynamische product variant ID - wordt ingesteld door JavaScript -->
-      <input type="hidden" name="id" value="" class="product-variant-id" id="dynamicVariantId">
-      <input type="hidden" name="quantity" value="1">
-      
-      <!-- Winkelwagen Eigenschappen - Bestelling Details -->
+    <!-- Updated: Removed form action to prevent double submission -->
+    <div class="cart-form-container" id="cartFormContainer">
+      <!-- Hidden fields for Shopify cart properties - will be populated by JavaScript -->
       <input type="hidden" name="properties[Pakket]" id="packageProperty" value="">
       <input type="hidden" name="properties[Muziekstijl 1]" id="style1Property" value="">
       <input type="hidden" name="properties[Muziekstijl 2]" id="style2Property" value="">
@@ -40,7 +36,7 @@
       <input type="hidden" name="properties[Korting Toegepast]" id="discountProperty" value="">
       <input type="hidden" name="properties[Eindprijs]" id="finalPriceProperty" value="">
       
-      <!-- Betaling Knop -->
+      <!-- Betaling Knop - Updated to prevent double submission -->
       <button type="button" onclick="processPayment()" class="btn payment-btn" id="paymentButton">
         <span class="button-text">Nu Betalen</span>
         <span class="button-loading" style="display: none;">
@@ -53,7 +49,7 @@
       <div class="payment-security">
         <p>🔒 Uw betalingsinformatie is veilig en versleuteld</p>
       </div>
-    </form>
+    </div>
     
     <!-- Betaling Fout Weergave -->
     <div id="paymentError" class="payment-error" style="display: none;">
@@ -100,12 +96,30 @@
   </div>
 </div>
 
-<!-- JavaScript Functies -->
+<!-- JavaScript Functies - Updated to prevent double submission -->
 <script>
-  // Globale betalingsverwerking functie
+  // Prevent double submission flag
+  let isProcessingPayment = false;
+
+  // Globale betalingsverwerking functie - Updated with double submission prevention
   function processPayment() {
+    // Prevent double submission
+    if (isProcessingPayment) {
+      console.log('Payment already in progress, preventing double submission');
+      return;
+    }
+
     if (window.MusicadoApp && window.MusicadoApp.processPayment) {
-      window.MusicadoApp.processPayment();
+      isProcessingPayment = true;
+      showPaymentLoading();
+      
+      try {
+        window.MusicadoApp.processPayment();
+      } catch (error) {
+        console.error('Payment processing error:', error);
+        showPaymentError('Er is een fout opgetreden. Probeer het opnieuw.');
+        isProcessingPayment = false;
+      }
     } else {
       console.error('MusicadoApp niet geladen');
       alert('Applicatiefout. Ververs de pagina.');
@@ -120,6 +134,9 @@
     if (errorDiv) errorDiv.style.display = 'none';
     if (paymentSection) paymentSection.style.display = 'block';
     
+    // Reset payment processing flag
+    isProcessingPayment = false;
+    
     // Reset knop status
     resetPaymentButton();
   }
@@ -132,6 +149,8 @@
       button.querySelector('.button-text').style.display = 'inline';
       button.querySelector('.button-loading').style.display = 'none';
     }
+    // Reset processing flag
+    isProcessingPayment = false;
   }
 
   // Toon betaling laad status
@@ -155,13 +174,29 @@
       paymentSection.style.display = 'none';
     }
     
+    // Reset processing flag
+    isProcessingPayment = false;
     resetPaymentButton();
+  }
+
+  // Success callback to reset processing flag
+  function onPaymentSuccess() {
+    isProcessingPayment = false;
+  }
+
+  // Error callback to reset processing flag
+  function onPaymentError(error) {
+    console.error('Payment error:', error);
+    isProcessingPayment = false;
+    showPaymentError(error.message || 'Er is een fout opgetreden bij de betaling.');
   }
 
   // Maak functies globaal beschikbaar
   window.showPaymentLoading = showPaymentLoading;
   window.showPaymentError = showPaymentError;
   window.resetPaymentButton = resetPaymentButton;
+  window.onPaymentSuccess = onPaymentSuccess;
+  window.onPaymentError = onPaymentError;
 
   // Stel theme instellingen in voor JavaScript
   window.themeSettings = {
@@ -171,9 +206,18 @@
     defaultDiscountCode: '{{ section.settings.default_discount_code | default: "15%MUSIC" }}',
     discountPercentage: {{ section.settings.discount_percentage | default: 15 }}
   };
+
+  // Page unload prevention during payment processing
+  window.addEventListener('beforeunload', function(e) {
+    if (isProcessingPayment) {
+      e.preventDefault();
+      e.returnValue = 'Je bestelling wordt verwerkt. Weet je zeker dat je de pagina wilt verlaten?';
+      return e.returnValue;
+    }
+  });
 </script>
 
-<!-- CSS Stijlen -->
+<!-- CSS Stijlen - Updated with loading states -->
 <style>
   .payment-container {
     max-width: 600px;
@@ -271,6 +315,10 @@
     font-size: 0.95rem;
   }
 
+  .cart-form-container {
+    position: relative;
+  }
+
   .payment-btn {
     width: 100%;
     padding: 16px 24px;
@@ -302,6 +350,7 @@
     display: none;
     align-items: center;
     gap: 0.5rem;
+    justify-content: center;
   }
 
   .loading-spinner {
@@ -430,6 +479,24 @@
     color: #10b981;
     font-weight: bold;
     margin-right: 0.5rem;
+  }
+
+  /* Processing state styling */
+  .cart-form-container.processing {
+    pointer-events: none;
+    opacity: 0.8;
+  }
+
+  .cart-form-container.processing::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(59, 130, 246, 0.1);
+    border-radius: 12px;
+    pointer-events: none;
   }
 
   /* Mobiele Responsiviteit */
