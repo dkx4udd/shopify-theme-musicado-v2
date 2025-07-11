@@ -31,9 +31,21 @@
           {% endif %}
         </div>
 
+        <!-- Package Type Detection -->
+        {% assign package_type = 'one' %}
+        {% if product.handle contains 'ep' or product.title contains 'EP' or product.title contains '4' %}
+          {% assign package_type = 'ep' %}
+        {% elsif product.handle contains 'album' or product.title contains 'Album' %}
+          {% assign package_type = 'album' %}
+        {% endif %}
+
         <!-- Product Form -->
         <div class="product-form-container">
           <form action="{{ routes.cart_add_url }}" method="post" enctype="multipart/form-data" id="product-form" class="product-form">
+            
+            <!-- Hidden fields for package type -->
+            <input type="hidden" name="properties[Package Type]" value="{{ package_type }}">
+            <input type="hidden" name="properties[Product Handle]" value="{{ product.handle }}">
             
             <!-- Variant Selection (if applicable) -->
             {% unless product.has_only_default_variant %}
@@ -156,15 +168,47 @@
                 <input type="text" name="properties[Artist 3]" placeholder="Artist 3">
               </div>
 
-              <!-- Keywords/Names -->
+              <!-- Keywords/Names - Dynamic based on package type -->
               <div class="form-group">
                 <label>Keywords or Names to Include:</label>
-                <div class="words-row">
-                  <input type="text" name="properties[Word 1]" placeholder="Word/Name 1">
-                  <input type="text" name="properties[Word 2]" placeholder="Word/Name 2">
-                  <input type="text" name="properties[Word 3]" placeholder="Word/Name 3">
-                </div>
+                {% if package_type == 'ep' %}
+                  <!-- EP: 4 songs with words each -->
+                  <div class="songs-words-container">
+                    {% for i in (1..4) %}
+                      <div class="song-words-group">
+                        <h4>Song {{ i }} Words:</h4>
+                        <div class="words-row">
+                          <input type="text" name="properties[Song {{ i }} Word 1]" placeholder="Word/Name 1">
+                          <input type="text" name="properties[Song {{ i }} Word 2]" placeholder="Word/Name 2">
+                          <input type="text" name="properties[Song {{ i }} Word 3]" placeholder="Word/Name 3">
+                        </div>
+                      </div>
+                    {% endfor %}
+                  </div>
+                {% else %}
+                  <!-- Single song: 3 words -->
+                  <div class="words-row">
+                    <input type="text" name="properties[Word 1]" placeholder="Word/Name 1">
+                    <input type="text" name="properties[Word 2]" placeholder="Word/Name 2">
+                    <input type="text" name="properties[Word 3]" placeholder="Word/Name 3">
+                  </div>
+                {% endif %}
               </div>
+
+              <!-- Song Titles - Dynamic based on package type -->
+              {% if package_type == 'ep' %}
+                <div class="form-group">
+                  <label>Song Titles (Optional - leave blank for us to choose):</label>
+                  {% for i in (1..4) %}
+                    <input type="text" name="properties[Song {{ i }} Title]" placeholder="Song {{ i }} Title" style="margin-bottom: 10px;">
+                  {% endfor %}
+                </div>
+              {% elsif package_type == 'one' %}
+                <div class="form-group">
+                  <label for="song-title">Song Title (Optional - leave blank for us to choose):</label>
+                  <input type="text" name="properties[Song Title]" id="song-title" placeholder="Enter song title">
+                </div>
+              {% endif %}
 
               <!-- Custom Lyrics -->
               <div class="form-group">
@@ -211,27 +255,41 @@
           </form>
         </div>
 
-        <!-- Product Features -->
-        {% if product.description contains 'Features:' %}
-          <div class="product-features">
-            <h3>What's Included:</h3>
-            <ul class="features-list">
-              {% assign features_text = product.description | split: 'Features:' | last %}
-              {% assign features = features_text | split: ',' %}
-              {% for feature in features limit: 5 %}
-                {% unless feature == blank %}
-                  <li>{{ feature | strip }}</li>
-                {% endunless %}
-              {% endfor %}
-            </ul>
-          </div>
-        {% endif %}
+        <!-- Package Features -->
+        <div class="product-features">
+          <h3>What's Included:</h3>
+          <ul class="features-list">
+            {% if package_type == 'one' %}
+              <li>1 Custom Song (3-4 minutes)</li>
+              <li>Professional AI Production</li>
+              <li>Choice of Male/Female Voice</li>
+              <li>Digital Download (MP3/WAV)</li>
+              <li>Personal Use License</li>
+            {% elsif package_type == 'ep' %}
+              <li>4 Custom Songs (3-4 minutes each)</li>
+              <li>Professional AI Production</li>
+              <li>Choice of Male/Female Voice</li>
+              <li>Digital Download (MP3/WAV)</li>
+              <li>Personal Use License</li>
+              <li>Cohesive EP Theme</li>
+            {% else %}
+              <li>Full Album Creation</li>
+              <li>Professional Mixing & Mastering</li>
+              <li>Album Art Design</li>
+              <li>Spotify Distribution Available</li>
+              <li>Commercial License Options</li>
+              <li>Dedicated Support</li>
+            {% endif %}
+          </ul>
+        </div>
 
         <!-- Delivery Information -->
         <div class="delivery-info-section">
           <div class="delivery-info-box">
             <h4>📧 Digital Delivery</h4>
-            <p>We will send you a personalized link via email to download your custom music within 24-72 hours after order confirmation.</p>
+            <p>We will send you a personalized link via email to download your custom music within 
+            {% if package_type == 'one' %}24-48 hours{% elsif package_type == 'ep' %}48-72 hours{% else %}1-2 weeks{% endif %} 
+            after order confirmation.</p>
           </div>
         </div>
 
@@ -250,19 +308,19 @@
       </div>
     </div>
 
-            <!-- Audio Examples Section -->
+    <!-- Audio Examples Section -->
     {% if settings.show_product_audio_examples %}
       <div class="card">
         <h2 class="audio-examples-title">Listen to our examples</h2>
         <div class="audio-players">
           <div class="audio-player">
             <div class="audio-info">
-              <h3>Example Track 1</h3>
-              <p>Sample of our music creation quality</p>
+              <h3>{{ settings.example_audio_1_title | default: 'Example Track 1' }}</h3>
+              <p>{{ settings.example_audio_1_style | default: 'Sample of our music creation quality' }}</p>
             </div>
             <audio controls preload="metadata">
               {% if settings.example_audio_1 %}
-                <source src="{{ 'mp3/' | append: settings.example_audio_1 | asset_url }}" type="audio/mpeg">
+                <source src="https://cdn.shopify.com/s/files/1/0905/1462/0749/files/{{ settings.example_audio_1 }}" type="audio/mpeg">
               {% endif %}
               <span>Your browser does not support the audio element.</span>
             </audio>
@@ -270,12 +328,12 @@
           
           <div class="audio-player">
             <div class="audio-info">
-              <h3>Example Track 2</h3>
-              <p>Another sample showcasing our range</p>
+              <h3>{{ settings.example_audio_2_title | default: 'Example Track 2' }}</h3>
+              <p>{{ settings.example_audio_2_style | default: 'Another sample showcasing our range' }}</p>
             </div>
             <audio controls preload="metadata">
               {% if settings.example_audio_2 %}
-                <source src="{{ 'mp3/' | append: settings.example_audio_2 | asset_url }}" type="audio/mpeg">
+                <source src="https://cdn.shopify.com/s/files/1/0905/1462/0749/files/{{ settings.example_audio_2 }}" type="audio/mpeg">
               {% endif %}
               <span>Your browser does not support the audio element.</span>
             </audio>
@@ -366,6 +424,26 @@
           alert('Please specify the other reason.');
           return;
         }
+
+        // Add customer details prompt
+        const customerEmail = prompt('Please enter your email address:');
+        const customerPhone = prompt('Please enter your phone number:');
+        
+        if (customerEmail) {
+          const hiddenEmail = document.createElement('input');
+          hiddenEmail.type = 'hidden';
+          hiddenEmail.name = 'properties[Customer Email]';
+          hiddenEmail.value = customerEmail;
+          this.appendChild(hiddenEmail);
+        }
+        
+        if (customerPhone) {
+          const hiddenPhone = document.createElement('input');
+          hiddenPhone.type = 'hidden';
+          hiddenPhone.name = 'properties[Customer Phone]';
+          hiddenPhone.value = customerPhone;
+          this.appendChild(hiddenPhone);
+        }
       });
     }
   });
@@ -424,6 +502,31 @@
     margin-bottom: 1.5rem;
     font-size: 1.3rem;
     font-weight: 600;
+  }
+
+  .songs-words-container {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  .song-words-group {
+    background: rgba(59, 130, 246, 0.1);
+    border-radius: 12px;
+    padding: 1rem;
+    border: 1px solid rgba(59, 130, 246, 0.2);
+  }
+
+  .song-words-group h4 {
+    color: #06b6d4;
+    margin-bottom: 0.8rem;
+    font-size: 1rem;
+  }
+
+  .words-row {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 0.8rem;
   }
 
   .quantity {
@@ -514,6 +617,18 @@
 
     .customization-section {
       padding: 1.5rem;
+    }
+
+    .words-row {
+      grid-template-columns: 1fr;
+    }
+
+    .songs-words-container {
+      gap: 1rem;
+    }
+
+    .song-words-group {
+      padding: 0.8rem;
     }
   }
 </style>
